@@ -1,0 +1,5783 @@
+[
+ {
+  "kind": "kb",
+  "title": "KB 326953: vSAN Performance Graphs in the vSphere Web Client Part 1",
+  "url": "https://knowledge.broadcom.com/external/article/326953",
+  "items": [
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyAvgRead",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyAvgWrite",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "cluster-domclient",
+    "realtimeEntityType": "hr-cluster-domclient"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Resync Read IOPS",
+    "apiId": "iopsResyncRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write IOPS",
+    "apiId": "iopsRecWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Resync Read Throughput",
+    "apiId": "tputResyncRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write Throughput",
+    "apiId": "throughputRecWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyAvgRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Resync Read Latency",
+    "apiId": "latAvgResyncRead",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyAvgWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write Latency",
+    "apiId": "latencyAvgRecWrite",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "cluster-domcompmgr",
+    "realtimeEntityType": "hr-cluster-domcompmgr"
+   },
+   {
+    "metric": "IOPS for read operations",
+    "apiId": "readOpTotal",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "IOPS for write operations",
+    "apiId": "writeOpTotal",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Requested bytes for read",
+    "apiId": "readRequested",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Actual transferred bytes for read",
+    "apiId": "readTransferred",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Requested bytes for write",
+    "apiId": "writeRequested",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Actual transferred bytes for write",
+    "apiId": "writeTransferred",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "readLatency",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "writeLatency",
+    "entityType": "vsan-file-service",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Unmap IOPS",
+    "apiId": "iopsUnmap",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Unmap Throughput",
+    "apiId": "throughputUnmap",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyAvgRead",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyAvgWrite",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Unmap Latency",
+    "apiId": "latencyAvgUnmap",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Local Client Cache Hit IOPS",
+    "apiId": "clientCacheHits",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Local Client Cache Hit Rate",
+    "apiId": "clientCacheHitRate",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "host-domclient",
+    "realtimeEntityType": "hr-host-domclient"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Resync Read IOPS",
+    "apiId": "iopsResyncRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write IOPS",
+    "apiId": "iopsRecWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Unmap IOPS",
+    "apiId": "iopsUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Unmap IOPS",
+    "apiId": "iopsRecUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Resync Read Throughput",
+    "apiId": "tputResyncRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write Throughput",
+    "apiId": "throughputRecWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Unmap Throughput",
+    "apiId": "throughputUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Unmap Throughput",
+    "apiId": "throughputRecUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyAvgRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyAvgWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Resync Read Latency",
+    "apiId": "latAvgResyncRead",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Write Latency",
+    "apiId": "latencyAvgRecWrite",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Unmap Latency",
+    "apiId": "latencyAvgUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Recovery Unmap Latency",
+    "apiId": "latencyAvgRecUnmap",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "host-domcompmgr",
+    "realtimeEntityType": "hr-host-domcompmgr"
+   },
+   {
+    "metric": "pNIC Throughput Inbound",
+    "apiId": "rxThroughput",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNIC Throughput Outbound",
+    "apiId": "txThroughput",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNIC Inbound Packets Per Second",
+    "apiId": "rxPackets",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNIC Outbound Packets Per Second",
+    "apiId": "txPackets",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNIC Inbound Packet Error Rate",
+    "apiId": "rxPacketsLossRate",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNIC Outbound Packet Error Rate",
+    "apiId": "txPacketsLossRate",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "Inbound Packet Drop Rate of pNic vSwitch Port",
+    "apiId": "portRxDrops",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "Outbound Packet Drop Rate of pNic vSwitch Port",
+    "apiId": "portTxDrops",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "pNic 802.3x Pause Rate",
+    "apiId": "pauseCount",
+    "entityType": "vsan-pnic-net",
+    "realtimeEntityType": "hr-vsan-pnic-net"
+   },
+   {
+    "metric": "Throughput Inbound",
+    "apiId": "rxThroughput",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Throughput Outbound",
+    "apiId": "txThroughput",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Inbound Packets Per Second",
+    "apiId": "rxPackets",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Outbound Packets Per Second",
+    "apiId": "txPackets",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Inbound Packet Discard Rate",
+    "apiId": "rxPacketsLossRate",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Outbound Packet Discard Rate",
+    "apiId": "txPacketsLossRate",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Inbound Packet Drop Rate of vSwitch Port",
+    "apiId": "portRxDrops",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Outbound Packet Drop Rate of vSwitch Port",
+    "apiId": "portTxDrops",
+    "entityType": "vsan-vnic-net",
+    "realtimeEntityType": "hr-vsan-vnic-net"
+   },
+   {
+    "metric": "Network Inbound Throughput",
+    "apiId": "rxThroughput",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Network Outbound Throughput",
+    "apiId": "txThroughput",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Network Inbound Packets Per Second",
+    "apiId": "rxPackets",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Network Outbound Packets Per Second",
+    "apiId": "txPackets",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Network Inbound Packet Discard Rate",
+    "apiId": "rxPacketsLossRate",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Network Outbound Packet Discard Rate",
+    "apiId": "txPacketsLossRate",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Inbound Packet Drop Rate of vSAN Host Port",
+    "apiId": "portRxDrops",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Outbound Packet Drop Rate of vSAN Host Port",
+    "apiId": "portTxDrops",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "TCP Outbound Retransmission Rate",
+    "apiId": "tcpTxRexmitRate",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "TCP Inbound Loss Rate",
+    "apiId": "tcpRxErrRate",
+    "entityType": "vsan-host-net",
+    "realtimeEntityType": "hr-vsan-host-net"
+   },
+   {
+    "metric": "Frontend Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Frontend Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Read IOPS",
+    "apiId": "iopsRcRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Write IOPS",
+    "apiId": "iopsWbWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Frontend Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Frontend Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Frontend Read Latency",
+    "apiId": "latencyAvgRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Frontend Write Latency",
+    "apiId": "latencyAvgWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Read Latency",
+    "apiId": "latencyRcRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Write Latency",
+    "apiId": "latencyWbWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Write IOPS",
+    "apiId": "iopsRcWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Read IOPS",
+    "apiId": "iopsWbRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Write Latency",
+    "apiId": "latencyRcWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Read Latency",
+    "apiId": "latencyWbRead",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Hit Rate",
+    "apiId": "rcHitRate",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Cache Invalidations",
+    "apiId": "warEvictions",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evictions",
+    "apiId": "quotaEvictions",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Free Percentage",
+    "apiId": "wbFreePct",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Capacity",
+    "apiId": "capacity",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Used Capacity",
+    "apiId": "capacityUsed",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Reserved Capacity",
+    "apiId": "capacityReserved",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read Cache Size",
+    "apiId": "rcSize",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Write Buffer Size",
+    "apiId": "wbSize",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Bytes De-stage from SSD",
+    "apiId": "ssdBytesDrained",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Zero-Bytes De-stage",
+    "apiId": "zeroBytesDrained",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Mem-Congestion",
+    "apiId": "memCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Slab-Congestion",
+    "apiId": "slabCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "SSD-Congestion",
+    "apiId": "ssdCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "IOPS-Congestion",
+    "apiId": "iopsCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Log-Congestion",
+    "apiId": "logCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Comp-Congestion",
+    "apiId": "compCongestion",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "LogCongestionTput",
+    "apiId": "bytesPerSecondBandwidth",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Outstanding Write OPs",
+    "apiId": "oioWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Outstanding Recovery Write OPs",
+    "apiId": "oioRecWrite",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Outstanding Write IO Size",
+    "apiId": "oioWriteSize",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Outstanding Recovery Write IO Size",
+    "apiId": "oioRecWriteSize",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Delayed IO Percentage",
+    "apiId": "iopsDelayPctSched",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Delayed IO Average Latency",
+    "apiId": "latencyDelaySched",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Latency of Namespace Queue",
+    "apiId": "latencySchedQueueNS",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Latency of Recovery Queue",
+    "apiId": "latencySchedQueueRec",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Latency of VM Queue",
+    "apiId": "latencySchedQueueVM",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Latency of Meta Queue",
+    "apiId": "latencySchedQueueMeta",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Total Delayed IOPS",
+    "apiId": "iopsSched",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "IOPS of Namespace Queue",
+    "apiId": "iopsSchedQueueNS",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "IOPS of Recovery Queue",
+    "apiId": "iopsSchedQueueRec",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "IOPS of VM Queue",
+    "apiId": "iopsSchedQueueVM",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "IOPS of Meta Queue",
+    "apiId": "iopsSchedQueueMeta",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Total Queue Throughput",
+    "apiId": "throughputSched",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Throughput of Namespace Queue",
+    "apiId": "throughputSchedQueueNS",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Throughput of Recovery Queue",
+    "apiId": "throughputSchedQueueRec",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Throughput of VM Queue",
+    "apiId": "throughputSchedQueueVM",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Throughput of Meta Queue",
+    "apiId": "throughputSchedQueueMeta",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Read",
+    "apiId": "iopsResyncReadPolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Read",
+    "apiId": "iopsResyncReadDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Read",
+    "apiId": "iopsResyncReadRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Read",
+    "apiId": "iopsResyncReadFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Write",
+    "apiId": "iopsResyncWritePolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Write",
+    "apiId": "iopsResyncWriteDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Write",
+    "apiId": "iopsResyncWriteRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Write",
+    "apiId": "iopsResyncWriteFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Read",
+    "apiId": "tputResyncReadPolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Read",
+    "apiId": "tputResyncReadDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Read",
+    "apiId": "tputResyncReadRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Read",
+    "apiId": "tputResyncReadFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Write",
+    "apiId": "tputResyncWritePolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Write",
+    "apiId": "tputResyncWriteDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Write",
+    "apiId": "tputResyncWriteRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Write",
+    "apiId": "tputResyncWriteFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Read",
+    "apiId": "latResyncReadPolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Read",
+    "apiId": "latResyncReadDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Read",
+    "apiId": "latResyncReadRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Read",
+    "apiId": "latResyncReadFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Policy Change Write",
+    "apiId": "latResyncWritePolicy",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Evacuation Write",
+    "apiId": "latResyncWriteDecom",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Rebalance Write",
+    "apiId": "latResyncWriteRebalance",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Repair Write",
+    "apiId": "latResyncWriteFixComp",
+    "entityType": "disk-group",
+    "realtimeEntityType": "hr-disk-group"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Bandwidth",
+    "apiId": "bandwidthRead",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Bandwidth",
+    "apiId": "bandwidthWrite",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bandwidth",
+    "apiId": "bandwidthTotal",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Latency",
+    "apiId": "latencyTotal",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "queueDepth",
+    "entityType": "vsan-iscsi-host",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Bandwidth",
+    "apiId": "bandwidthRead",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Bandwidth",
+    "apiId": "bandwidthWrite",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bandwidth",
+    "apiId": "bandwidthTotal",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Latency",
+    "apiId": "latencyTotal",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "queueDepth",
+    "entityType": "vsan-iscsi-target",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Bandwidth",
+    "apiId": "bandwidthRead",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Bandwidth",
+    "apiId": "bandwidthWrite",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bandwidth",
+    "apiId": "bandwidthTotal",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Latency",
+    "apiId": "latencyTotal",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "queueDepth",
+    "entityType": "vsan-iscsi-lun",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Physical-layer Read IOPS",
+    "apiId": "iopsDevRead",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Write IOPS",
+    "apiId": "iopsDevWrite",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Read Throughput",
+    "apiId": "throughputDevRead",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Write Throughput",
+    "apiId": "throughputDevWrite",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Read Latency",
+    "apiId": "latencyDevRead",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Write Latency",
+    "apiId": "latencyDevWrite",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Guest Average Latency",
+    "apiId": "latencyDevGAvg",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Device Average Latency",
+    "apiId": "latencyDevDAvg",
+    "entityType": "cache-disk",
+    "realtimeEntityType": "hr-cache-disk"
+   },
+   {
+    "metric": "Physical-layer Read IOPS",
+    "apiId": "iopsDevRead",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Physical-layer Write IOPS",
+    "apiId": "iopsDevWrite",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Physical-layer Read Throughput",
+    "apiId": "throughputDevRead",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Physical-layer Write Throughput",
+    "apiId": "throughputDevWrite",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Physical-layer Read Latency",
+    "apiId": "latencyDevRead",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Physical-layer Write Latency",
+    "apiId": "latencyDevWrite",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Guest Average Latency",
+    "apiId": "latencyDevGAvg",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Device Average Latency",
+    "apiId": "latencyDevDAvg",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "vSAN Layer Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "vSAN Layer Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "vSAN Layer Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "vSAN Layer Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "capacity-disk",
+    "realtimeEntityType": "hr-capacity-disk"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "virtual-machine",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "vscsi",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Normalized IOPS Limit",
+    "apiId": "iopsLimit",
+    "entityType": "virtual-disk",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Normalized IOPS",
+    "apiId": "NIOPS",
+    "entityType": "virtual-disk",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Delayed Normalized IOPS",
+    "apiId": "NIOPSDelayed",
+    "entityType": "virtual-disk",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Throughput",
+    "apiId": "throughputTotal",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Sequential Throughput",
+    "apiId": "throughputSequential",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Random Throughput",
+    "apiId": "throughputRandom",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Throughput",
+    "apiId": "throughputTotal",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Sequential Read IO",
+    "apiId": "sequentialReadRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Sequential Write IO",
+    "apiId": "sequentialWriteRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Sequential IO",
+    "apiId": "sequentialRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Random Read IO",
+    "apiId": "randomReadRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Random Write IO",
+    "apiId": "randomWriteRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Random IO",
+    "apiId": "randomRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Aligned Read IO",
+    "apiId": "aligned4kReadRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Aligned Write IO",
+    "apiId": "aligned4kWriteRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Aligned IO",
+    "apiId": "aligned4kRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Unaligned Read IO",
+    "apiId": "unaligned4kReadRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Unaligned Write IO",
+    "apiId": "unaligned4kWriteRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4K Unaligned IO",
+    "apiId": "unaligned4kRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IO",
+    "apiId": "readRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IO",
+    "apiId": "writeRatio",
+    "entityType": "ioinsight",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "<4KB",
+    "apiId": "riosz0_4k/wiosz0_4k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4KB",
+    "apiId": "riosz4k/wiosz4k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "4KB - 8KB",
+    "apiId": "riosz4k_8k/wiosz4k_8k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "8KB",
+    "apiId": "riosz8k/wiosz8k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "8KB - 16KB",
+    "apiId": "riosz8k_16k/wiosz8k_16k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "16KB",
+    "apiId": "riosz16k/wiosz16k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "16KB - 32KB",
+    "apiId": "riosz16k_32k/wiosz16k_32k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "32KB",
+    "apiId": "riosz32k/wiosz32k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "32KB - 64KB",
+    "apiId": "riosz32k_64k/wiosz32k_64k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "64KB",
+    "apiId": "riosz64k/wiosz64k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "64KB - 128KB",
+    "apiId": "riosz64k_128k/wiosz64k_128k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "128KB",
+    "apiId": "riosz128k/wiosz128k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "128KB - 256KB",
+    "apiId": "riosz128k_256k/wiosz128k_256k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "256KB",
+    "apiId": "riosz256k/wiosz256k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "256KB - 512KB",
+    "apiId": "riosz256k_512k/wiosz256k_512k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "512KB",
+    "apiId": "riosz512k/wiosz512k",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "512KB - 1MB",
+    "apiId": "riosz512k_1m/wiosz512k_1m",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "1MB",
+    "apiId": "riosz1m/wiosz1m ioinsight",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": ">1MB",
+    "apiId": "riosz1_m/wiosz1_m",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "<1us",
+    "apiId": "rlat0_1us/wlat0_1us",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "1us - 10us",
+    "apiId": "rlat1_10us/wlat1_10us",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "10us - 100us",
+    "apiId": "rlat10_100us/wlat10_100us",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "100us - 500us",
+    "apiId": "rlat100_500us/wlat100_500us",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "500us - 1ms",
+    "apiId": "rlat500us_1ms/wlat500us_1ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "1ms - 5ms",
+    "apiId": "rlat1_5ms/wlat1_5ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "5ms - 10ms",
+    "apiId": "rlat5_10ms/wlat5_10ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "10ms - 25ms",
+    "apiId": "rlat10_25ms/wlat10_25ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "25ms - 50ms",
+    "apiId": "rlat25_50ms/wlat25_50ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "50ms - 100ms",
+    "apiId": "rlat50_100ms/wlat50_100ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": ">100ms",
+    "apiId": "rlat100_ms/wlat100_ms",
+    "entityType": "ioinsight-histogram",
+    "realtimeEntityType": ""
+   }
+  ],
+  "headings": [
+   "vSAN Performance Graphs in the vSphere Web Client Part 1",
+   "Article ID: 326953",
+   "Updated On:",
+   "Products",
+   "Issue/Introduction",
+   "Environment",
+   "Resolution",
+   "Cluster performance",
+   "Virtual Machine Consumption graphs***",
+   "IOPS",
+   "Throughput",
+   "Latency",
+   "Congestions",
+   "Outstanding IO",
+   "vSAN Backend graphs***",
+   "IOPS",
+   "Throughput",
+   "Latency",
+   "Congestions",
+   "Outstanding IO",
+   "File Share Status graphs **",
+   "Virtual Machine Consumption graphs***",
+   "IOPS",
+   "Throughput",
+   "Trim/Unmap Throughput",
+   "Latency",
+   "Local Client Cache Hit IOPS",
+   "Local Client Cache Hit Rate",
+   "Congestions",
+   "Outstanding IO",
+   "vSAN Backend graphs",
+   "IOPS",
+   "Throughput",
+   "Trim/Unmap Throughput",
+   "Latency",
+   "Congestions",
+   "Outstanding IO",
+   "Network Consumption graphs *",
+   "Physical NIC network status graphs",
+   "pNIC Throughput",
+   "pNIC Packets Per Second",
+   "pNIC Packet Error Rate",
+   "pNIC vSwitch Port Drop Rate",
+   "pNIC Flow Control",
+   "VMKernel Network Adapter status graphs",
+   "VMkernel Network Adapter Throughput",
+   "VMkernel Network Adapter Packets Per Second",
+   "VMkernel Network Adapter Packet Discard Rate",
+   "VMkernel Network vSwitch Port Drop Rate",
+   "vSAN Host Network status graphs***",
+   "vSAN Host Network I/O Throughput",
+   "vSAN Host Packets Per Second",
+   "vSAN Host Packet Discard Rate",
+   "vSAN Host Port Drop Rate",
+   "vSAN Host TCP Packet Retransmission and Loss Rate",
+   "vSAN Disk Group Performance",
+   "Disk Group graphs***",
+   "Frontend(Guest) IOPS",
+   "Frontend(Guest) Throughput",
+   "Frontend(Guest) Latency"
+  ]
+ },
+ {
+  "kind": "kb",
+  "title": "KB 326812: vSAN Performance Graphs in the vSphere Web Client Part 2",
+  "url": "https://knowledge.broadcom.com/external/article/326812",
+  "items": [
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "cluster-remotedomclient or computeCluster-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputRead",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputWrite",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Congestions",
+    "apiId": "congestion",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Outstanding IO",
+    "apiId": "oio",
+    "entityType": "host-remotedomclient or computeHost-remotedomclient",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Overall Backend Cache Miss Per Second",
+    "apiId": "rateTotalCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Overall Cache Hit Per Second",
+    "apiId": "rateTotalCacheRef",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Logical Tree Cache Miss Per Second",
+    "apiId": "rateTotalLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Middle Tree Cache Miss Per Second",
+    "apiId": "rateTotalMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Snap Tree Cache Miss Per Second",
+    "apiId": "rateTotalSnapTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bitmap Cache Miss Per Second",
+    "apiId": "rateTotalBitmapCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total SUT Miss Per Second",
+    "apiId": "rateTotalSutCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Prefetch Overall Cache Miss Per Second",
+    "apiId": "rateTxnPrefetchTotalCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Prefetch Logical Tree Cache Miss Per Second",
+    "apiId": "rateTxnPrefetchLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Prefetch Middle Tree Cache Miss Per Second",
+    "apiId": "rateTxnPrefetchMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Prefetch SUT Cache Miss Per Second",
+    "apiId": "rateTxnPrefetchSutCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush Overall Cache Miss Per Second",
+    "apiId": "rateTxnBankTotalCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush Logical Tree Cache Miss Per Second",
+    "apiId": "rateTxnBankLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush Middle Tree Cache Miss Per Second",
+    "apiId": "rateTxnBankMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush SUT Cache Miss Per Second",
+    "apiId": "rateTxnBankSutCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap Overall Cache Miss Per Second",
+    "apiId": "rateTxnUnmapTotalCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap Logical Tree Cache Miss Per Second",
+    "apiId": "rateTxnUnmapLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap Middle Tree Cache Miss Per Second",
+    "apiId": "rateTxnUnmapMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap SUT Cache Miss Per Second",
+    "apiId": "rateTxnUnmapSutCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Segment Cleaning Data Overall Cache Miss Per Second",
+    "apiId": "rateTxnSegCleaningCtxDataTotalCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Segment Cleaning Data Logical Tree Cache Miss Per Second",
+    "apiId": "rateTxnSegCleaningCtxDataLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Segment Cleaning Data Middle Tree Cache Miss Per Second",
+    "apiId": "rateTxnSegCleaningCtxDataMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Segment Cleaning Data SUT Cache Miss Per Second",
+    "apiId": "rateTxnSegCleaningCtxDataSutCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Lookup Overall Cache Miss Per Second",
+    "apiId": "rateTxnLookupCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Lookup Logical Tree Cache Miss Per Second",
+    "apiId": "rateTxnLookupLogicalTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Lookup Middle Tree Cache Miss Per Second",
+    "apiId": "rateTxnLookupMiddleTreeCacheMiss",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Hit IO Latency",
+    "apiId": "latAvgCacheGet",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss IO Latency",
+    "apiId": "latAvgTotalOpIO",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush Cache Hit IO Latency",
+    "apiId": "latAvgTxnBank",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Bank Flush Cache Miss IO Latency",
+    "apiId": "latAvgTxnBankTotalIO",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap Cache Hit IO Latency",
+    "apiId": "latAvgTxnUnmap",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Unmap Cache Miss IO Latency",
+    "apiId": "latAvgTxnUnmapTotalIO",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss Per Bank Prefetch",
+    "apiId": "cacheMissPerPrefetchTxn",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss Per Segment Cleaning Data",
+    "apiId": "cacheMissPerSegCleaningCtxDataTxn",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss Per Lookup",
+    "apiId": "cacheMissPerLookupTxn",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS Capacity",
+    "apiId": "iopsReadCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Write IOPS Capacity",
+    "apiId": "iopsWriteCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "tputReadCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "tputWriteCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "avgLatReadCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "avgLatWriteCapacity",
+    "entityType": "vsan-esa-disk-layer",
+    "realtimeEntityType": "hr-vsan-esa-disk-layer"
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsDevRead",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsDevWrite",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Read Throughput",
+    "apiId": "throughputDevRead",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Write Throughput",
+    "apiId": "throughputDevWrite",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyDevRead",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyDevWrite",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Guest Average Latency",
+    "apiId": "latencyDevGAvg",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   },
+   {
+    "metric": "Device Average Latency",
+    "apiId": "latencyDevDAvg",
+    "entityType": "vsan-esa-disk-scsifw",
+    "realtimeEntityType": "hr-vsan-esa-disk-scsifw"
+   }
+  ],
+  "headings": [
+   "vSAN Performance Graphs in the vSphere Web Client Part 2",
+   "Article ID: 326812",
+   "Updated On:",
+   "Products",
+   "Issue/Introduction",
+   "Environment",
+   "Resolution",
+   "Remote VM Performance*:",
+   "Cluster level Remote VM graphs*:",
+   "IOPS:",
+   "Throughput:",
+   "Latency:",
+   "Congestion:",
+   "Outstanding IO:",
+   "Host level Remote VM graphs( Available from vSAN 9.0)",
+   "IOPS:",
+   "Throughput:",
+   "Latency:",
+   "Congestion:",
+   "Outstanding IO:",
+   "Host Performance",
+   "vSAN Backend Cache graphs**",
+   "Overall Backend Cache",
+   "vSAN Backend Cache Miss Per Second By Cache Type",
+   "Bank Prefetch Transaction Cache Miss Per Second",
+   "Bank Flush Transaction Cache Miss Per Second",
+   "Unmap Transaction Cache Miss Per Second",
+   "Segment Cleaning Data Transaction Cache Miss Per Second",
+   "Segment Cleaning Data Transaction Cache Miss Per Second",
+   "Overall Backend Cache Latency",
+   "Unmap Transaction Cache Latency",
+   "Cache Miss Per Transaction",
+   "vSAN ESA Disk Layer graphs** ***",
+   "vSAN ESA Disk Physical/Firmware Layer graphs** ***",
+   "Additional Information",
+   "Feedback"
+  ]
+ },
+ {
+  "kind": "kb-health",
+  "title": "KB 326438: vSAN Health Service Check Information",
+  "url": "https://knowledge.broadcom.com/external/article/326438",
+  "items": [
+   {
+    "group": "Capacity Utilization",
+    "key": "vSAN Health Service - Capacity utilization - Storage space",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=71003"
+   },
+   {
+    "group": "Capacity Utilization",
+    "key": "vSAN Health Service - Capacity utilization - Read cache reservations",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=71173"
+   },
+   {
+    "group": "Capacity Utilization",
+    "key": "vSAN Health Service - Limits Health – After one additional host failure",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108743"
+   },
+   {
+    "group": "Capacity Utilization",
+    "key": "vSAN Health Service - Limits - Host component",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2146130"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health – vSAN daemon liveness check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109873"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health - Advanced vSAN configuration in sync",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2107713"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health - Disk format version compatibility check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=70930"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster - Disk format version",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article/315550/vsan-health-service-cluster-disk-form.html"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster - Software version compatibility",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2146134"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health - vSAN disk balance",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144278"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Host Maintenance Mode is in sync with vSAN Node Decommission State",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=51464"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - Resynchronization Operations Throttling Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149504"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - Time Synchronization Across Hosts and VC",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149505"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - vSAN Cluster Configuration Consistency",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149506"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - vSphere and vSAN Cluster Members Match vSAN",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149507"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health – vCenter state is authoritative",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2150916"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - vSAN Direct Homogenous Disk Claiming (7.0 U2 and higher)",
+    "version": "7.0 U2 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=82787"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster - vSAN Cluster Compliance (8.0 and higher)",
+    "version": "8.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=388455"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health - vSAN Managed disk claim (8.0 and higher)",
+    "version": "8.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=89315"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - vSphere Lifecycle Manager (vLCM) configuration (8.0 and higher)",
+    "version": "8.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=89314"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster health - vSAN optimal datastore default policy configuration (8.0 U1 and higher)",
+    "version": "8.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=90737"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster - ESA prescriptive disk claim (8.0 U2 and higher)",
+    "version": "8.0 U2 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=94619"
+   },
+   {
+    "group": "Cluster",
+    "key": "vSAN Health Service - Cluster Health - Homogeneous vSAN disk sector size Health (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=388452"
+   },
+   {
+    "group": "Data",
+    "key": "vSAN Health Service - Data health – vSAN object health",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108319"
+   },
+   {
+    "group": "Data",
+    "key": "vSAN Health Service - vSAN object format health h (7.0 U1 and higher)",
+    "version": "7.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=80614"
+   },
+   {
+    "group": "",
+    "key": "vSAN Health Service - Data Protection - vSAN data protection service health (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389252"
+   },
+   {
+    "group": "",
+    "key": "vSAN Health Service - Data Protection - Local protection - virtual machine health (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389246"
+   },
+   {
+    "group": "",
+    "key": "vSAN Health Service - Data Protection - Protection group membership change (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=390089"
+   },
+   {
+    "group": "",
+    "key": "vSAN Health Service - Data Protection - Local protection - protection group health (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389834"
+   },
+   {
+    "group": "Encryption",
+    "key": "vSAN Health Service - Encryption - CPU AES-NI Host Enablement Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149499"
+   },
+   {
+    "group": "Encryption",
+    "key": "vSAN Health Service - Encryption - Key Management Servers Connection Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149497"
+   },
+   {
+    "group": "Encryption",
+    "key": "Data-in-transit encryption - Configuration check for vSAN (7.0 U1 and higher)",
+    "version": "7.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=80763"
+   },
+   {
+    "group": "File Service",
+    "key": "vSAN Health Service - File Service - File Server Health (7.0 and higher)",
+    "version": "7.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=77165"
+   },
+   {
+    "group": "File Service",
+    "key": "vSAN Health Service - File Service - Infrastructure health (7.0 and higher)",
+    "version": "7.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=76677"
+   },
+   {
+    "group": "File Service",
+    "key": "vSAN Health Service -- File Service - Share Health (7.0 and higher)",
+    "version": "7.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=76991"
+   },
+   {
+    "group": "File Service",
+    "key": "vSAN Health -- File Service -- How to remediate file service network misconfiguration issue (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=375837"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - HCL Health - Host issues retrieving hardware info “vsanvpd” service is running on all hosts in vSAN Cluster. To collect the h/w info for the vSAN HCL compatibility to display it in vSAN HCL GUI.",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149290"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL health - Controller driver",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109263"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL health - Controller release support",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109262"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL health – SCSI controller on vSAN HCL",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109871"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL health – vSAN HCL DB up-to-date",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109870"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Hardware compatibility - vSAN HCL DB Auto Update",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2146132"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Hardware Compatibility - Controller Firmware Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149405"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Hardware Compatibility - Disk Group Type Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149404"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL Health – NVMe device can be identified (7.0 U3 and higher)",
+    "version": "7.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85782"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - vSAN HCL Health – NVMe device is VMware certified (7.0 U3 and higher)",
+    "version": "7.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85852"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Hardware compatibility - Physical NIC link speed is satisfied to the minimum requirements (8.0 and higher)",
+    "version": "8.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=89316"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Network(RDMA NIC: RoCE v2) is certified for ESXi (8.0 U3 and higher)",
+    "version": "8.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=368548"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN Health Service - Network(RDMA NIC: RoCE v2) is vSAN certified (8.0 U3 and higher)",
+    "version": "8.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=368542"
+   },
+   {
+    "group": "Hardware Compatibility",
+    "key": "vSAN health - Network(RDMA NIC: RoCE v2) driver/firmware is vSAN certified (8.0 U3 and higher)",
+    "version": "8.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=368549"
+   },
+   {
+    "group": "Hyperconverged Cluster Configuration Compliance",
+    "key": "vSAN -- vSAN Healthcheck -- Host compliance check for hyperconverged Cluster configuration",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=58896"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - All hosts have a vSAN vmknic configured",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108062"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - Hosts disconnected from vCenter",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108004"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - Hosts small ping test (connectivity check) and hosts large ping test (MTU check)",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108285"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - Hosts with connectivity issues",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108317"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - Unexpected vSAN cluster members",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108009"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health - vSAN Cluster partition",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108011"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network health – Hosts with vSAN disabled",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108013"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network Configuration - vMotion: Basic Connectivity Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149259"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network Configuration - vMotion: MTU Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149261"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network Health - Network Latency Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149511"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network – Server Cluster Partition (7.0 U1 and higher)",
+    "version": "7.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=80627"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - vSAN Network Health – Hosts with LACP issues (7.0 U3 and higher)",
+    "version": "7.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85886"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - vSAN Network Health – Hosts with duplicate IP issues. (7.0 U3 and higher)",
+    "version": "7.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article/318021"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - vSAN Network Health – Hosts with pNIC TSO issues (7.0 U3 and higher)",
+    "version": "7.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85884"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health - Cluster - Remote vCenter network connectivity (8.0 U1 and higher)",
+    "version": "8.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=91021"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health - Network - vSAN: Advanced (https) connectivity check (8.0 U2 and higher)",
+    "version": "8.0 U2 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=94616"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network - vSAN Max Client Network connectivity check (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=390939"
+   },
+   {
+    "group": "Network",
+    "key": "vSAN Health Service - Network - All hosts have a dedicated vSAN Max Client vmknic configured in server cluster (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=390938"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health - CEIP Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2148866"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health - Internet Connectivity Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149196"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health - Customer advisory for HPE Smart Array",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=71030"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health - vSAN Advanced Configuration Check for vSphere 8.0 P02 and newer release",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=94027"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health – HPE SAS Solid State Drives",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=76386"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - Online Health – vSAN v1 disk in use",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=75045"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service - vSAN Storage Policy Compliance up-to-date",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=84432"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service – Online Health - VM storage policy is not-recommended",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=91534"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service – Online Health – Multiple VMs share the same VM home namespace",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=89199"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service – Online Health – Physical network adapter link speed consistency check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=50387"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service – Online Health – Proper vSAN network traffic shaping policy is configured",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=82236"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN Health Service – Online Health – vCenter Server up to date check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=52645"
+   },
+   {
+    "group": "Online Health",
+    "key": "vSAN high LLOG consumption leading to LogCongestion",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=88832"
+   },
+   {
+    "group": "Online Health",
+    "key": "Best practices when using vSAN and non-vSAN disks with the same storage controller",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2129050"
+   },
+   {
+    "group": "Online Health",
+    "key": "Creating vSAN clusters up to 64 nodes",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2110081"
+   },
+   {
+    "group": "Online Health",
+    "key": "End of General Support for vSphere 6.0",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=66977"
+   },
+   {
+    "group": "Online Health",
+    "key": "Recommended settings for RAID0 logical volumes on certain LSI based RAID vSAN",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2111266"
+   },
+   {
+    "group": "Online Health",
+    "key": "Release (8.0U2 and 8.0U2b) Available to Prevent Host Failure / Inaccessible Data Risk due to Rare Snapshot-related Condition on vSAN ESA (Version 8.0, 8.0U1, 8.0U1c)",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=96816"
+   },
+   {
+    "group": "Online Health",
+    "key": "Storing ESXi coredump and scratch partitions in vSAN",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2074026"
+   },
+   {
+    "group": "Online Health",
+    "key": "Thick-provisioned VMs on vSAN detected on vSAN-health check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=326904"
+   },
+   {
+    "group": "Online Health",
+    "key": "Understanding vSAN Datastore Encryption vs. VMcrypt Encryption",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2148947"
+   },
+   {
+    "group": "Online Health",
+    "key": "Upgrading vSAN Witness from 7.0 Update 2 fails with \"New ESXi version requires a minimum of 2 processor cores.\"",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85114"
+   },
+   {
+    "group": "Online Health",
+    "key": "Urgent Patch (8.0U1c) Available to Prevent Inaccessible Data Risk for VMs on vSAN ESA (Version 8.0, 8.0 P01, 8.0 U1, 8.0U1a (EP1))",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=93657"
+   },
+   {
+    "group": "Online Health",
+    "key": "Using small magnetic disks for vSAN might result in VM failures small disks below 400 GB will not work properly in vSAN cluster ands may cause VM outage",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2080503"
+   },
+   {
+    "group": "Online Health",
+    "key": "Virtual Machines running on VMware vSAN 7.0 U1 / 7.0 U1 P02 report in-guest data consistency following a concurrent maintenance activity and storage policy change.",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=82383"
+   },
+   {
+    "group": "Online Health",
+    "key": "Volumes could be missing from CNS DB due to corrupted metadata in all vSphere/ESX 6.7 versions prior to 6.7 P05 and all vSphere/ESX 7.0 versions prior to 7.0 U2 MP1",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=85593"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance Service - Performance data collection check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144401"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance Service - Stats DB object check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144403"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance Service - Stats DB object conflicts check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144405"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance Service - Stats master election check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144408"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - performance service - All hosts contributing stats check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144400"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance Service - Status Check",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149406"
+   },
+   {
+    "group": "Performance Service",
+    "key": "vSAN Health Service - Performance service - Network diagnostic mode (7.0 and higher)",
+    "version": "7.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=76676"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical Disk Health - Physical disk health retrieval issue “vsanmgmtd and vsandevicemonitord” service is running on all hosts in vSAN Cluster to query and display the h/w health of disks.",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2149291"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk health - Disk capacity",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108907"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk health - Overall disk health",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108691"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk health – Component metadata health",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2108912"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk health – Congestion",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109255"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk health – Memory pools",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2109256"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical disk - Component limit",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2146086"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service --- vSAN disk group layout (8.0U1 and higher)",
+    "version": "8.0U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleId=388785"
+   },
+   {
+    "group": "Physical Disk",
+    "key": "vSAN Health Service - Physical Disk Health - Vendor Reported Drive Health (8.0 U3 and higher)",
+    "version": "8.0 U3 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=367770"
+   },
+   {
+    "group": "Proactive Tests",
+    "key": "vSAN -- Proactive Tests -- \"VM creation test\" ( = Virtual Machine Creation Test )",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144275"
+   },
+   {
+    "group": "Proactive Tests",
+    "key": "vSAN Health Service - Network performance test",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=58895"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Invalid preferred fault domain on witness host",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130589"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Invalid unicast agent test",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2144398"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - No disk claimed on witness host",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130584"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Preferred fault domain unset",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130590"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Unexpected number of fault domains",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130581"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Unicast agent configuration inconsistent",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130580"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Unicast agent not configured",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130582"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Witness host fault domain misconfigured",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130586"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Witness host not found",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130585"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Witness host within vCenter cluster",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2130587"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched cluster - Site latency",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2146133"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched cluster - Witness appliance upgrade to vSphere 7.0 or higher with caution (7.0 and higher)",
+    "version": "7.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=76948"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched cluster – Shared witness per cluster component limit scaled down (7.0 U1 and higher)",
+    "version": "7.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=80758"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Stretched cluster - Shared witness cluster number of data hosts exceed (7.0 U1 and higher)",
+    "version": "7.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=80774"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched cluster - Witness node is managed by vLCM (8.0 U2 and higher)",
+    "version": "8.0 U2 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=94618"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched Cluster - Site Fault Domain configuration (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389406"
+   },
+   {
+    "group": "Stretched Cluster",
+    "key": "vSAN Health Service - Stretched Cluster - Host assignments in Site Fault Domains (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389408"
+   },
+   {
+    "group": "vSAN Build Recommendation",
+    "key": "vSAN Health Service - vSphere Update Manager - vSAN build recommendation",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2150915"
+   },
+   {
+    "group": "vSAN Build Recommendation",
+    "key": "vSAN Health Service - vSphere Update Manager - vSAN build recommendation engine health",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2150914"
+   },
+   {
+    "group": "vSAN Build Recommendation",
+    "key": "vSAN Health Service - vSAN Build Recommendation - vSAN release catalog up-to-date",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=58891"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health Service - vSAN iSCSI target service - Home object",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2147601"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health Service - vSAN iSCSI target service – Network configuration",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2147602"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health Service - vSAN iSCSI target service – Service runtime status",
+    "version": "",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=2147603"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health - iSCSI Target Service - LUN Runtime Health (8.0 U1 and higher)",
+    "version": "8.0 U1 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?legacyId=90729"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health Service - iSCSI target service - Network configuration - vSAN iSCSI Virtual IP Ownership (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389401"
+   },
+   {
+    "group": "vSAN iSCSI Target Service",
+    "key": "vSAN Health Service - iSCSI target service - Network configuration - Virtual IP network configuration (9.0 and higher)",
+    "version": "9.0 and higher",
+    "url": "https://knowledge.broadcom.com/external/article?articleNumber=389286"
+   }
+  ]
+ },
+ {
+  "kind": "kb",
+  "title": "KB 326673: vSAN performance diagnostics: congestion in disk groups",
+  "url": "https://knowledge.broadcom.com/external/article/326673",
+  "items": [],
+  "headings": [
+   "vSAN performance diagnostics reports: \"vSAN is experiencing congestion in one or more disk group(s)\"",
+   "Article ID: 326673",
+   "Updated On:",
+   "Products",
+   "Issue/Introduction",
+   "Symptoms:",
+   "Environment",
+   "Resolution",
+   "Feedback"
+  ]
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: about the vsan performance service",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/about-the-vsan-performance-service.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: view vsan cluster performance",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-cluster-performance.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: view vsan host performance",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-host-performance.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: view virtual san vm performance",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-virtual-san-vm-performance.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: use vsan i o insight",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/use-vsan-i-o-insight.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: monitor vsan capacity",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-capacity.html",
+  "items": [
+   {
+    "key": "",
+    "group": "Free space on disks"
+   },
+   {
+    "key": "",
+    "group": "Used"
+   },
+   {
+    "key": "",
+    "group": "Actually written"
+   },
+   {
+    "key": "",
+    "group": "Reservations and Alerts"
+   },
+   {
+    "key": "VM home objects",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "Swap objects",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "VMDK",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "Shared user data",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "VM memory snapshots",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "Block container volumes (attached to a VM)",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "vSphere replication persistent state file",
+    "group": "VM (user objects) usage"
+   },
+   {
+    "key": "",
+    "group": "Non-VM (user objects) usage"
+   },
+   {
+    "key": "Performance management objects",
+    "group": "System usage"
+   },
+   {
+    "key": "File system overhead",
+    "group": "System usage"
+   },
+   {
+    "key": "ESA object overhead",
+    "group": "System usage"
+   },
+   {
+    "key": "Checksum overhead",
+    "group": "System usage"
+   },
+   {
+    "key": "Dedup & compression overhead",
+    "group": "System usage"
+   },
+   {
+    "key": "Operations usage",
+    "group": "System usage"
+   },
+   {
+    "key": "Native trace objects",
+    "group": "System usage"
+   },
+   {
+    "key": "",
+    "group": "Container volume snapshots"
+   },
+   {
+    "key": "",
+    "group": "VMDK snapshots"
+   },
+   {
+    "key": "",
+    "group": "vSAN file share snapshots"
+   },
+   {
+    "key": "",
+    "group": "Current data"
+   }
+  ],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: about reserved capacity in vsan cluster",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-reserved-capacity-in-vsan-cluster.html",
+  "items": [],
+  "headings": [
+   "Capacity Reservation Considerations"
+  ]
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: about vsan cluster resynchronization",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-vsan-cluster-resynchronization.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: monitor physical disks in vsan cluster",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-physical-disks-in-vsan-cluster.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: monitor virtual disks in vsan cluster",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-virtual-disks-in-vsan-cluster.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: vsan esa effective capacity",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/vsan-esa-effective-capacity.html",
+  "items": [
+   {
+    "key": "",
+    "group": "Total usable capacity"
+   },
+   {
+    "key": "",
+    "group": "Used capacity"
+   },
+   {
+    "key": "",
+    "group": "Actually written"
+   },
+   {
+    "key": "",
+    "group": "Object reserved"
+   },
+   {
+    "key": "",
+    "group": "Free usable capacity"
+   },
+   {
+    "key": "",
+    "group": "Total provisioned capacity"
+   },
+   {
+    "key": "",
+    "group": "Data reduction ratio"
+   },
+   {
+    "key": "",
+    "group": "Deduplication ratio"
+   },
+   {
+    "key": "",
+    "group": "Compression ratio"
+   },
+   {
+    "key": "",
+    "group": "Thin provisioning saving ratio"
+   },
+   {
+    "key": "",
+    "group": "Overprovisioning ratio"
+   },
+   {
+    "key": "",
+    "group": "Snapshot saving ratio"
+   },
+   {
+    "key": "",
+    "group": "Fully inflated snapshot capacity"
+   },
+   {
+    "key": "",
+    "group": "vSAN snapshot used capacity"
+   },
+   {
+    "key": "",
+    "group": "Total Raw Capacity"
+   },
+   {
+    "key": "",
+    "group": "System Usage"
+   },
+   {
+    "key": "File system overhead",
+    "group": "System Usage"
+   },
+   {
+    "key": "vSAN ESA objects overhead",
+    "group": "System Usage"
+   },
+   {
+    "key": "Dedup overhead",
+    "group": "System Usage"
+   },
+   {
+    "key": "",
+    "group": "System Usage"
+   },
+   {
+    "key": "",
+    "group": "RAID Factor"
+   }
+  ],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: monitor vsan esa legacy capacity(1)",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/monitor-vsan-esa-legacy-capacity(1).html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: view vsan default alarms",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-default-alarms.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: view vsan network alarms",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-network-alarms.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: about the vsan skyline health",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/about-the-vsan-skyline-health.html",
+  "items": [],
+  "headings": [
+   "Viewing vSAN Health History",
+   "Using vSAN Support Insight"
+  ]
+ },
+ {
+  "kind": "manual",
+  "title": "VCF 9.1 vSAN: check vsan skyline health",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/check-vsan-skyline-health.html",
+  "items": [],
+  "headings": []
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan cluster",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cluster.html",
+  "items": [
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Component Limit Used (%)",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Total Component Limit",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Used Component Limit",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Disk Space Used (%)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Total Disk Space (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk Space|Used Disk Space (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Usable Capacity (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk Space|Oversubscription Capacity (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk Space|Oversubscription Ratio",
+    "group": "Disk Space"
+   },
+   {
+    "key": "The oversubscription metrics are",
+    "group": "Disk Space"
+   },
+   {
+    "key": "applicable only for the vSAN OSA clusters.",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Health|Score",
+    "group": "Health"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Read Cache Reserved (%)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Reserved Read Cache Size (GB)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Total Read Cache Size (GB)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Reads Per Second (IOPS)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Read Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Average Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Writes Per Second (IOPS)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Write Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Average Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Congestion",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Outstanding I/O",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Total IOPS",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Total Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Performance"
+   },
+   {
+    "key": "Cache|Total Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Deduplication And Compression Overview|Used Before",
+    "group": "Deduplication And Compression Overview"
+   },
+   {
+    "key": "vSAN|Deduplication And Compression Overview|Used After",
+    "group": "Deduplication And Compression Overview"
+   },
+   {
+    "key": "vSAN|Deduplication And Compression Overview|Savings",
+    "group": "Deduplication And Compression Overview"
+   },
+   {
+    "key": "vSAN|Deduplication And Compression Overview|Ratio",
+    "group": "Deduplication And Compression Overview"
+   },
+   {
+    "key": "Summary|Number of Storage Pools",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Number of ESA Disks",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Number",
+    "group": "Summary"
+   },
+   {
+    "key": "of Cache Disks",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Total",
+    "group": "Summary"
+   },
+   {
+    "key": "Number of Capacity Disks",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|CPU",
+    "group": "Summary"
+   },
+   {
+    "key": "Workload",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Memory",
+    "group": "Summary"
+   },
+   {
+    "key": "Workload",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Total",
+    "group": "Summary"
+   },
+   {
+    "key": "Number of Disk Groups",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Total",
+    "group": "Summary"
+   },
+   {
+    "key": "Active Alerts Count",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Total",
+    "group": "Summary"
+   },
+   {
+    "key": "Number of VMs",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|Total",
+    "group": "Summary"
+   },
+   {
+    "key": "Number of Hosts",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|vSAN",
+    "group": "Summary"
+   },
+   {
+    "key": "Cluster Capacity Remaining (%)",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|vSAN Cluster Storage Time Remaining",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary|vSAN",
+    "group": "Summary"
+   },
+   {
+    "key": "Capacity Disk Used",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary |",
+    "group": "Summary"
+   },
+   {
+    "key": "Total vSAN CPU Used (MHz)",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary |",
+    "group": "Summary"
+   },
+   {
+    "key": "Max vSAN CPU Ready",
+    "group": "Summary"
+   },
+   {
+    "key": "Summary |",
+    "group": "Summary"
+   },
+   {
+    "key": "Worst VM Disk Latency",
+    "group": "Summary"
+   },
+   {
+    "key": "KPI|Max ESA",
+    "group": "KPI"
+   },
+   {
+    "key": "Disk IOPS",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Max ESA",
+    "group": "KPI"
+   },
+   {
+    "key": "Disk Latency",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Min",
+    "group": "KPI"
+   },
+   {
+    "key": "Storage Pool Free Capacity",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Sum",
+    "group": "KPI"
+   },
+   {
+    "key": "Storage Pool Errors",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Groups Metrics",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Sum Host",
+    "group": "KPI"
+   },
+   {
+    "key": "VMKernel Packets Dropped",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Count Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Congestion Above 50",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Max Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Congestion",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Sum Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Errors",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Min Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Capacity Free",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Min Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Read Cache Hit Rate",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Min Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Write Buffer Free",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Max Disk",
+    "group": "KPI"
+   },
+   {
+    "key": "Group Read Cache/Write Buffer Latency",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI|Max",
+    "group": "KPI"
+   },
+   {
+    "key": "Capacity Disk Latency",
+    "group": "KPI"
+   },
+   {
+    "key": "KPI | Max",
+    "group": "KPI"
+   },
+   {
+    "key": "Capacity Disk IOPS",
+    "group": "KPI"
+   },
+   {
+    "key": "vSAN | Performance | I/O Size (KB)",
+    "group": "IO Size"
+   },
+   {
+    "key": "vSAN | Performance | Read I/O Size (KB)",
+    "group": "IO Size"
+   },
+   {
+    "key": "vSAN | Performance | Write I/O Size (KB)",
+    "group": "IO Size"
+   },
+   {
+    "key": "vSAN | Resync | Bytes left to resync (bytes)",
+    "group": "Resynchronization Status ( Metrics applicable for vSAN 6.7 and later)"
+   },
+   {
+    "key": "vSAN | Resync | Resyncing Objects",
+    "group": "Resynchronization Status ( Metrics applicable for vSAN 6.7 and later)"
+   },
+   {
+    "key": "This is an instanced metric vSAN | What If | Effective Free Space (GB)",
+    "group": "What If Analysis"
+   },
+   {
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "and Secondary (ms)",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "and Witness (ms)",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Secondary",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "and Witness (ms)",
+    "group": "Stretched Cluster"
+   },
+   {
+    "key": "vSAN|FileServices|totalShareCount",
+    "group": "File Share"
+   },
+   {
+    "key": "vSAN | File Services | File Shares Used",
+    "group": "File Service"
+   },
+   {
+    "key": "Disk Space (GB)",
+    "group": "File Service"
+   },
+   {
+    "key": "vSAN | File Services | Root FS Used Disk",
+    "group": "File Service"
+   },
+   {
+    "key": "Space (GB)",
+    "group": "File Service"
+   },
+   {
+    "key": "vSAN | File",
+    "group": "File Service"
+   },
+   {
+    "key": "Services | File Shares Count",
+    "group": "File Service"
+   },
+   {
+    "key": "vSAN|Slack Space|Internal Operations",
+    "group": "Slack Space"
+   },
+   {
+    "key": "Capacity (GB)",
+    "group": "Slack Space"
+   },
+   {
+    "key": "vSAN|Slack",
+    "group": "Slack Space"
+   },
+   {
+    "key": "Space|Host Rebuild Capacity (GB)",
+    "group": "Slack Space"
+   },
+   {
+    "key": "vSAN|Slack",
+    "group": "Slack Space"
+   },
+   {
+    "key": "Space|Transient Capacity Used (GB)",
+    "group": "Slack Space"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan datastore",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-datastore.html",
+  "items": [
+   {
+    "key": "Datastore I/O|Reads Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Read Rate (KBps)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Read Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Writes Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Write Rate (KBps)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Write Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Outstanding I/O requests",
+    "group": ""
+   },
+   {
+    "key": "Datastore I/O|Congestion",
+    "group": ""
+   },
+   {
+    "key": "Capacity | Usable Capacity",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan enabled host",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-enabled-host.html",
+  "items": [
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Component Limit Used (%)",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Total Component Limit",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Component",
+    "group": "Component Limit"
+   },
+   {
+    "key": "Limit|Used Component Limit",
+    "group": "Component Limit"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Disk Space Used (%)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Total Disk Space (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Used Disk Space (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Read Cache Reserved (%)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Reserved Read Cache Size (GB)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Read",
+    "group": "Read Cache"
+   },
+   {
+    "key": "Cache|Total Read Cache Size (GB)",
+    "group": "Read Cache"
+   },
+   {
+    "key": "vSAN|Performance|Network|Inbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Loss Rate",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|Outbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Loss Rate",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Inbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Loss rate (%)",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Outbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Loss Rate (%)",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Inbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Per second",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Outbound",
+    "group": "Network"
+   },
+   {
+    "key": "Packets Per second",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Throughput",
+    "group": "Network"
+   },
+   {
+    "key": "Inbound (KBps)",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN|Performance|Network|<vnic>|Throughput",
+    "group": "Network"
+   },
+   {
+    "key": "Outbound (KBps)",
+    "group": "Network"
+   },
+   {
+    "key": "vSAN |",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "Performance | CPU | Ready (%)",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "vSAN |",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "Performance | CPU | Usage (%)",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "vSAN |",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "Performance | CPU | Used (MHz)",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "vSAN |",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "Performance | CPU | Core Utilization (%) (For",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "Hyper-Threading Technology)",
+    "group": "CPU Utilization"
+   },
+   {
+    "key": "vSAN | Performance | PCPU | Ready",
+    "group": "PCPU Utilization"
+   },
+   {
+    "key": "(%)",
+    "group": "PCPU Utilization"
+   },
+   {
+    "key": "vSAN |",
+    "group": "PCPU Utilization"
+   },
+   {
+    "key": "Performance | CPU | PCPU Usage (%)",
+    "group": "PCPU Utilization"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Memory"
+   },
+   {
+    "key": "Performance | Memory | Usage (%)",
+    "group": "Memory"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Memory"
+   },
+   {
+    "key": "Performance | Memory | Used (GB)",
+    "group": "Memory"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan fault domain resource kind",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-fault-domain-resource-kind.html",
+  "items": [
+   {
+    "key": "CPU",
+    "group": ""
+   },
+   {
+    "key": "Demand without overhead (MHz)",
+    "group": ""
+   },
+   {
+    "key": "Overhead (MHz)",
+    "group": ""
+   },
+   {
+    "key": "Reserved Capacity (MHz)",
+    "group": ""
+   },
+   {
+    "key": "Total Capacity (MHz)",
+    "group": ""
+   },
+   {
+    "key": "VM CPU Usage (MHz)",
+    "group": ""
+   },
+   {
+    "key": "Workload (%)",
+    "group": ""
+   },
+   {
+    "key": "Disk Space",
+    "group": ""
+   },
+   {
+    "key": "Memory",
+    "group": ""
+   },
+   {
+    "key": "Demand",
+    "group": ""
+   },
+   {
+    "key": "Machine Demand (KB)",
+    "group": ""
+   },
+   {
+    "key": "Reserved Capacity (KB)",
+    "group": ""
+   },
+   {
+    "key": "Total Capacity (KB)",
+    "group": ""
+   },
+   {
+    "key": "Utilization (KB)",
+    "group": ""
+   },
+   {
+    "key": "Workload (%)",
+    "group": ""
+   },
+   {
+    "key": "vSAN",
+    "group": ""
+   },
+   {
+    "key": "Used Disk Space (GB)",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: disk i o and disk space metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/disk-i-o-and-disk-space-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Disk I/O|Reads Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Writes Per Second (IOPS",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Max Observed Reads Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Max Observed Writes Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Throughput Read (bps)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Throughput Write (bps)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Average Read Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Average Write Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Total Bus Resets",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Total Commands Aborted per second",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Read Count",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Write Count",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Average Device Latency",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Average Device Read Latency",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Average Device Write Latency",
+    "group": ""
+   },
+   {
+    "key": "Disk I/O|Total Number of Errors",
+    "group": ""
+   },
+   {
+    "key": "Disk Space|Capacity (bytes)",
+    "group": ""
+   },
+   {
+    "key": "Disk Space|Used (bytes)",
+    "group": ""
+   },
+   {
+    "key": "Disk Space|Usage (%)",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: read cache metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/read-cache-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Read Cache|Hit Rate (%)",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Miss Rate Ratio",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Reads Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Read Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Writes Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Write Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Read I/O Count",
+    "group": ""
+   },
+   {
+    "key": "Read Cache|Write I/O Count",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: write buffer metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/write-buffer-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Write Buffer|Capacity (bytes)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Free (%)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Usage (%)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Used (byte)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Reads Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Read Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Writes Per Second (IOPS)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Write Latency (ms)",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Read I/O Count",
+    "group": ""
+   },
+   {
+    "key": "Write Buffer|Write I/O Count",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: cache de stage metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/cache-de-stage-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Bytes De-stage from SSD",
+    "group": ""
+   },
+   {
+    "key": "Zero-bytes De-stage",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: congestion metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/congestion-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Congestion| Memory Congestion - Favorite",
+    "group": ""
+   },
+   {
+    "key": "Congestion| SSD Congestion - Favorite",
+    "group": ""
+   },
+   {
+    "key": "Congestion| IOPS Congestion - Favorite",
+    "group": ""
+   },
+   {
+    "key": "Congestion| Slab Congestion",
+    "group": ""
+   },
+   {
+    "key": "Congestion| Log Congestion",
+    "group": ""
+   },
+   {
+    "key": "Congestion| Comp Congestion",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: resync traffic metrics for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/resync-traffic-metrics-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "Read IOPS for Resync Traffic",
+    "group": ""
+   },
+   {
+    "key": "Write IOPS for Resync Traffic",
+    "group": ""
+   },
+   {
+    "key": "Read Throughput for Resync Traffic",
+    "group": ""
+   },
+   {
+    "key": "Write Throughput for Resync Traffic",
+    "group": ""
+   },
+   {
+    "key": "Read Latency for Resync Traffic",
+    "group": ""
+   },
+   {
+    "key": "Write Latency for Resync Traffic",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan storage pool",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-storage-pool.html",
+  "items": [
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Read Latency (µs)",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Write Latency (µs)",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Read IOPS",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Write IOPS",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Read Throughput (KBps)",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "I/O|Physical Layer Write Throughput (KBps)",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk I/O|Total",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Bus Resets",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk I/O|Total",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "IOPS Aborted",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk I/O|Number",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "of Errors",
+    "group": "Disk I/O"
+   },
+   {
+    "key": "Disk Space|Capacity",
+    "group": "Disk Space"
+   },
+   {
+    "key": "(bytes)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Disk Space|Usage",
+    "group": "Disk Space"
+   },
+   {
+    "key": "(%)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Disk Space|Used",
+    "group": "Disk Space"
+   },
+   {
+    "key": "(bytes)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Disk",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Space|Workload(%)",
+    "group": "Disk Space"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan cache disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cache-disk.html",
+  "items": [
+   {
+    "key": "Performance|Bus Resets",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Commands Aborted Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "The following performance metrics are disabled by default: Performance|Device Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Device Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Device Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Read Requests Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Average Reads Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Write Requests Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Average Writes Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Read Rate",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Write Rate",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Usage",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|HDD Errors",
+    "group": "Performance"
+   },
+   {
+    "key": "SCSI SMART Statistics|Health Status",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Media Wearout Indicator",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Power on Hours",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Reallocated Sector Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Raw Read Error Rate",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Maximum Observed Drive Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Rated Max Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Initial Bad Block Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Media Wearout Indicator",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Write Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Read Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Power-on Hours",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Power Cycle Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Power Cycle Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Reallocated Sector Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Raw Read Error Rate",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Driver Rated Max Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Write Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Read Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Initial Bad Block Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "vSAN|Health|Capacity|Total Disk Capacity (GB)",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|Health|Capacity|Used Disk Capacity (GB)",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|Health|Congestion Health|Congestion Value",
+    "group": "Congestion Health"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Reads Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Writes Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Device Average Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Guest Average Latency (ms)",
+    "group": "Performance"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan capacity disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-capacity-disk.html",
+  "items": [
+   {
+    "key": "Performance|Bus Resets",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Commands Aborted Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "The following performance metrics are disabled by default:",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Device Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Device Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Device Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Read Requests Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Average Reads Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Write Requests Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Average Writes Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Read Rate",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Write Rate",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|Usage",
+    "group": "Performance"
+   },
+   {
+    "key": "Performance|HDD Errors",
+    "group": "Performance"
+   },
+   {
+    "key": "SCSI SMART Statistics|Health Status",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Media Wearout Indicator",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Power on Hours",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Reallocated Sector Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Raw Read Error Rate",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Maximum Observed Drive Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Rated Max Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Initial Bad Block Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Media Wearout Indicator",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Write Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Read Error Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Power-on Hours",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Power Cycle Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Power Cycle Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Reallocated Sector Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Raw Read Error Rate",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Driver Rated Max Temperature",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Write Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Read Sectors TOT Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "SCSI SMART Statistics|Worst Initial Bad Block Count",
+    "group": "SCSI SMART Statistics SMART data collection is disabled by default. To enable SMART data collection, ensure that the Enable SMART data collection instance identifier is set to true. For proper data collection, ensure that ESX hosts in your vCenter Server inventory have CIM service enabled and CIM providers for each SMART metric installed."
+   },
+   {
+    "key": "vSAN|Health|Total Disk Capacity (GB)",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|Health|Used Disk Capacity (GB)",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|FileServices|FileSharesUsedDiskSpace",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|FileServices|RootFsUsedDiskSpace",
+    "group": "Capacity"
+   },
+   {
+    "key": "vSAN|Health|Congestion Value",
+    "group": "Congestion Health"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Reads Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Writes Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Throughput (KBps)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Device Average Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|Guest Average Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Reads Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Writes Per Second",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Read Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Write Latency (ms)",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Read Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Write Count",
+    "group": "Performance"
+   },
+   {
+    "key": "vSAN | Performance | vSAN Layer Total IOPS",
+    "group": "Performance"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan esa disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-esa-disk.html",
+  "items": [
+   {
+    "key": "vSAN|Health|Capacity|Total Disk Capacity (GB)",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "vSAN|Health|Capacity|Used Disk Capacity (GB)",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "vSAN|Health|Capacity|Used Disk Capacity (%)",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "I/O|Physical Layer Write IOPS",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "I/O|Physical Layer Read Throughput (KBps)",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "I/O|Physical Layer Write Throughput (KBps)",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk I/O|Total",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Bus Resets",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk I/O|Total",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "IOPS Aborted",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "Disk I/O|Number",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "of Errors",
+    "group": "vSAN Health|Capacity"
+   },
+   {
+    "key": "vSAN Health|Congestion Health|Congestion",
+    "group": "vSAN Health|Congestion"
+   },
+   {
+    "key": "Value",
+    "group": "vSAN Health|Congestion"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read IOPS",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write IOPS",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Throughput (KBps)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Throughput",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "(KBps)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Read Count",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Physical Layer Write Count",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Device Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|Guest Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Read IOPS",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Write IOPS",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Total IOPS",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Average Read Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Average Write Latency (µs)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Read Throughput (KBps)",
+    "group": "vSAN Performance"
+   },
+   {
+    "key": "vSAN|Performance|vSAN Layer Write Throughput (KBps)",
+    "group": "vSAN Performance"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan file server",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-server.html",
+  "items": [
+   {
+    "key": "vSAN | Disk",
+    "group": "File Server"
+   },
+   {
+    "key": "Space File Shares Used Disk Space (GB)",
+    "group": "File Server"
+   },
+   {
+    "key": "vSAN |",
+    "group": "File Server"
+   },
+   {
+    "key": "Summary | File Shares Count",
+    "group": "File Server"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan file share",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-share.html",
+  "items": [
+   {
+    "key": "vSAN |",
+    "group": "Disk Space"
+   },
+   {
+    "key": "Disk Space | Used Disk Space (GB)",
+    "group": "Disk Space"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Read Performance"
+   },
+   {
+    "key": "Performance | Read Throughput Requested (MBps)",
+    "group": "Read Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Read Performance"
+   },
+   {
+    "key": "Performance | Read Throughput Transferred",
+    "group": "Read Performance"
+   },
+   {
+    "key": "(MBps)",
+    "group": "Read Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Read Performance"
+   },
+   {
+    "key": "Performance | Read IOPS",
+    "group": "Read Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Read Performance"
+   },
+   {
+    "key": "Performance | Read Latency (ms)",
+    "group": "Read Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Write Performance"
+   },
+   {
+    "key": "Performance | Write Throughput Requested (MBps)",
+    "group": "Write Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Write Performance"
+   },
+   {
+    "key": "Performance | Write Throughput Transferred",
+    "group": "Write Performance"
+   },
+   {
+    "key": "(MBps)",
+    "group": "Write Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Write Performance"
+   },
+   {
+    "key": "Performance | Write IOPS",
+    "group": "Write Performance"
+   },
+   {
+    "key": "vSAN |",
+    "group": "Write Performance"
+   },
+   {
+    "key": "Performance | Write Latency (ms)",
+    "group": "Write Performance"
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: metrics for vsan world",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-world.html",
+  "items": [
+   {
+    "key": "Summary|Total Number of VMs",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of Hosts",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total IOPS",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Latency",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of Clusters",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of DiskGroups",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of Cache Disks",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of Capacity Disks",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Number of Datastores",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total vSAN Disk Capacity (TB)",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total vSAN Disk Capacity Used (TB)",
+    "group": ""
+   },
+   {
+    "key": "Summary|Remaining Capacity (TB)",
+    "group": ""
+   },
+   {
+    "key": "Summary|Remaining Capacity (%)",
+    "group": ""
+   },
+   {
+    "key": "Summary|Total Savings by Deduplication and Compression (GB)",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-metric",
+  "title": "VCF Operations 9.1: capacity model for vsan objects",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/capacity-model-for-vsan-objects.html",
+  "items": [
+   {
+    "key": "vSAN Cluster",
+    "group": ""
+   },
+   {
+    "key": "vSAN Fault Domain",
+    "group": ""
+   },
+   {
+    "key": "Memory",
+    "group": ""
+   },
+   {
+    "key": "Disk Space",
+    "group": ""
+   },
+   {
+    "key": "vSAN Cache/Capacity Disk",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan cluster",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cluster.html",
+  "items": [
+   {
+    "key": "Configuration|vSAN|vSAN ESA",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|Deduplication and Compression Enabled",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|Preferred fault domain",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|Stretched Cluster",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|vSAN Configuration",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|Encryption",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | DNS Servers",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | DNS Suffixes",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | Gateway",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | Primary IP",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | Subnet Mask",
+    "group": ""
+   },
+   {
+    "key": "Summary | Type",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | File Service Domain:<domainName> | IP Address :<ipaddress> | FQDN",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan enabled host",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-enabled-host.html",
+  "items": [
+   {
+    "key": "Configuration|vSAN Enabled",
+    "group": ""
+   },
+   {
+    "key": "Configuration|vSAN|Encryption",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan disk groups",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-disk-groups.html",
+  "items": [
+   {
+    "key": "vSAN Disk Groups: Configuration|vSAN Configuration",
+    "group": ""
+   },
+   {
+    "key": "vSAN Disk Groups: Configuration | Number of Disks",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan storage pool",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-storage-pool.html",
+  "items": [
+   {
+    "key": "Configuration|Number of Disks",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan cache disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cache-disk.html",
+  "items": [
+   {
+    "key": "Configuration Properties|Name",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Size",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Vendor",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Type",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Queue Depth",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration|vSAN|Encryption",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration | Model",
+    "group": "Configuration"
+   },
+   {
+    "key": "SCSI SMART Statistics|Media Wearout Indicator Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Error Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Error Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Reallocated Sector Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Raw Read Error Rate Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Temperature Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Rated Max Temperature Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Sectors TOT Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Sectors TOT Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Initial Bad Block Count Threshold",
+    "group": "SCSI SMART Statistics"
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan capacity disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-capacity-disk.html",
+  "items": [
+   {
+    "key": "Configuration Properties|Name",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Size",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Vendor",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Type",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration Properties|Queue Depth",
+    "group": "Configuration"
+   },
+   {
+    "key": "Configuration|vSAN|Encryption",
+    "group": "Configuration"
+   },
+   {
+    "key": "SCSI SMART Statistics|Media Wearout Indicator Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Error Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Error Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Reallocated Sector Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Raw Read Error Rate Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Temperature Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Drive Rated Max Temperature Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Write Sectors TOT Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Read Sectors TOT Count Threshold",
+    "group": "SCSI SMART Statistics"
+   },
+   {
+    "key": "SCSI SMART Statistics|Initial Bad Block Count Threshold",
+    "group": "SCSI SMART Statistics"
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan esa disk",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-esa-disk.html",
+  "items": [
+   {
+    "key": "Configuration|Model",
+    "group": ""
+   },
+   {
+    "key": "Configuration|Name",
+    "group": ""
+   },
+   {
+    "key": "Configuration|Queue Depth",
+    "group": ""
+   },
+   {
+    "key": "Configuration|Size (GB)",
+    "group": ""
+   },
+   {
+    "key": "Configuration|Type",
+    "group": ""
+   },
+   {
+    "key": "Configuration|Vendor",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | Encryption",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan file server",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-server.html",
+  "items": [
+   {
+    "key": "Configuration | vSAN | Primary",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | FQDN",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "ops-property",
+  "title": "VCF Operations 9.1: properties for vsan file share",
+  "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-share.html",
+  "items": [
+   {
+    "key": "Configuration |vSAN| Domain Name",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN| Hard Quota",
+    "group": ""
+   },
+   {
+    "key": "Configuration |vSAN| Soft Quota",
+    "group": ""
+   },
+   {
+    "key": "Configuration |vSAN | Label|<key>",
+    "group": ""
+   },
+   {
+    "key": "Configuration |vSAN | Access Point|<key>",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | Permission:<permission> | Client IP Range",
+    "group": ""
+   },
+   {
+    "key": "Configuration | vSAN | Permission:<permission> | Root Squash",
+    "group": ""
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Blog: Effective Capacity View in vSAN for VCF 9.1",
+  "url": "https://blogs.vmware.com/cloud-foundation/2026/05/11/effective-capacity-view-in-vsan-for-vcf-9-1/",
+  "items": [],
+  "headings": [
+   "Background",
+   "New Clarity with Effective Capacity",
+   "Capacity View – Effective Capacity Section",
+   "Capacity View – Space Efficiency Section",
+   "Accommodating Free Capacity Requirements",
+   "VM Capacity Consumption",
+   "Requirements",
+   "Summary",
+   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Blog: Global Deduplication in vSAN ESA for VCF 9.0",
+  "url": "https://blogs.vmware.com/cloud-foundation/2025/06/19/global-deduplication-in-vsan-esa-for-vmware-cloud-foundation-9-0/",
+  "items": [],
+  "headings": [
+   "Data Deduplication – What is it and Why it Matters",
+   "How vSAN Global Deduplication is Different",
+   "Deduplication Domain",
+   "Deduplication Processing and Performance",
+   "How it Works",
+   "How Effective is it?",
+   "The Advantage of Scalable Deduplication",
+   "Beyond Capacity Savings",
+   "Availability",
+   "Summary",
+   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Blog: Understanding the different levels of vSAN performance metrics",
+  "url": "https://blogs.vmware.com/cloud-foundation/2019/06/12/performance-troubleshooting-understanding-the-different-levels-of-vsan-performance-metrics/",
+  "items": [],
+  "headings": [
+   "Levels of Navigation",
+   "Summary",
+   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  ]
+ }
+]
