@@ -3066,6 +3066,506 @@
   ]
  },
  {
+  "kind": "kb",
+  "title": "KB 326720: vSAN Performance Graphs in the vSphere Web Client Part 3",
+  "url": "https://knowledge.broadcom.com/external/article/326720",
+  "items": [
+   {
+    "metric": "Average Latency",
+    "apiId": "avgLatency",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Minimum Latency",
+    "apiId": "minLatency",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Maximum Latency",
+    "apiId": "maxLatency",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Inbound Bytes",
+    "apiId": "rxSbSpaceAvg",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Inbound Bytes",
+    "apiId": "rxSbSpaceMin",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Inbound Bytes",
+    "apiId": "rxSbSpaceMax",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Bytes",
+    "apiId": "txSbSpaceAvg",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Bytes",
+    "apiId": "txSbSpaceMin",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Bytes",
+    "apiId": "txSbSpaceMax",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Context Bytes",
+    "apiId": "txCtxQAvg",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Context Bytes",
+    "apiId": "txCtxQMin",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Context Bytes",
+    "apiId": "txCtxQMax",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Avg Outbound Queueing Latency",
+    "apiId": "txQLatAvg",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Min Outbound Queueing Latency",
+    "apiId": "txQLatMin",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Max Outbound Queueing Latency",
+    "apiId": "txQLatMax",
+    "entityType": "cluster-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Average Latency",
+    "apiId": "avgLatency",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Minimum Latency",
+    "apiId": "minLatency",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Maximum Latency",
+    "apiId": "maxLatency",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Inbound Bytes",
+    "apiId": "rxSbSpaceAvg",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Inbound Bytes",
+    "apiId": "rxSbSpaceMin",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Inbound Bytes",
+    "apiId": "rxSbSpaceMax",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Bytes",
+    "apiId": "txSbSpaceAvg",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Bytes",
+    "apiId": "txSbSpaceMin",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Bytes",
+    "apiId": "txSbSpaceMax",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Context Bytes",
+    "apiId": "txCtxQAvg",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Context Bytes",
+    "apiId": "txCtxQMin",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Context Bytes",
+    "apiId": "txCtxQMax",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Avg Outbound Queueing Latency",
+    "apiId": "txQLatAvg",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Min Outbound Queueing Latency",
+    "apiId": "txQLatMin",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Max Outbound Queueing Latency",
+    "apiId": "txQLatMax",
+    "entityType": "rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Inbound Bytes",
+    "apiId": "rxSbSpaceAvg",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Inbound Bytes",
+    "apiId": "rxSbSpaceMin",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Inbound Bytes",
+    "apiId": "rxSbSpaceMax",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Bytes",
+    "apiId": "txSbSpaceAvg",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Bytes",
+    "apiId": "txSbSpaceMin",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Bytes",
+    "apiId": "txSbSpaceMax",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Avg Outbound Context Bytes",
+    "apiId": "txCtxQAvg",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Min Outbound Context Bytes",
+    "apiId": "txCtxQMin",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Socket Max Outbound Context Bytes",
+    "apiId": "txCtxQMax",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Avg Outbound Queueing Latency",
+    "apiId": "txQLatAvg",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Min Outbound Queueing Latency",
+    "apiId": "txQLatMin",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Max Outbound Queueing Latency",
+    "apiId": "txQLatMax",
+    "entityType": "vnic-rdt-network-latency",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss Per IOPS",
+    "apiId": "iopsCacheMissRate",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Cache Miss Per Throughput",
+    "apiId": "tputCacheMissRate",
+    "entityType": "zdom-vtx",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "IOPS",
+    "apiId": "iops",
+    "entityType": "cluster-zdom-top-stats",
+    "realtimeEntityType": "hr-cluster-zdom-top-stats"
+   },
+   {
+    "metric": "Throughput",
+    "apiId": "throughput",
+    "entityType": "cluster-zdom-top-stats",
+    "realtimeEntityType": "hr-cluster-zdom-top-stats"
+   },
+   {
+    "metric": "Latency",
+    "apiId": "latency",
+    "entityType": "cluster-zdom-top-stats",
+    "realtimeEntityType": "hr-cluster-zdom-top-stats"
+   },
+   {
+    "metric": "IOPS",
+    "apiId": "iops",
+    "entityType": "host-zdom-top-stats",
+    "realtimeEntityType": "hr-host-zdom-top-stats"
+   },
+   {
+    "metric": "Throughput",
+    "apiId": "throughput",
+    "entityType": "host-zdom-top-stats",
+    "realtimeEntityType": "hr-host-zdom-top-stats"
+   },
+   {
+    "metric": "Latency",
+    "apiId": "latency",
+    "entityType": "host-zdom-top-stats",
+    "realtimeEntityType": "hr-host-zdom-top-stats"
+   }
+  ],
+  "headings": [
+   "vSAN Performance Graphs in the vSphere Web Client Part 3",
+   "Article ID: 326720",
+   "Updated On:",
+   "Products",
+   "Issue/Introduction",
+   "Environment",
+   "Resolution",
+   "Cluster Performance",
+   "Cluster RDT Network Latency Graphs",
+   "Cluster RDT Network Socket Inbound Bytes Graphs",
+   "Cluster RDT Network Socket Outbound Bytes Graphs",
+   "Cluster RDT Network Outbound Context Bytes Graphs",
+   "Cluster RDT Network Outbound Queueing Latency Graphs",
+   "Host Performance",
+   "Host RDT Network Latency Graphs",
+   "Host RDT Network Socket Inbound Bytes Graphs",
+   "Host RDT Network Socket Outbound Bytes Graphs",
+   "Host RDT Network Outbound Context Bytes Graphs",
+   "Host RDT Network Outbound Queueing Latency Graphs",
+   "VMkernel Network RDT Latency Graphs Graphs",
+   "VMkernel Network RDT Socket Inbound Bytes Graphs",
+   "VMkernel Network RDT Socket Outbound Bytes Graphs",
+   "VMkernel Network RDT Outbound Context Bytes Graphs",
+   "VMkernel Network RDT Outbound Queueing Latency Graphs",
+   "Host Backend Cache Graphs (Available from vSAN 8.0 U2)**",
+   "Cluster Backend Cache Graphs (Available from vSAN 9.0) ** ***",
+   "Host Backend Cache Graphs (Available from vSAN 9.0) ** ***",
+   "Feedback"
+  ]
+ },
+ {
+  "kind": "kb",
+  "title": "KB 326555: vSAN PMem Performance Graphs in vSphere Web Client",
+  "url": "https://knowledge.broadcom.com/external/article/326555",
+  "items": [
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Bandwidth",
+    "apiId": "bandwidthRead",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Bandwidth",
+    "apiId": "bandwidthWrite",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bandwidth",
+    "apiId": "bandwidthTotal",
+    "entityType": "cluster-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read IOPS",
+    "apiId": "iopsRead",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write IOPS",
+    "apiId": "iopsWrite",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total IOPS",
+    "apiId": "iopsTotal",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Latency",
+    "apiId": "latencyRead",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Latency",
+    "apiId": "latencyWrite",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Read Bandwidth",
+    "apiId": "bandwidthRead",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Write Bandwidth",
+    "apiId": "bandwidthWrite",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   },
+   {
+    "metric": "Total Bandwidth",
+    "apiId": "bandwidthTotal",
+    "entityType": "host-pmem",
+    "realtimeEntityType": ""
+   }
+  ],
+  "headings": [
+   "vSAN PMem Performance Graphs in vSphere Web Client",
+   "Article ID: 326555",
+   "Updated On:",
+   "Products",
+   "Issue/Introduction",
+   "Resolution",
+   "Cluster performance",
+   "IOPS",
+   "Latency",
+   "Bandwidth",
+   "Host performance",
+   "IOPS",
+   "Latency",
+   "Bandwidth",
+   "Feedback"
+  ]
+ },
+ {
+  "kind": "kb-scan",
+  "title": "KB 326479: Understanding Congestion in vSAN",
+  "url": "https://knowledge.broadcom.com/external/article/326479",
+  "items": [
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Log Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "Mem-Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "Slab-Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "SSD-Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "IOPS-Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "Comp-Congestion",
+    "match": "metric"
+   },
+   {
+    "key": "DOM Clients",
+    "match": "chart"
+   },
+   {
+    "key": "disk-group",
+    "match": "entity"
+   }
+  ]
+ },
+ {
   "kind": "manual",
   "title": "VCF 9.1 vSAN: about the vsan performance service",
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/about-the-vsan-performance-service.html",
@@ -3107,95 +3607,7 @@
   "items": [
    {
     "key": "",
-    "group": "Free space on disks"
-   },
-   {
-    "key": "",
     "group": "Used"
-   },
-   {
-    "key": "",
-    "group": "Actually written"
-   },
-   {
-    "key": "",
-    "group": "Reservations and Alerts"
-   },
-   {
-    "key": "VM home objects",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "Swap objects",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "VMDK",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "Shared user data",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "VM memory snapshots",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "Block container volumes (attached to a VM)",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "vSphere replication persistent state file",
-    "group": "VM (user objects) usage"
-   },
-   {
-    "key": "",
-    "group": "Non-VM (user objects) usage"
-   },
-   {
-    "key": "Performance management objects",
-    "group": "System usage"
-   },
-   {
-    "key": "File system overhead",
-    "group": "System usage"
-   },
-   {
-    "key": "ESA object overhead",
-    "group": "System usage"
-   },
-   {
-    "key": "Checksum overhead",
-    "group": "System usage"
-   },
-   {
-    "key": "Dedup & compression overhead",
-    "group": "System usage"
-   },
-   {
-    "key": "Operations usage",
-    "group": "System usage"
-   },
-   {
-    "key": "Native trace objects",
-    "group": "System usage"
-   },
-   {
-    "key": "",
-    "group": "Container volume snapshots"
-   },
-   {
-    "key": "",
-    "group": "VMDK snapshots"
-   },
-   {
-    "key": "",
-    "group": "vSAN file share snapshots"
-   },
-   {
-    "key": "",
-    "group": "Current data"
    }
   ],
   "headings": []
@@ -3234,92 +3646,7 @@
   "kind": "manual",
   "title": "VCF 9.1 vSAN: vsan esa effective capacity",
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/vsan-esa-effective-capacity.html",
-  "items": [
-   {
-    "key": "",
-    "group": "Total usable capacity"
-   },
-   {
-    "key": "",
-    "group": "Used capacity"
-   },
-   {
-    "key": "",
-    "group": "Actually written"
-   },
-   {
-    "key": "",
-    "group": "Object reserved"
-   },
-   {
-    "key": "",
-    "group": "Free usable capacity"
-   },
-   {
-    "key": "",
-    "group": "Total provisioned capacity"
-   },
-   {
-    "key": "",
-    "group": "Data reduction ratio"
-   },
-   {
-    "key": "",
-    "group": "Deduplication ratio"
-   },
-   {
-    "key": "",
-    "group": "Compression ratio"
-   },
-   {
-    "key": "",
-    "group": "Thin provisioning saving ratio"
-   },
-   {
-    "key": "",
-    "group": "Overprovisioning ratio"
-   },
-   {
-    "key": "",
-    "group": "Snapshot saving ratio"
-   },
-   {
-    "key": "",
-    "group": "Fully inflated snapshot capacity"
-   },
-   {
-    "key": "",
-    "group": "vSAN snapshot used capacity"
-   },
-   {
-    "key": "",
-    "group": "Total Raw Capacity"
-   },
-   {
-    "key": "",
-    "group": "System Usage"
-   },
-   {
-    "key": "File system overhead",
-    "group": "System Usage"
-   },
-   {
-    "key": "vSAN ESA objects overhead",
-    "group": "System Usage"
-   },
-   {
-    "key": "Dedup overhead",
-    "group": "System Usage"
-   },
-   {
-    "key": "",
-    "group": "System Usage"
-   },
-   {
-    "key": "",
-    "group": "RAID Factor"
-   }
-  ],
+  "items": [],
   "headings": []
  },
  {
@@ -3366,43 +3693,23 @@
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cluster.html",
   "items": [
    {
-    "key": "vSAN|Component",
+    "key": "vSAN|Component Limit|Component Limit Used (%)",
     "group": "Component Limit"
    },
    {
-    "key": "Limit|Component Limit Used (%)",
+    "key": "vSAN|Component Limit|Total Component Limit",
     "group": "Component Limit"
    },
    {
-    "key": "vSAN|Component",
+    "key": "vSAN|Component Limit|Used Component Limit",
     "group": "Component Limit"
    },
    {
-    "key": "Limit|Total Component Limit",
-    "group": "Component Limit"
-   },
-   {
-    "key": "vSAN|Component",
-    "group": "Component Limit"
-   },
-   {
-    "key": "Limit|Used Component Limit",
-    "group": "Component Limit"
-   },
-   {
-    "key": "vSAN|Disk",
+    "key": "vSAN|Disk Space|Disk Space Used (%)",
     "group": "Disk Space"
    },
    {
-    "key": "Space|Disk Space Used (%)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "vSAN|Disk",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Space|Total Disk Space (GB)",
+    "key": "vSAN|Disk Space|Total Disk Space (GB)",
     "group": "Disk Space"
    },
    {
@@ -3410,11 +3717,7 @@
     "group": "Disk Space"
    },
    {
-    "key": "vSAN|Disk",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Space|Usable Capacity (GB)",
+    "key": "vSAN|Disk Space|Usable Capacity (GB)",
     "group": "Disk Space"
    },
    {
@@ -3426,127 +3729,63 @@
     "group": "Disk Space"
    },
    {
-    "key": "The oversubscription metrics are",
-    "group": "Disk Space"
-   },
-   {
-    "key": "applicable only for the vSAN OSA clusters.",
-    "group": "Disk Space"
-   },
-   {
     "key": "vSAN|Health|Score",
     "group": "Health"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Read Cache Reserved (%)",
     "group": "Read Cache"
    },
    {
-    "key": "Cache|Read Cache Reserved (%)",
+    "key": "vSAN|Read Cache|Reserved Read Cache Size (GB)",
     "group": "Read Cache"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Total Read Cache Size (GB)",
     "group": "Read Cache"
    },
    {
-    "key": "Cache|Reserved Read Cache Size (GB)",
-    "group": "Read Cache"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Read Cache"
-   },
-   {
-    "key": "Cache|Total Read Cache Size (GB)",
-    "group": "Read Cache"
-   },
-   {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Reads Per Second (IOPS)",
     "group": "Performance"
    },
    {
-    "key": "Cache|Reads Per Second (IOPS)",
+    "key": "vSAN|Read Cache|Read Throughput (KBps)",
     "group": "Performance"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Average Read Latency (ms)",
     "group": "Performance"
    },
    {
-    "key": "Cache|Read Throughput (KBps)",
+    "key": "vSAN|Read Cache|Writes Per Second (IOPS)",
     "group": "Performance"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Write Throughput (KBps)",
     "group": "Performance"
    },
    {
-    "key": "Cache|Average Read Latency (ms)",
+    "key": "vSAN|Read Cache|Average Write Latency (ms)",
     "group": "Performance"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Congestion",
     "group": "Performance"
    },
    {
-    "key": "Cache|Writes Per Second (IOPS)",
+    "key": "vSAN|Read Cache|Outstanding I/O",
     "group": "Performance"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Total IOPS",
     "group": "Performance"
    },
    {
-    "key": "Cache|Write Throughput (KBps)",
+    "key": "vSAN|Read Cache|Total Latency (ms)",
     "group": "Performance"
    },
    {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Average Write Latency (ms)",
-    "group": "Performance"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Congestion",
-    "group": "Performance"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Outstanding I/O",
-    "group": "Performance"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Total IOPS",
-    "group": "Performance"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Total Latency (ms)",
-    "group": "Performance"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Performance"
-   },
-   {
-    "key": "Cache|Total Throughput (KBps)",
+    "key": "vSAN|Read Cache|Total Throughput (KBps)",
     "group": "Performance"
    },
    {
@@ -3574,75 +3813,39 @@
     "group": "Summary"
    },
    {
-    "key": "Summary|Number",
+    "key": "Summary|Number of Cache Disks",
     "group": "Summary"
    },
    {
-    "key": "of Cache Disks",
+    "key": "Summary|Total Number of Capacity Disks",
     "group": "Summary"
    },
    {
-    "key": "Summary|Total",
+    "key": "Summary|CPU Workload",
     "group": "Summary"
    },
    {
-    "key": "Number of Capacity Disks",
+    "key": "Summary|Memory Workload",
     "group": "Summary"
    },
    {
-    "key": "Summary|CPU",
+    "key": "Summary|Total Number of Disk Groups",
     "group": "Summary"
    },
    {
-    "key": "Workload",
+    "key": "Summary|Total Active Alerts Count",
     "group": "Summary"
    },
    {
-    "key": "Summary|Memory",
+    "key": "Summary|Total Number of VMs",
     "group": "Summary"
    },
    {
-    "key": "Workload",
+    "key": "Summary|Total Number of Hosts",
     "group": "Summary"
    },
    {
-    "key": "Summary|Total",
-    "group": "Summary"
-   },
-   {
-    "key": "Number of Disk Groups",
-    "group": "Summary"
-   },
-   {
-    "key": "Summary|Total",
-    "group": "Summary"
-   },
-   {
-    "key": "Active Alerts Count",
-    "group": "Summary"
-   },
-   {
-    "key": "Summary|Total",
-    "group": "Summary"
-   },
-   {
-    "key": "Number of VMs",
-    "group": "Summary"
-   },
-   {
-    "key": "Summary|Total",
-    "group": "Summary"
-   },
-   {
-    "key": "Number of Hosts",
-    "group": "Summary"
-   },
-   {
-    "key": "Summary|vSAN",
-    "group": "Summary"
-   },
-   {
-    "key": "Cluster Capacity Remaining (%)",
+    "key": "Summary|vSAN Cluster Capacity Remaining (%)",
     "group": "Summary"
    },
    {
@@ -3650,155 +3853,79 @@
     "group": "Summary"
    },
    {
-    "key": "Summary|vSAN",
+    "key": "Summary|vSAN Capacity Disk Used",
     "group": "Summary"
    },
    {
-    "key": "Capacity Disk Used",
+    "key": "Summary | Total vSAN CPU Used (MHz)",
     "group": "Summary"
    },
    {
-    "key": "Summary |",
+    "key": "Summary | Max vSAN CPU Ready",
     "group": "Summary"
    },
    {
-    "key": "Total vSAN CPU Used (MHz)",
+    "key": "Summary | Worst VM Disk Latency",
     "group": "Summary"
    },
    {
-    "key": "Summary |",
-    "group": "Summary"
-   },
-   {
-    "key": "Max vSAN CPU Ready",
-    "group": "Summary"
-   },
-   {
-    "key": "Summary |",
-    "group": "Summary"
-   },
-   {
-    "key": "Worst VM Disk Latency",
-    "group": "Summary"
-   },
-   {
-    "key": "KPI|Max ESA",
+    "key": "KPI|Max ESA Disk IOPS",
     "group": "KPI"
    },
    {
-    "key": "Disk IOPS",
+    "key": "KPI|Max ESA Disk Latency",
     "group": "KPI"
    },
    {
-    "key": "KPI|Max ESA",
+    "key": "KPI|Min Storage Pool Free Capacity",
     "group": "KPI"
    },
    {
-    "key": "Disk Latency",
+    "key": "KPI|Sum Storage Pool Errors",
     "group": "KPI"
    },
    {
-    "key": "KPI|Min",
+    "key": "KPI|Disk Groups Metrics",
     "group": "KPI"
    },
    {
-    "key": "Storage Pool Free Capacity",
+    "key": "KPI|Sum Host VMKernel Packets Dropped",
     "group": "KPI"
    },
    {
-    "key": "KPI|Sum",
+    "key": "KPI|Count Disk Group Congestion Above 50",
     "group": "KPI"
    },
    {
-    "key": "Storage Pool Errors",
+    "key": "KPI|Max Disk Group Congestion",
     "group": "KPI"
    },
    {
-    "key": "KPI|Disk",
+    "key": "KPI|Sum Disk Group Errors",
     "group": "KPI"
    },
    {
-    "key": "Groups Metrics",
+    "key": "KPI|Min Disk Group Capacity Free",
     "group": "KPI"
    },
    {
-    "key": "KPI|Sum Host",
+    "key": "KPI|Min Disk Group Read Cache Hit Rate",
     "group": "KPI"
    },
    {
-    "key": "VMKernel Packets Dropped",
+    "key": "KPI|Min Disk Group Write Buffer Free",
     "group": "KPI"
    },
    {
-    "key": "KPI|Count Disk",
+    "key": "KPI|Max Disk Group Read Cache/Write Buffer Latency",
     "group": "KPI"
    },
    {
-    "key": "Group Congestion Above 50",
+    "key": "KPI|Max Capacity Disk Latency",
     "group": "KPI"
    },
    {
-    "key": "KPI|Max Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Congestion",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Sum Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Errors",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Min Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Capacity Free",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Min Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Read Cache Hit Rate",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Min Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Write Buffer Free",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Max Disk",
-    "group": "KPI"
-   },
-   {
-    "key": "Group Read Cache/Write Buffer Latency",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI|Max",
-    "group": "KPI"
-   },
-   {
-    "key": "Capacity Disk Latency",
-    "group": "KPI"
-   },
-   {
-    "key": "KPI | Max",
-    "group": "KPI"
-   },
-   {
-    "key": "Capacity Disk IOPS",
+    "key": "KPI | Max Capacity Disk IOPS",
     "group": "KPI"
    },
    {
@@ -3826,27 +3953,15 @@
     "group": "What If Analysis"
    },
    {
-    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred",
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred and Secondary (ms)",
     "group": "Stretched Cluster"
    },
    {
-    "key": "and Secondary (ms)",
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred and Witness (ms)",
     "group": "Stretched Cluster"
    },
    {
-    "key": "vSAN|Stretched Cluster|Latency Between Sites|Preferred",
-    "group": "Stretched Cluster"
-   },
-   {
-    "key": "and Witness (ms)",
-    "group": "Stretched Cluster"
-   },
-   {
-    "key": "vSAN|Stretched Cluster|Latency Between Sites|Secondary",
-    "group": "Stretched Cluster"
-   },
-   {
-    "key": "and Witness (ms)",
+    "key": "vSAN|Stretched Cluster|Latency Between Sites|Secondary and Witness (ms)",
     "group": "Stretched Cluster"
    },
    {
@@ -3854,51 +3969,27 @@
     "group": "File Share"
    },
    {
-    "key": "vSAN | File Services | File Shares Used",
+    "key": "vSAN | File Services | File Shares Used Disk Space (GB)",
     "group": "File Service"
    },
    {
-    "key": "Disk Space (GB)",
+    "key": "vSAN | File Services | Root FS Used Disk Space (GB)",
     "group": "File Service"
    },
    {
-    "key": "vSAN | File Services | Root FS Used Disk",
+    "key": "vSAN | File Services | File Shares Count",
     "group": "File Service"
    },
    {
-    "key": "Space (GB)",
-    "group": "File Service"
-   },
-   {
-    "key": "vSAN | File",
-    "group": "File Service"
-   },
-   {
-    "key": "Services | File Shares Count",
-    "group": "File Service"
-   },
-   {
-    "key": "vSAN|Slack Space|Internal Operations",
+    "key": "vSAN|Slack Space|Internal Operations Capacity (GB)",
     "group": "Slack Space"
    },
    {
-    "key": "Capacity (GB)",
+    "key": "vSAN|Slack Space|Host Rebuild Capacity (GB)",
     "group": "Slack Space"
    },
    {
-    "key": "vSAN|Slack",
-    "group": "Slack Space"
-   },
-   {
-    "key": "Space|Host Rebuild Capacity (GB)",
-    "group": "Slack Space"
-   },
-   {
-    "key": "vSAN|Slack",
-    "group": "Slack Space"
-   },
-   {
-    "key": "Space|Transient Capacity Used (GB)",
+    "key": "vSAN|Slack Space|Transient Capacity Used (GB)",
     "group": "Slack Space"
    }
   ]
@@ -3952,207 +4043,103 @@
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-enabled-host.html",
   "items": [
    {
-    "key": "vSAN|Component",
+    "key": "vSAN|Component Limit|Component Limit Used (%)",
     "group": "Component Limit"
    },
    {
-    "key": "Limit|Component Limit Used (%)",
+    "key": "vSAN|Component Limit|Total Component Limit",
     "group": "Component Limit"
    },
    {
-    "key": "vSAN|Component",
+    "key": "vSAN|Component Limit|Used Component Limit",
     "group": "Component Limit"
    },
    {
-    "key": "Limit|Total Component Limit",
-    "group": "Component Limit"
-   },
-   {
-    "key": "vSAN|Component",
-    "group": "Component Limit"
-   },
-   {
-    "key": "Limit|Used Component Limit",
-    "group": "Component Limit"
-   },
-   {
-    "key": "vSAN|Disk",
+    "key": "vSAN|Disk Space|Disk Space Used (%)",
     "group": "Disk Space"
    },
    {
-    "key": "Space|Disk Space Used (%)",
+    "key": "vSAN|Disk Space|Total Disk Space (GB)",
     "group": "Disk Space"
    },
    {
-    "key": "vSAN|Disk",
+    "key": "vSAN|Disk Space|Used Disk Space (GB)",
     "group": "Disk Space"
    },
    {
-    "key": "Space|Total Disk Space (GB)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "vSAN|Disk",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Space|Used Disk Space (GB)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Read Cache Reserved (%)",
     "group": "Read Cache"
    },
    {
-    "key": "Cache|Read Cache Reserved (%)",
+    "key": "vSAN|Read Cache|Reserved Read Cache Size (GB)",
     "group": "Read Cache"
    },
    {
-    "key": "vSAN|Read",
+    "key": "vSAN|Read Cache|Total Read Cache Size (GB)",
     "group": "Read Cache"
    },
    {
-    "key": "Cache|Reserved Read Cache Size (GB)",
-    "group": "Read Cache"
-   },
-   {
-    "key": "vSAN|Read",
-    "group": "Read Cache"
-   },
-   {
-    "key": "Cache|Total Read Cache Size (GB)",
-    "group": "Read Cache"
-   },
-   {
-    "key": "vSAN|Performance|Network|Inbound",
+    "key": "vSAN|Performance|Network|Inbound Packets Loss Rate",
     "group": "Network"
    },
    {
-    "key": "Packets Loss Rate",
+    "key": "vSAN|Performance|Network|Outbound Packets Loss Rate",
     "group": "Network"
    },
    {
-    "key": "vSAN|Performance|Network|Outbound",
+    "key": "vSAN|Performance|Network|<vnic>|Inbound Packets Loss rate (%)",
     "group": "Network"
    },
    {
-    "key": "Packets Loss Rate",
+    "key": "vSAN|Performance|Network|<vnic>|Outbound Packets Loss Rate (%)",
     "group": "Network"
    },
    {
-    "key": "vSAN|Performance|Network|<vnic>|Inbound",
+    "key": "vSAN|Performance|Network|<vnic>|Inbound Packets Per second",
     "group": "Network"
    },
    {
-    "key": "Packets Loss rate (%)",
+    "key": "vSAN|Performance|Network|<vnic>|Outbound Packets Per second",
     "group": "Network"
    },
    {
-    "key": "vSAN|Performance|Network|<vnic>|Outbound",
+    "key": "vSAN|Performance|Network|<vnic>|Throughput Inbound (KBps)",
     "group": "Network"
    },
    {
-    "key": "Packets Loss Rate (%)",
+    "key": "vSAN|Performance|Network|<vnic>|Throughput Outbound (KBps)",
     "group": "Network"
    },
    {
-    "key": "vSAN|Performance|Network|<vnic>|Inbound",
-    "group": "Network"
-   },
-   {
-    "key": "Packets Per second",
-    "group": "Network"
-   },
-   {
-    "key": "vSAN|Performance|Network|<vnic>|Outbound",
-    "group": "Network"
-   },
-   {
-    "key": "Packets Per second",
-    "group": "Network"
-   },
-   {
-    "key": "vSAN|Performance|Network|<vnic>|Throughput",
-    "group": "Network"
-   },
-   {
-    "key": "Inbound (KBps)",
-    "group": "Network"
-   },
-   {
-    "key": "vSAN|Performance|Network|<vnic>|Throughput",
-    "group": "Network"
-   },
-   {
-    "key": "Outbound (KBps)",
-    "group": "Network"
-   },
-   {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | CPU | Ready (%)",
     "group": "CPU Utilization"
    },
    {
-    "key": "Performance | CPU | Ready (%)",
+    "key": "vSAN | Performance | CPU | Usage (%)",
     "group": "CPU Utilization"
    },
    {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | CPU | Used (MHz)",
     "group": "CPU Utilization"
    },
    {
-    "key": "Performance | CPU | Usage (%)",
+    "key": "vSAN | Performance | CPU | Core Utilization (%) (For Hyper-Threading Technology)",
     "group": "CPU Utilization"
    },
    {
-    "key": "vSAN |",
-    "group": "CPU Utilization"
-   },
-   {
-    "key": "Performance | CPU | Used (MHz)",
-    "group": "CPU Utilization"
-   },
-   {
-    "key": "vSAN |",
-    "group": "CPU Utilization"
-   },
-   {
-    "key": "Performance | CPU | Core Utilization (%) (For",
-    "group": "CPU Utilization"
-   },
-   {
-    "key": "Hyper-Threading Technology)",
-    "group": "CPU Utilization"
-   },
-   {
-    "key": "vSAN | Performance | PCPU | Ready",
+    "key": "vSAN | Performance | PCPU | Ready (%)",
     "group": "PCPU Utilization"
    },
    {
-    "key": "(%)",
+    "key": "vSAN | Performance | CPU | PCPU Usage (%)",
     "group": "PCPU Utilization"
    },
    {
-    "key": "vSAN |",
-    "group": "PCPU Utilization"
-   },
-   {
-    "key": "Performance | CPU | PCPU Usage (%)",
-    "group": "PCPU Utilization"
-   },
-   {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | Memory | Usage (%)",
     "group": "Memory"
    },
    {
-    "key": "Performance | Memory | Usage (%)",
-    "group": "Memory"
-   },
-   {
-    "key": "vSAN |",
-    "group": "Memory"
-   },
-   {
-    "key": "Performance | Memory | Used (GB)",
+    "key": "vSAN | Performance | Memory | Used (GB)",
     "group": "Memory"
    }
   ]
@@ -4484,107 +4471,55 @@
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-storage-pool.html",
   "items": [
    {
-    "key": "Disk",
+    "key": "Disk I/O|Physical Layer Read Latency (µs)",
     "group": "Disk I/O"
    },
    {
-    "key": "I/O|Physical Layer Read Latency (µs)",
+    "key": "Disk I/O|Physical Layer Write Latency (µs)",
     "group": "Disk I/O"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Physical Layer Read IOPS",
     "group": "Disk I/O"
    },
    {
-    "key": "I/O|Physical Layer Write Latency (µs)",
+    "key": "Disk I/O|Physical Layer Write IOPS",
     "group": "Disk I/O"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Physical Layer Read Throughput (KBps)",
     "group": "Disk I/O"
    },
    {
-    "key": "I/O|Physical Layer Read IOPS",
+    "key": "Disk I/O|Physical Layer Write Throughput (KBps)",
     "group": "Disk I/O"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Total Bus Resets",
     "group": "Disk I/O"
    },
    {
-    "key": "I/O|Physical Layer Write IOPS",
+    "key": "Disk I/O|Total IOPS Aborted",
     "group": "Disk I/O"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Number of Errors",
     "group": "Disk I/O"
    },
    {
-    "key": "I/O|Physical Layer Read Throughput (KBps)",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Disk",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "I/O|Physical Layer Write Throughput (KBps)",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Disk I/O|Total",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Bus Resets",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Disk I/O|Total",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "IOPS Aborted",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Disk I/O|Number",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "of Errors",
-    "group": "Disk I/O"
-   },
-   {
-    "key": "Disk Space|Capacity",
+    "key": "Disk Space|Capacity (bytes)",
     "group": "Disk Space"
    },
    {
-    "key": "(bytes)",
+    "key": "Disk Space|Usage (%)",
     "group": "Disk Space"
    },
    {
-    "key": "Disk Space|Usage",
+    "key": "Disk Space|Used (bytes)",
     "group": "Disk Space"
    },
    {
-    "key": "(%)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Disk Space|Used",
-    "group": "Disk Space"
-   },
-   {
-    "key": "(bytes)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Disk",
-    "group": "Disk Space"
-   },
-   {
-    "key": "Space|Workload(%)",
+    "key": "Disk Space|Workload(%)",
     "group": "Disk Space"
    }
   ]
@@ -5069,59 +5004,31 @@
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Physical Layer Write IOPS",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "I/O|Physical Layer Write IOPS",
+    "key": "Disk I/O|Physical Layer Read Throughput (KBps)",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Physical Layer Write Throughput (KBps)",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "I/O|Physical Layer Read Throughput (KBps)",
+    "key": "Disk I/O|Total Bus Resets",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "Disk",
+    "key": "Disk I/O|Total IOPS Aborted",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "I/O|Physical Layer Write Throughput (KBps)",
+    "key": "Disk I/O|Number of Errors",
     "group": "vSAN Health|Capacity"
    },
    {
-    "key": "Disk I/O|Total",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "Bus Resets",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "Disk I/O|Total",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "IOPS Aborted",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "Disk I/O|Number",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "of Errors",
-    "group": "vSAN Health|Capacity"
-   },
-   {
-    "key": "vSAN Health|Congestion Health|Congestion",
-    "group": "vSAN Health|Congestion"
-   },
-   {
-    "key": "Value",
+    "key": "vSAN Health|Congestion Health|Congestion Value",
     "group": "vSAN Health|Congestion"
    },
    {
@@ -5137,11 +5044,7 @@
     "group": "vSAN Performance"
    },
    {
-    "key": "vSAN|Performance|Physical Layer Write Throughput",
-    "group": "vSAN Performance"
-   },
-   {
-    "key": "(KBps)",
+    "key": "vSAN|Performance|Physical Layer Write Throughput (KBps)",
     "group": "vSAN Performance"
    },
    {
@@ -5204,19 +5107,11 @@
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-server.html",
   "items": [
    {
-    "key": "vSAN | Disk",
+    "key": "vSAN | Disk Space File Shares Used Disk Space (GB)",
     "group": "File Server"
    },
    {
-    "key": "Space File Shares Used Disk Space (GB)",
-    "group": "File Server"
-   },
-   {
-    "key": "vSAN |",
-    "group": "File Server"
-   },
-   {
-    "key": "Summary | File Shares Count",
+    "key": "vSAN | Summary | File Shares Count",
     "group": "File Server"
    }
   ]
@@ -5227,83 +5122,39 @@
   "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-share.html",
   "items": [
    {
-    "key": "vSAN |",
+    "key": "vSAN | Disk Space | Used Disk Space (GB)",
     "group": "Disk Space"
    },
    {
-    "key": "Disk Space | Used Disk Space (GB)",
-    "group": "Disk Space"
-   },
-   {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | Read Throughput Requested (MBps)",
     "group": "Read Performance"
    },
    {
-    "key": "Performance | Read Throughput Requested (MBps)",
+    "key": "vSAN | Performance | Read Throughput Transferred (MBps)",
     "group": "Read Performance"
    },
    {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | Read IOPS",
     "group": "Read Performance"
    },
    {
-    "key": "Performance | Read Throughput Transferred",
+    "key": "vSAN | Performance | Read Latency (ms)",
     "group": "Read Performance"
    },
    {
-    "key": "(MBps)",
-    "group": "Read Performance"
-   },
-   {
-    "key": "vSAN |",
-    "group": "Read Performance"
-   },
-   {
-    "key": "Performance | Read IOPS",
-    "group": "Read Performance"
-   },
-   {
-    "key": "vSAN |",
-    "group": "Read Performance"
-   },
-   {
-    "key": "Performance | Read Latency (ms)",
-    "group": "Read Performance"
-   },
-   {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | Write Throughput Requested (MBps)",
     "group": "Write Performance"
    },
    {
-    "key": "Performance | Write Throughput Requested (MBps)",
+    "key": "vSAN | Performance | Write Throughput Transferred (MBps)",
     "group": "Write Performance"
    },
    {
-    "key": "vSAN |",
+    "key": "vSAN | Performance | Write IOPS",
     "group": "Write Performance"
    },
    {
-    "key": "Performance | Write Throughput Transferred",
-    "group": "Write Performance"
-   },
-   {
-    "key": "(MBps)",
-    "group": "Write Performance"
-   },
-   {
-    "key": "vSAN |",
-    "group": "Write Performance"
-   },
-   {
-    "key": "Performance | Write IOPS",
-    "group": "Write Performance"
-   },
-   {
-    "key": "vSAN |",
-    "group": "Write Performance"
-   },
-   {
-    "key": "Performance | Write Latency (ms)",
+    "key": "vSAN | Performance | Write Latency (ms)",
     "group": "Write Performance"
    }
   ]
@@ -5734,50 +5585,817 @@
   ]
  },
  {
+  "kind": "guide",
+  "title": "Troubleshooting vSAN Performance",
+  "url": "https://www.vmware.com/docs/vmw-troubleshooting-vsan-performance",
+  "items": [
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Proof of Concept: vSAN Performance Testing",
+  "url": "https://www.vmware.com/docs/vsan-proof-of-concept-vsan-performance-testing",
+  "items": [
+   {
+    "key": "Random IO",
+    "match": "metric"
+   },
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Proof of Concept: Management, Monitoring and Hardware Testing",
+  "url": "https://www.vmware.com/docs/8-0u2-vsan-management-monitoring-hardware-testing",
+  "items": [
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "TCP Packets",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Proof of Concept: vSAN Architecture Overview and Setup",
+  "url": "https://www.vmware.com/docs/8-0u2-vsan-architectureoverviewsetup",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "TCP Connections",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Proof of Concept: vSAN Features",
+  "url": "https://www.vmware.com/docs/8-0u2-vsan-features-2",
+  "items": []
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Operations Guide",
+  "url": "https://www.vmware.com/docs/vmw-vsan-operations-guide",
+  "items": [
+   {
+    "key": "Trim/Unmap Throughput",
+    "match": "chart"
+   },
+   {
+    "key": "Unmap Throughput",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Design Guide",
+  "url": "https://www.vmware.com/docs/vmware-vsan-design-guide",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Space Efficiency Technologies",
+  "url": "https://www.vmware.com/docs/vmw-vsan-space-efficiency",
+  "items": [
+   {
+    "key": "Unmap IOPS",
+    "match": "metric"
+   },
+   {
+    "key": "Unmap Throughput",
+    "match": "metric"
+   },
+   {
+    "key": "Unmap Latency",
+    "match": "metric"
+   },
+   {
+    "key": "Recovery Unmap Throughput",
+    "match": "metric"
+   },
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Performance Evaluation Checklist",
+  "url": "https://www.vmware.com/docs/vmw-vsan-performance-evaluation-checklist",
+  "items": [
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN File Services",
+  "url": "https://www.vmware.com/docs/vmw-vsan-file-services",
+  "items": []
+ },
+ {
+  "kind": "guide",
+  "title": "Design and Operational Guidance for vSAN Storage Clusters",
+  "url": "https://www.vmware.com/docs/vmw-vsan-storage-clusters-design-and-operations",
+  "items": [
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "guide",
+  "title": "vSAN Frequently Asked Questions",
+  "url": "https://www.vmware.com/docs/vmw-vsan-faqs",
+  "items": [
+   {
+    "key": "Unmap Latency",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
   "kind": "blog",
   "title": "Blog: Effective Capacity View in vSAN for VCF 9.1",
   "url": "https://blogs.vmware.com/cloud-foundation/2026/05/11/effective-capacity-view-in-vsan-for-vcf-9-1/",
-  "items": [],
-  "headings": [
-   "Background",
-   "New Clarity with Effective Capacity",
-   "Capacity View – Effective Capacity Section",
-   "Capacity View – Space Efficiency Section",
-   "Accommodating Free Capacity Requirements",
-   "VM Capacity Consumption",
-   "Requirements",
-   "Summary",
-   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Space Efficiency Capacity",
+    "match": "chart"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
   ]
  },
  {
   "kind": "blog",
   "title": "Blog: Global Deduplication in vSAN ESA for VCF 9.0",
   "url": "https://blogs.vmware.com/cloud-foundation/2025/06/19/global-deduplication-in-vsan-esa-for-vmware-cloud-foundation-9-0/",
-  "items": [],
-  "headings": [
-   "Data Deduplication – What is it and Why it Matters",
-   "How vSAN Global Deduplication is Different",
-   "Deduplication Domain",
-   "Deduplication Processing and Performance",
-   "How it Works",
-   "How Effective is it?",
-   "The Advantage of Scalable Deduplication",
-   "Beyond Capacity Savings",
-   "Availability",
-   "Summary",
-   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  "items": [
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
   ]
  },
  {
   "kind": "blog",
   "title": "Blog: Understanding the different levels of vSAN performance metrics",
   "url": "https://blogs.vmware.com/cloud-foundation/2019/06/12/performance-troubleshooting-understanding-the-different-levels-of-vsan-performance-metrics/",
-  "items": [],
-  "headings": [
-   "Levels of Navigation",
-   "Summary",
-   "Discover more from VMware Cloud Foundation (VCF) Blog"
+  "items": []
+ },
+ {
+  "kind": "blog",
+  "title": "Yellow Bricks: vSAN HCI Mesh Considerations",
+  "url": "https://www.yellow-bricks.com/2020/10/07/vsan-hci-mesh-considerations/",
+  "date": "2020-10-07",
+  "items": [
+   {
+    "key": "DOM Clients",
+    "match": "chart"
+   },
+   {
+    "key": "DOM Owners",
+    "match": "chart"
+   }
   ]
+ },
+ {
+  "kind": "blog",
+  "title": "Yellow Bricks: Opvizor Performance Analyzer for vSAN",
+  "url": "https://www.yellow-bricks.com/2018/07/10/opvizor-performance-analyzer/",
+  "date": "2018-07-10",
+  "items": [
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   },
+   {
+    "key": "Read Cache Hit Rate",
+    "match": "chart"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Yellow Bricks: All Flash VSAN – One versus multiple disk groups",
+  "url": "https://www.yellow-bricks.com/2015/03/11/all-flash-vsan-one-versus-multiple-disk-groups/",
+  "date": "2015-03-11",
+  "items": [
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Yellow Bricks: Virtual SAN GA update: Flash vs Magnetic Disk ratio",
+  "url": "https://www.yellow-bricks.com/2014/03/07/virtual-san-ga-update-flash-vs-magnetic-disk-ratio/",
+  "date": "2014-03-07",
+  "items": [
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: vSAN Capacity Management in v7.0U1",
+  "url": "https://cormachogan.com/2020/10/29/vsan-capacity-management-in-v7-0u1/",
+  "date": "2020-10-29",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: VSAN 6.2 Part 6 – Performance Service",
+  "url": "https://cormachogan.com/2016/02/23/vsan-6-2-part-6-performance-service/",
+  "date": "2016-02-23",
+  "items": [
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   },
+   {
+    "key": "Read Cache Hit Rate",
+    "match": "chart"
+   },
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Write Buffer Free Percentage",
+    "match": "metric"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: vROps Management Pack for Virtual SAN",
+  "url": "https://cormachogan.com/2015/06/11/vrops-management-pack-for-virtual-san/",
+  "date": "2015-06-11",
+  "items": [
+   {
+    "key": "Read Cache Hit Rate",
+    "match": "chart"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: Tips for a successful Virtual SAN (VSAN) Proof Of Concept (POC)",
+  "url": "https://cormachogan.com/2014/11/14/tips-for-a-successful-virtual-san-proof-of-concept-poc/",
+  "date": "2014-11-14",
+  "items": [
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   },
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: Heads Up! Incorrect reporting of Outstanding IO in VSAN Observer",
+  "url": "https://cormachogan.com/2014/10/16/heads-up-incorrect-reporting-of-outstanding-io-in-vsan-observer/",
+  "date": "2014-10-16",
+  "items": [
+   {
+    "key": "Outstanding IO",
+    "match": "chart"
+   },
+   {
+    "key": "DOM Owners",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "Cormac Hogan: VSAN Part 10 – Changing VM Storage Policy on-the-fly",
+  "url": "https://cormachogan.com/2013/09/19/vsan-part-10-changing-vm-storage-profile-on-the-fly/",
+  "date": "2013-09-19",
+  "items": [
+   {
+    "key": "Read Cache Hit Rate",
+    "match": "chart"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "William Lam: Correlating vSAN perf metrics from vSphere Web Client to both PowerCLI & vSAN Mgmt API",
+  "url": "https://williamlam.com/2017/05/correlating-vsan-perf-metrics-from-vsphere-web-client-to-both-powercli-vsan-mgmt-api.html",
+  "date": "2017-05-03",
+  "items": [
+   {
+    "key": "cluster-domclient",
+    "match": "entity"
+   },
+   {
+    "key": "cluster-domcompmgr",
+    "match": "entity"
+   },
+   {
+    "key": "host-domclient",
+    "match": "entity"
+   },
+   {
+    "key": "host-domcompmgr",
+    "match": "entity"
+   },
+   {
+    "key": "cache-disk",
+    "match": "entity"
+   },
+   {
+    "key": "capacity-disk",
+    "match": "entity"
+   },
+   {
+    "key": "disk-group",
+    "match": "entity"
+   },
+   {
+    "key": "iopsSched",
+    "match": "metric ID"
+   },
+   {
+    "key": "virtual-machine",
+    "match": "entity"
+   },
+   {
+    "key": "virtual-disk",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-vnic-net",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-host-net",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-pnic-net",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-iscsi-host",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-iscsi-target",
+    "match": "entity"
+   },
+   {
+    "key": "vsan-iscsi-lun",
+    "match": "entity"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "William Lam: VSAN Flash/MD capacity reporting",
+  "url": "https://williamlam.com/2014/04/vsan-flashmd-capacity-reporting.html",
+  "date": "2014-04-29",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Should Automatic Rebalancing be Enabled in a vSAN Cluster?",
+  "url": "https://blogs.vmware.com/cloud-foundation/2020/04/15/should-automatic-rebalancing-be-enabled-vsan-cluster/",
+  "date": "2020-04-15",
+  "items": [
+   {
+    "key": "Rebalance Read",
+    "match": "metric"
+   },
+   {
+    "key": "Rebalance Write",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Capacity Overheads for the ESA in vSAN 8",
+  "url": "https://blogs.vmware.com/cloud-foundation/2022/11/02/capacity-overheads-for-the-esa-in-vsan-8/",
+  "date": "2022-11-02",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Using Fault Domains in vSAN ESA",
+  "url": "https://blogs.vmware.com/cloud-foundation/2023/06/08/using-fault-domains-in-vsan-esa/",
+  "date": "2023-06-08",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Improved Capacity Reporting in VMware Cloud Foundation 5.1 and vSAN 8 U2",
+  "url": "https://blogs.vmware.com/cloud-foundation/2024/01/30/improved-capacity-reporting-in-vmware-cloud-foundation-5-1-and-vsan-8-u2/",
+  "date": "2024-01-30",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: The Importance of Space Reclamation for Data Usage Reporting in vSAN",
+  "url": "https://blogs.vmware.com/cloud-foundation/2022/03/10/the-importance-of-space-reclamation-for-data-usage-reporting-in-vsan/",
+  "date": "2022-03-10",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Asymmetrical vSAN Clusters – What is Allowed, and What is Smart",
+  "url": "https://blogs.vmware.com/cloud-foundation/2022/01/26/asymmetrical-vsan-clusters-what-is-allowed-and-what-is-smart/",
+  "date": "2022-01-26",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Demystifying Capacity Reporting in vSAN",
+  "url": "https://blogs.vmware.com/cloud-foundation/2022/01/14/demystifying-capacity-reporting-in-vsan/",
+  "date": "2022-01-14",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Sizing Considerations with 2-Node vSAN Clusters running vSAN 7 U3",
+  "url": "https://blogs.vmware.com/cloud-foundation/2021/10/25/sizing-considerations-with-2-node-vsan-clusters-running-vsan-7-u3/",
+  "date": "2021-10-25",
+  "items": [
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Should Automatic Rebalancing be Enabled in a vSAN Cluster?",
+  "url": "https://blogs.vmware.com/cloud-foundation/2020/05/19/should-automatic-rebalancing-be-enabled-in-a-vsan-cluster/",
+  "date": "2020-05-19",
+  "items": [
+   {
+    "key": "Rebalance Read",
+    "match": "metric"
+   },
+   {
+    "key": "Rebalance Write",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Revisiting vSAN’s Free Capacity Recommendations",
+  "url": "https://blogs.vmware.com/cloud-foundation/2021/12/11/revisiting-vsans-free-capacity-recommendations/",
+  "date": "2021-12-11",
+  "items": [
+   {
+    "key": "Total Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Understanding Reserved Capacity Concepts in vSAN",
+  "url": "https://blogs.vmware.com/cloud-foundation/2022/02/18/understanding-reserved-capacity-concepts-in-vsan/",
+  "date": "2022-02-18",
+  "items": [
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Performance Best Practices for VMware Snapshots",
+  "url": "https://blogs.vmware.com/cloud-foundation/2021/06/16/performance-best-practices-for-vmware-snapshots/",
+  "date": "2021-06-16",
+  "items": [
+   {
+    "key": "Sequential IO",
+    "match": "metric"
+   },
+   {
+    "key": "Random IO",
+    "match": "metric"
+   },
+   {
+    "key": "IO Components",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Troubleshooting Storage Performance in vSphere – Part 1 – The Basics",
+  "url": "https://blogs.vmware.com/cloud-foundation/2012/05/30/troubleshooting-storage-performance-in-vsphere-part-1-the-basics/",
+  "date": "2012-05-30",
+  "items": [
+   {
+    "key": "Guest Average Latency",
+    "match": "metric"
+   },
+   {
+    "key": "Device Average Latency",
+    "match": "metric"
+   },
+   {
+    "key": "Kernel Average Latency",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Understanding vSAN Architecture: Disk Groups",
+  "url": "https://blogs.vmware.com/cloud-foundation/2019/04/18/vsan-disk-groups/",
+  "date": "2019-04-18",
+  "items": [
+   {
+    "key": "Write Buffer",
+    "match": "chart"
+   },
+   {
+    "key": "Cache Hit Rate",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: vSAN Capacity Management and Monitoring Part 1",
+  "url": "https://blogs.vmware.com/cloud-foundation/2019/01/14/vsan-capacity-management-and-monitoring-part-1/",
+  "date": "2019-01-14",
+  "items": [
+   {
+    "key": "Used Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Reserved Capacity",
+    "match": "metric"
+   },
+   {
+    "key": "Free Capacity",
+    "match": "metric"
+   }
+  ]
+ },
+ {
+  "kind": "blog",
+  "title": "VMware VCF blog: Fast and Efficient Reads in vSAN Express Storage Architecture",
+  "url": "https://blogs.vmware.com/cloud-foundation/2023/05/10/fast-and-efficient-reads-in-vsan-express-storage-architecture/",
+  "date": "2023-05-10",
+  "items": [
+   {
+    "key": "DOM Clients",
+    "match": "chart"
+   },
+   {
+    "key": "DOM Owners",
+    "match": "chart"
+   }
+  ]
+ },
+ {
+  "kind": "scan",
+  "title": "Yellow Bricks",
+  "url": "",
+  "posts": 473,
+  "kept": 4,
+  "items": []
+ },
+ {
+  "kind": "scan",
+  "title": "Cormac Hogan",
+  "url": "",
+  "posts": 428,
+  "kept": 6,
+  "items": []
+ },
+ {
+  "kind": "scan",
+  "title": "William Lam",
+  "url": "",
+  "posts": 416,
+  "kept": 2,
+  "items": []
+ },
+ {
+  "kind": "scan",
+  "title": "VMware VCF blog",
+  "url": "",
+  "posts": 344,
+  "kept": 16,
+  "items": []
  }
 ]

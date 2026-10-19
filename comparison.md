@@ -8,16 +8,16 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 
 | Area | API | Documentation | Gap |
 |---|---|---|---|
-| Performance metrics | 1,164 metrics in 69 entity types listed live, plus 845 more that a live cluster returned without listing them | 386 metric IDs in 2 KBs; the VCF 9.1 manual names chart groups only | 1,685 live metrics are not documented (840 listed, 845 unlisted); 44 of 69 entity types have no KB coverage at all |
+| Performance metrics | 1,164 metrics in 69 entity types listed live, plus 845 more that a live cluster returned without listing them | 452 metric IDs in 4 KBs; the VCF 9.1 manual names chart groups only; 12 VMware technical papers and 1,661 blog posts name 19 more metrics | 1,625 live metrics have no documented ID (780 listed, 845 unlisted); 37 of 69 entity types have no KB coverage at all |
 | Health checks | 191 checks (181 distinct test IDs), listed live; 53 ran on the live cluster | 139 entries in the KB index | 71 test IDs have no KB entry; 30 KB entries match no live check |
 | Capacity | 59 fields in `VsanQuerySpaceUsage` (schema), 25 seen live | 2 manual pages (legacy and ESA effective capacity) | Most terms map to a field; a few are UI calculations |
 | Configuration and inventory | About 1,600 vSAN API property fields (schema), 452 seen live; 137 vSAN properties on vim25 inventory objects | VCF Operations lists 68 properties | The documentation covers a small fraction |
 
 ## Findings
 
-1. **Most performance metrics are undocumented.** The KBs cover the classic charts (cluster, host, disk group, disk, network, VM, iSCSI, file service, I/O Insight). Whole areas returned live have no documentation with API IDs: ESA global deduplication (10 entity types, 266 metrics), DOM owner, resync, RDT network latency, CMMDS, vSAN CPU and memory overhead, PMem, vSAN Direct, sparse host, CLOM and dying-disk handling.
+1. **Most performance metrics are undocumented.** The KBs cover the classic charts (cluster, host, disk group, disk, network, VM, iSCSI, file service, I/O Insight). Whole areas returned live have no documentation with API IDs: ESA global deduplication (10 entity types, 266 metrics), DOM owner, resync, CMMDS, vSAN CPU and memory overhead, vSAN Direct, sparse host, CLOM and dying-disk handling.
 2. **Documented IDs that the live API does not list.** `ioinsight-histogram` (30 histogram buckets, read and write) is documented as an entity type but is not returned by `VsanPerfGetSupportedEntityTypes`; it may exist only while an I/O Insight run is active. `vsan-host-net` `tcpTxRexmitRate` and `tcpRxErrRate` are documented, but the live entity lists `ioChainRxdrops` and `ioChainTxdrops` instead, and TCP statistics are in a separate `vsan-tcpip-stats` entity.
-3. **Errors in the KBs.** KB 326812 gives the Remote VM latency charts the throughput IDs (`throughputRead`, `throughputWrite`); the live API has `latencyAvgRead` and `latencyAvgWrite` for those entities. It also titles the ESA disk-layer read latency (`avgLatReadCapacity`) "Read IOPS". KB 326812 writes the remote client entity types as "A or B"; the API has them as separate entity types.
+3. **Errors in the KBs.** KB 326812 gives the Remote VM latency charts the throughput IDs (`throughputRead`, `throughputWrite`); the live API has `latencyAvgRead` and `latencyAvgWrite` for those entities. It also titles the ESA disk-layer read latency (`avgLatReadCapacity`) "Read IOPS". KB 326812 writes the remote client entity types as "A or B"; the API has them as separate entity types. KB 326720 gives `iops`, `throughput` and `latency` as the IDs for `cluster-zdom-top-stats` and `host-zdom-top-stats`; those are chart names, and the API metrics are `iopsRead`, `iopsWrite`, `throughputRead`, `throughputWrite`, `latencyAvgRead` and `latencyAvgWrite`.
 4. **Real-time entity types cannot be discovered.** The KBs name `hr-*` real-time entity types (30-second samples, 7-day retention, vSAN 8.0 U1 and later). `VsanPerfGetSupportedEntityTypes` does not return them.
 5. **Health catalog quirks.** Ten checks are listed twice, in a local group and in "Online health" (`cloudhealth`), with the same test ID. 19 checks return an untranslated message key (`com.vmware.vsan.health.test…testname`) instead of a name.
 6. **Capacity: the documentation and the API use different names.** "Total usable capacity" is `effectiveSpaceUsage.totalUsableB`, "Object reserved" is `overReservedB`, "Data reduction ratio" is `spaceEfficiencyRatio.overallRatio`. "Used capacity", "Overprovisioning ratio" and "RAID factor" have no field of their own; the UI computes them.
@@ -26,6 +26,8 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 9. **Entity IDs are not uniform.** Only 14 entity types accept a wildcard ID (`<type>:*`). The others need the cluster UUID, a host node UUID, a disk group or disk UUID, `<nodeUuid>|*`, `<nodeUuid>|<vmknic>`, a VM instance UUID or `<vmInstanceUuid>|*`; see the coverage table at the end of [metrics-api.md](metrics-api.md). An unknown ID returns an empty result, not an error.
 10. **vCenter's own vSAN counters are not exposed.** `PerformanceManager` defines 16 `vsanDomObj` counters, but `QueryAvailablePerfMetric` offers none of them on the vSAN cluster, its hosts, the vSAN datastore or its VMs.
 11. **Hosts have an undocumented raw-statistics interface.** `HostSystem.configManager.vsanInternalSystem` returns JSON with about 7,900 field paths, including about 7,600 raw counters from `QueryVsanStatistics` (DOM client, owner and component manager, LSOM, PLOG). They are listed in [internal-api.md](internal-api.md).
+12. **Blogs and technical papers do not document metrics.** All vSAN posts on Yellow Bricks (473), Cormac Hogan (428), William Lam (416) and the VMware VCF blog (344), and 12 VMware technical papers (troubleshooting, proof-of-concept, operations, design), were searched for the API's chart and metric names, metric IDs and entity types. 30 posts and 10 papers name at least two; together they name 19 live metrics that no KB gives an ID for (resync rebalance, remote-client unmap, cluster capacity, write buffer free, dying-disk log congestion). They explain concepts (frontend vs backend, congestion, write buffer) in prose, not by metric. Only one post quotes API IDs: William Lam's 2017 mapping of vSphere Client charts to PowerCLI and the vSAN Management API (15 entity types). See section 5.
+13. **Units are documented only by VCF Operations.** It writes the unit into the metric name (`Latency (ms)`, `Throughput (KBps)`); the KBs, the manual, technical papers and blogs give none. [metrics-docs.md](metrics-docs.md) shows the API unit for those rows, marked *(API)*. The two disagree in places: the API reports throughput in bytes/s (VCF Operations: KBps) and ESA disk latency in ms (VCF Operations storage pool: µs).
 
 ## Limits of this comparison
 
@@ -33,25 +35,33 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 - Catalogs (performance entity types and health checks) were listed on a VCF 9.1.0 vCenter; the live cluster runs 9.1.1 and lists the same 69 entity types.
 - Health checks are matched by name, plus the manual overrides listed in `tools/compare.py`. The counts are approximate.
 - KB articles carry no version; they were read on the date of the commit.
+- Blogs and technical papers are matched by name against the API's own chart and metric names (two words or more, generic ones such as "Read IOPS" excluded). A post that describes a metric in other words is not counted.
 
-## 1. Performance metrics: KB 326953 and 326812 vs the live performance service
+## 1. Performance metrics: KBs with API IDs vs the live performance service
 
-The two KBs are the only documents that give API metric IDs, so this is an exact match on `(entity type, metric label)`.
+KB 326953, 326812, 326720 and 326555 are the only documents that give API metric IDs, so this is an exact match on
+`(entity type, metric label)`. Section 5 covers what the other sources add.
 
 | | Count |
 |---|---|
 | Metrics listed live by `VsanPerfGetSupportedEntityTypes` | 1164 |
 | Metrics returned live by `VsanPerfQueryPerf` but not listed (one OSA cluster) | 845 |
-| Metrics documented in the KBs | 386 |
-| Documented and live | 324 |
-| Documented but not listed live | 62 |
-| Live but not documented in the KBs | 1685 |
-| Live entity types with no KB coverage at all | 44 of 69 |
+| Metrics documented in the KBs | 452 |
+| Documented and live | 384 |
+| Documented but not listed live | 68 |
+| Live but not documented in the KBs | 1625 |
+| Live entity types with no KB coverage at all | 37 of 69 |
 
 ### Documented but not listed live
 
 | Entity type | Metric label | Likely reason |
 |---|---|---|
+| `cluster-zdom-top-stats` | `iops` | Label not in this entity's live metric list |
+| `cluster-zdom-top-stats` | `latency` | Label not in this entity's live metric list |
+| `cluster-zdom-top-stats` | `throughput` | Label not in this entity's live metric list |
+| `host-zdom-top-stats` | `iops` | Label not in this entity's live metric list |
+| `host-zdom-top-stats` | `latency` | Label not in this entity's live metric list |
+| `host-zdom-top-stats` | `throughput` | Label not in this entity's live metric list |
 | `ioinsight-histogram` | `riosz0_4k` | Entity type not returned by `VsanPerfGetSupportedEntityTypes` |
 | `ioinsight-histogram` | `riosz128k` | Entity type not returned by `VsanPerfGetSupportedEntityTypes` |
 | `ioinsight-histogram` | `riosz128k_256k` | Entity type not returned by `VsanPerfGetSupportedEntityTypes` |
@@ -134,11 +144,10 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cluster-esa-dedup-domowner-io` | vSAN Cluster | 24 | no |
 | `cluster-esa-dedup-store-chunksvc` | vSAN Cluster | 27 | no |
 | `cluster-esa-dedup-store-hashsvc` | vSAN Cluster | 34 | no |
-| `cluster-pmem` | vSAN Cluster | 8 | no |
-| `cluster-rdt-network-latency` | vSAN Cluster | 17 | no |
+| `cluster-rdt-network-latency` | vSAN Cluster | 2 | yes |
 | `cluster-remotedomclient` | vSAN Cluster | 2 | yes |
 | `cluster-resync` | vSAN Cluster | 32 | no |
-| `cluster-zdom-top-stats` | vSAN Cluster | 6 | no |
+| `cluster-zdom-top-stats` | vSAN Cluster | 6 | yes |
 | `computeCluster-remotedomclient` | vSAN Cluster | 2 | yes |
 | `vsan-cluster-capacity` | vSAN Cluster | 5 | no |
 | `vsan-direct-cluster` | vSAN Cluster | 8 | no |
@@ -163,13 +172,12 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `host-esa-dedup-domowner-io` | vSAN Host | 24 | no |
 | `host-esa-dedup-store-chunksvc` | vSAN Host | 27 | no |
 | `host-esa-dedup-store-hashsvc` | vSAN Host | 34 | no |
-| `host-pmem` | vSAN Host | 8 | no |
 | `host-remotedomclient` | vSAN Host | 5 | yes |
 | `host-vsansparse` | vSAN Host | 21 | no |
-| `host-zdom-top-stats` | vSAN Host | 6 | no |
+| `host-zdom-top-stats` | vSAN Host | 6 | yes |
 | `lsom-world-cpu` | vSAN Host | 2 | no |
 | `rdt-net` | vSAN Host | 1 | no |
-| `rdt-network-latency` | vSAN Host | 17 | no |
+| `rdt-network-latency` | vSAN Host | 2 | yes |
 | `slab-memory` | vSAN Host | 1 | no |
 | `system-mem` | vSAN Host | 3 | no |
 | `vsan-cpu` | vSAN Host | 7 | no |
@@ -178,8 +186,7 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-host-net` | vSAN Host | 4 | yes |
 | `vsan-memory` | vSAN Host | 50 | no |
 | `vsan-tcpip-stats` | vSAN Host | 16 | no |
-| `zdom-vtx` | vSAN Host | 2 | yes |
-| `vnic-rdt-network-latency` | vSAN Network Adapter | 17 | no |
+| `vnic-rdt-network-latency` | vSAN Network Adapter | 5 | yes |
 | `vsan-pnic-net` | vSAN Network Adapter | 46 | yes |
 | `vsan-vnic-net` | vSAN Network Adapter | 12 | yes |
 
@@ -722,31 +729,8 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cluster-esa-dedup-store-hashsvc` | `rateUniqChunks` | Processed Unique Chunks Per Second | default |
 | `cluster-esa-dedup-store-hashsvc` | `rateUniqHashReq` | Unique Hash Requests Per Second | default |
 | `cluster-esa-dedup-store-hashsvc` | `rateWriteLockWait` | Write Lock Wait Per Second | default |
-| `cluster-pmem` | `bandwidthRead` | Read Bandwidth | default |
-| `cluster-pmem` | `bandwidthTotal` | Total Bandwidth | default |
-| `cluster-pmem` | `bandwidthWrite` | Write Bandwidth | default |
-| `cluster-pmem` | `iopsRead` | Read IOPS | default |
-| `cluster-pmem` | `iopsTotal` | Total IOPS | default |
-| `cluster-pmem` | `iopsWrite` | Write IOPS | default |
-| `cluster-pmem` | `latencyRead` | Read Latency | default |
-| `cluster-pmem` | `latencyWrite` | Write Latency | default |
-| `cluster-rdt-network-latency` | `avgLatency` | RDT Network Cluster Average Latency | default |
 | `cluster-rdt-network-latency` | `kaReset` |  | live only |
-| `cluster-rdt-network-latency` | `maxLatency` | RDT Network Cluster Max Latency | default |
-| `cluster-rdt-network-latency` | `minLatency` | RDT Network Cluster Min Latency | default |
 | `cluster-rdt-network-latency` | `numReadyDelay` |  | live only |
-| `cluster-rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | default |
-| `cluster-rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | default |
-| `cluster-rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | default |
-| `cluster-rdt-network-latency` | `txCtxQAvg` | RDT Network Average Outbound Context Bytes | default |
-| `cluster-rdt-network-latency` | `txCtxQMax` | RDT Network Max Outbound Context Bytes | default |
-| `cluster-rdt-network-latency` | `txCtxQMin` | RDT Network Min Outbound Context Bytes | default |
-| `cluster-rdt-network-latency` | `txQLatAvg` | RDT Network Average Outbound Queueing Latency | default |
-| `cluster-rdt-network-latency` | `txQLatMax` | RDT Network Max Outbound Queueing Latency | default |
-| `cluster-rdt-network-latency` | `txQLatMin` | RDT Network Min Outbound Queueing Latency | default |
-| `cluster-rdt-network-latency` | `txSbSpaceAvg` | RDT Network Socket Average Outbound Bytes | default |
-| `cluster-rdt-network-latency` | `txSbSpaceMax` | RDT Network Socket Max Outbound Bytes | default |
-| `cluster-rdt-network-latency` | `txSbSpaceMin` | RDT Network Socket Min Outbound Bytes | default |
 | `cluster-remotedomclient` | `latencyAvgRead` | Read Latency | default |
 | `cluster-remotedomclient` | `latencyAvgWrite` | Write Latency | default |
 | `cluster-resync` | `iopsResyncReadDecom` | Evacuation Read | default |
@@ -1530,14 +1514,6 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `host-esa-dedup-store-hashsvc` | `rateUniqChunks` | Processed Unique Chunks Per Second | default |
 | `host-esa-dedup-store-hashsvc` | `rateUniqHashReq` | Unique Hash Requests Per Second | default |
 | `host-esa-dedup-store-hashsvc` | `rateWriteLockWait` | Write Lock Wait Per Second | default |
-| `host-pmem` | `bandwidthRead` | Read Bandwidth | default |
-| `host-pmem` | `bandwidthTotal` | Total Bandwidth | default |
-| `host-pmem` | `bandwidthWrite` | Write Bandwidth | default |
-| `host-pmem` | `iopsRead` | Read IOPS | default |
-| `host-pmem` | `iopsTotal` | Total IOPS | default |
-| `host-pmem` | `iopsWrite` | Write IOPS | default |
-| `host-pmem` | `latencyRead` | Read Latency | default |
-| `host-pmem` | `latencyWrite` | Write Latency | default |
 | `host-remotedomclient` | `iopsUnmap` | Unmap IOPS | default |
 | `host-remotedomclient` | `latencyAvgRead` | Read Latency | default |
 | `host-remotedomclient` | `latencyAvgUnmap` | Unmap Latency | default |
@@ -1633,23 +1609,8 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `lsom-world-cpu` | `readyPct` | Percentage of Ready CPU Time | default |
 | `lsom-world-cpu` | `usedPct` | Percentage of Used CPU Time | default |
 | `rdt-net` | `checksumMismatchCount` | RDT Net Checksum Mismatch Count | default |
-| `rdt-network-latency` | `avgLatency` | RDT Network Host Average Latency | default |
 | `rdt-network-latency` | `kaReset` |  | live only |
-| `rdt-network-latency` | `maxLatency` | RDT Network Host Max Latency | advanced |
-| `rdt-network-latency` | `minLatency` | RDT Network Host Min Latency | advanced |
 | `rdt-network-latency` | `numReadyDelay` |  | live only |
-| `rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | advanced |
-| `rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | advanced |
-| `rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | advanced |
-| `rdt-network-latency` | `txCtxQAvg` | RDT Network Average Outbound Context Bytes | advanced |
-| `rdt-network-latency` | `txCtxQMax` | RDT Network Max Outbound Context Bytes | advanced |
-| `rdt-network-latency` | `txCtxQMin` | RDT Network Min Outbound Context Bytes | advanced |
-| `rdt-network-latency` | `txQLatAvg` | RDT Network Average Outbound Queueing Latency | advanced |
-| `rdt-network-latency` | `txQLatMax` | RDT Network Max Outbound Queueing Latency | advanced |
-| `rdt-network-latency` | `txQLatMin` | RDT Network Min Outbound Queueing Latency | advanced |
-| `rdt-network-latency` | `txSbSpaceAvg` | RDT Network Socket Average Outbound Bytes | advanced |
-| `rdt-network-latency` | `txSbSpaceMax` | RDT Network Socket Max Outbound Bytes | advanced |
-| `rdt-network-latency` | `txSbSpaceMin` | RDT Network Socket Min Outbound Bytes | advanced |
 | `remote-virtual-disk` | `NIOPS` | Normalized IOPS on Remote Datastore | default |
 | `remote-virtual-disk` | `NIOPSDelayed` | Delayed Normalized IOPS on Remote Datastore | default |
 | `remote-virtual-disk` | `iopsLimit` | Normalized IOPS Limit on Remote Datastore | default |
@@ -1676,18 +1637,6 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vnic-rdt-network-latency` | `maxLatency` | RDT Network VNIC Max Latency | advanced |
 | `vnic-rdt-network-latency` | `minLatency` | RDT Network VNIC Min Latency | advanced |
 | `vnic-rdt-network-latency` | `numReadyDelay` |  | live only |
-| `vnic-rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | advanced |
-| `vnic-rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | advanced |
-| `vnic-rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | advanced |
-| `vnic-rdt-network-latency` | `txCtxQAvg` | RDT Network Average Outbound Context Bytes | advanced |
-| `vnic-rdt-network-latency` | `txCtxQMax` | RDT Network Max Outbound Context Bytes | advanced |
-| `vnic-rdt-network-latency` | `txCtxQMin` | RDT Network Min Outbound Context Bytes | advanced |
-| `vnic-rdt-network-latency` | `txQLatAvg` | RDT Network Average Outbound Queueing Latency | advanced |
-| `vnic-rdt-network-latency` | `txQLatMax` | RDT Network Max Outbound Queueing Latency | advanced |
-| `vnic-rdt-network-latency` | `txQLatMin` | RDT Network Min Outbound Queueing Latency | advanced |
-| `vnic-rdt-network-latency` | `txSbSpaceAvg` | RDT Network Socket Average Outbound Bytes | advanced |
-| `vnic-rdt-network-latency` | `txSbSpaceMax` | RDT Network Socket Max Outbound Bytes | advanced |
-| `vnic-rdt-network-latency` | `txSbSpaceMin` | RDT Network Socket Min Outbound Bytes | advanced |
 | `vsan-cluster-capacity` | `dedupRatio` | Space Efficiency Ratio | default |
 | `vsan-cluster-capacity` | `free` | Free Capacity | default |
 | `vsan-cluster-capacity` | `savedByDedup` | Saved Capacity | default |
@@ -1870,8 +1819,6 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-vnic-net` | `txPacketsLossRateActual` |  | live only |
 | `vscsi` | `readCount` |  | live only |
 | `vscsi` | `writeCount` |  | live only |
-| `zdom-vtx` | `iopsCacheMissRate` | Cache Miss Per IOPS | default |
-| `zdom-vtx` | `tputCacheMissRate` | Cache Miss Per Throughput | default |
 
 </details>
 
@@ -2136,50 +2083,7 @@ says whether the field came back with a value on the live cluster (one OSA clust
 
 | Documented term | API field | Field exists in schema | Seen live |
 |---|---|---|---|
-| Free space on disks ([10]) | `freeCapacityB` | yes | yes |
-| Used ([10]) | `spaceOverview.usedB` | yes | yes |
-| Actually written ([10]) | `effectiveSpaceUsage.actualWrittenB` | yes | no |
-| Reservations and Alerts ([10]) | `capacityHealthThreshold.*` | partly | no |
-| VM (user objects) usage: VM home objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: Swap objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: VMDK ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: Shared user data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: VM memory snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: Block container volumes (attached to a VM) ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VM (user objects) usage: vSphere replication persistent state file ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| Non-VM (user objects) usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| System usage: Performance management objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: File system overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: ESA object overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: Checksum overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: Dedup & compression overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: Operations usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System usage: Native trace objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| Container volume snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| VMDK snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| vSAN file share snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| Current data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
-| Total usable capacity ([15]) | `effectiveSpaceUsage.totalUsableB` | yes | no |
-| Used capacity ([15]) |  | no field; derived or UI-only |  |
-| Actually written ([15]) | `effectiveSpaceUsage.actualWrittenB` | yes | no |
-| Object reserved ([15]) | `effectiveSpaceUsage.overReservedB` | yes | no |
-| Free usable capacity ([15]) | `effectiveSpaceUsage.freeUsableB` | yes | no |
-| Total provisioned capacity ([15]) | `effectiveSpaceUsage.totalProvisionB` | yes | no |
-| Data reduction ratio ([15]) | `spaceEfficiencyRatio.overallRatio` | yes | no |
-| Deduplication ratio ([15]) | `spaceEfficiencyRatio.dedupRatio` | yes | no |
-| Compression ratio ([15]) | `spaceEfficiencyRatio.compressionRatio` | yes | no |
-| Thin provisioning saving ratio ([15]) | `spaceEfficiencyRatio.thinProvisionRatio` | yes | no |
-| Overprovisioning ratio ([15]) |  | no field; derived or UI-only |  |
-| Snapshot saving ratio ([15]) | `spaceEfficiencyRatio.snapshotSavingRatio` | yes | no |
-| Fully inflated snapshot capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.fullyInflatedSnapshotUsedB` | yes | no |
-| vSAN snapshot used capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.actualSnapshotUsedB` | yes | no |
-| Total Raw Capacity ([15]) | `totalCapacityB` | yes | yes |
-| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System Usage: File system overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System Usage: vSAN ESA objects overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System Usage: Dedup overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
-| RAID Factor ([15]) |  | no field; derived or UI-only |  |
+| Used ([13]) | `spaceOverview.usedB` | yes | yes |
 
 ## 4. VCF Operations reference vs the vSAN API
 
@@ -2188,18 +2092,60 @@ field behind each one, so a row-by-row match is not possible. Coverage by object
 
 | Object type | VCF Operations metrics | VCF Operations properties | API metrics | API properties |
 |---|---|---|---|---|
-| vSAN Cluster | 153 | 14 | 469 | 703 |
+| vSAN Cluster | 94 | 14 | 469 | 703 |
 | vSAN Datastore | 9 | 0 | 51 | 31 |
-| vSAN Host | 68 | 2 | 847 | 491 |
-| Disk Group | 77 | 3 | 234 | 41 |
-| vSAN Disk | 147 | 40 | 472 | 166 |
+| vSAN Host | 42 | 2 | 847 | 491 |
+| Disk Group | 64 | 3 | 234 | 41 |
+| vSAN Disk | 139 | 40 | 472 | 166 |
 | vSAN Network Adapter | 0 | 0 | 92 | 0 |
 | vSAN Object | 0 | 0 | 22 | 110 |
 | Virtual Machine | 0 | 0 | 135 | 8 |
 | Virtual Disk | 0 | 0 | 20 | 0 |
-| File Share | 24 | 9 | 23 | 143 |
+| File Share | 11 | 9 | 23 | 143 |
 | iSCSI Target | 0 | 0 | 12 | 22 |
 | iSCSI LUN | 0 | 0 | 12 | 21 |
+
+## 5. Coverage by documentation source
+
+How many of the 2009 live performance metrics each kind of source names. KB articles with API IDs name the
+exact metric. The other sources are counted by metric name or metric ID only; a metric name such as "Free Capacity"
+counts for every entity type that has a metric of that name. Chart names and entity types are listed in
+[metrics-docs.md](metrics-docs.md) but not counted here. Blogs were searched in full (every post the blog returns for "vsan", or every vSAN
+post in the sitemap); a post is used when it names at least two vSAN charts or metrics, or one metric ID or entity type.
+
+| Source | Searched | Used | Live metrics named | Not in the KBs |
+|---|---|---|---|---|
+| KB with API IDs | 5 articles | 4 | 384 | |
+| KB, text only | 1 articles | 1 | 7 | 1 |
+| VMware technical papers | 12 papers | 10 | 20 | 10 |
+| Yellow Bricks | 473 posts | 4 | 4 | 3 |
+| Cormac Hogan | 428 posts | 6 | 4 | 2 |
+| William Lam | 416 posts | 2 | 5 | 2 |
+| VMware VCF blog | 344 posts | 18 | 25 | 11 |
+| **All documentation** | | | **403** | **19** |
+
+1606 of 2009 live metrics are named in no source.
+
+Metric IDs and entity types quoted outside the KBs:
+
+| ID | Kind | Sources |
+|---|---|---|
+| `cache-disk` | entity | [76] |
+| `capacity-disk` | entity | [76] |
+| `cluster-domclient` | entity | [76] |
+| `cluster-domcompmgr` | entity | [76] |
+| `disk-group` | entity | [7], [76] |
+| `host-domclient` | entity | [76] |
+| `host-domcompmgr` | entity | [76] |
+| `iopsSched` | metric ID | [76] |
+| `virtual-disk` | entity | [76] |
+| `virtual-machine` | entity | [76] |
+| `vsan-host-net` | entity | [76] |
+| `vsan-iscsi-host` | entity | [76] |
+| `vsan-iscsi-lun` | entity | [76] |
+| `vsan-iscsi-target` | entity | [76] |
+| `vsan-pnic-net` | entity | [76] |
+| `vsan-vnic-net` | entity | [76] |
 
 ## Sources
 
@@ -2207,49 +2153,92 @@ field behind each one, so a row-by-row match is not possible. Coverage by object
 2. KB: [KB 326812: vSAN Performance Graphs in the vSphere Web Client Part 2](https://knowledge.broadcom.com/external/article/326812)
 3. KB: [KB 326438: vSAN Health Service Check Information](https://knowledge.broadcom.com/external/article/326438)
 4. KB: [KB 326673: vSAN performance diagnostics: congestion in disk groups](https://knowledge.broadcom.com/external/article/326673)
-5. MAN: [VCF 9.1 vSAN: about the vsan performance service](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/about-the-vsan-performance-service.html)
-6. MAN: [VCF 9.1 vSAN: view vsan cluster performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-cluster-performance.html)
-7. MAN: [VCF 9.1 vSAN: view vsan host performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-host-performance.html)
-8. MAN: [VCF 9.1 vSAN: view virtual san vm performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-virtual-san-vm-performance.html)
-9. MAN: [VCF 9.1 vSAN: use vsan i o insight](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/use-vsan-i-o-insight.html)
-10. MAN: [VCF 9.1 vSAN: monitor vsan capacity](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-capacity.html)
-11. MAN: [VCF 9.1 vSAN: about reserved capacity in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-reserved-capacity-in-vsan-cluster.html)
-12. MAN: [VCF 9.1 vSAN: about vsan cluster resynchronization](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-vsan-cluster-resynchronization.html)
-13. MAN: [VCF 9.1 vSAN: monitor physical disks in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-physical-disks-in-vsan-cluster.html)
-14. MAN: [VCF 9.1 vSAN: monitor virtual disks in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-virtual-disks-in-vsan-cluster.html)
-15. MAN: [VCF 9.1 vSAN: vsan esa effective capacity](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/vsan-esa-effective-capacity.html)
-16. MAN: [VCF 9.1 vSAN: monitor vsan esa legacy capacity(1)](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/monitor-vsan-esa-legacy-capacity(1).html)
-17. MAN: [VCF 9.1 vSAN: view vsan default alarms](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-default-alarms.html)
-18. MAN: [VCF 9.1 vSAN: view vsan network alarms](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-network-alarms.html)
-19. MAN: [VCF 9.1 vSAN: about the vsan skyline health](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/about-the-vsan-skyline-health.html)
-20. MAN: [VCF 9.1 vSAN: check vsan skyline health](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/check-vsan-skyline-health.html)
-21. OPS: [VCF Operations 9.1: metrics for vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cluster.html)
-22. OPS: [VCF Operations 9.1: metrics for vsan datastore](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-datastore.html)
-23. OPS: [VCF Operations 9.1: metrics for vsan enabled host](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-enabled-host.html)
-24. OPS: [VCF Operations 9.1: metrics for vsan fault domain resource kind](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-fault-domain-resource-kind.html)
-25. OPS: [VCF Operations 9.1: disk i o and disk space metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/disk-i-o-and-disk-space-metrics-for-vsan-disk-groups.html)
-26. OPS: [VCF Operations 9.1: read cache metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/read-cache-metrics-for-vsan-disk-groups.html)
-27. OPS: [VCF Operations 9.1: write buffer metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/write-buffer-metrics-for-vsan-disk-groups.html)
-28. OPS: [VCF Operations 9.1: cache de stage metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/cache-de-stage-metrics-for-vsan-disk-groups.html)
-29. OPS: [VCF Operations 9.1: congestion metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/congestion-metrics-for-vsan-disk-groups.html)
-30. OPS: [VCF Operations 9.1: resync traffic metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/resync-traffic-metrics-for-vsan-disk-groups.html)
-31. OPS: [VCF Operations 9.1: metrics for vsan storage pool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-storage-pool.html)
-32. OPS: [VCF Operations 9.1: metrics for vsan cache disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cache-disk.html)
-33. OPS: [VCF Operations 9.1: metrics for vsan capacity disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-capacity-disk.html)
-34. OPS: [VCF Operations 9.1: metrics for vsan esa disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-esa-disk.html)
-35. OPS: [VCF Operations 9.1: metrics for vsan file server](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-server.html)
-36. OPS: [VCF Operations 9.1: metrics for vsan file share](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-share.html)
-37. OPS: [VCF Operations 9.1: metrics for vsan world](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-world.html)
-38. OPS: [VCF Operations 9.1: capacity model for vsan objects](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/capacity-model-for-vsan-objects.html)
-39. OPS: [VCF Operations 9.1: properties for vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cluster.html)
-40. OPS: [VCF Operations 9.1: properties for vsan enabled host](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-enabled-host.html)
-41. OPS: [VCF Operations 9.1: properties for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-disk-groups.html)
-42. OPS: [VCF Operations 9.1: properties for vsan storage pool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-storage-pool.html)
-43. OPS: [VCF Operations 9.1: properties for vsan cache disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cache-disk.html)
-44. OPS: [VCF Operations 9.1: properties for vsan capacity disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-capacity-disk.html)
-45. OPS: [VCF Operations 9.1: properties for vsan esa disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-esa-disk.html)
-46. OPS: [VCF Operations 9.1: properties for vsan file server](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-server.html)
-47. OPS: [VCF Operations 9.1: properties for vsan file share](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-share.html)
-48. BLOG: [Blog: Effective Capacity View in vSAN for VCF 9.1](https://blogs.vmware.com/cloud-foundation/2026/05/11/effective-capacity-view-in-vsan-for-vcf-9-1/)
-49. BLOG: [Blog: Global Deduplication in vSAN ESA for VCF 9.0](https://blogs.vmware.com/cloud-foundation/2025/06/19/global-deduplication-in-vsan-esa-for-vmware-cloud-foundation-9-0/)
-50. BLOG: [Blog: Understanding the different levels of vSAN performance metrics](https://blogs.vmware.com/cloud-foundation/2019/06/12/performance-troubleshooting-understanding-the-different-levels-of-vsan-performance-metrics/)
+5. KB: [KB 326720: vSAN Performance Graphs in the vSphere Web Client Part 3](https://knowledge.broadcom.com/external/article/326720)
+6. KB: [KB 326555: vSAN PMem Performance Graphs in vSphere Web Client](https://knowledge.broadcom.com/external/article/326555)
+7. KB: [KB 326479: Understanding Congestion in vSAN](https://knowledge.broadcom.com/external/article/326479)
+8. MAN: [VCF 9.1 vSAN: about the vsan performance service](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/about-the-vsan-performance-service.html)
+9. MAN: [VCF 9.1 vSAN: view vsan cluster performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-cluster-performance.html)
+10. MAN: [VCF 9.1 vSAN: view vsan host performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-vsan-host-performance.html)
+11. MAN: [VCF 9.1 vSAN: view virtual san vm performance](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/view-virtual-san-vm-performance.html)
+12. MAN: [VCF 9.1 vSAN: use vsan i o insight](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-virtual-san-performance/use-vsan-i-o-insight.html)
+13. MAN: [VCF 9.1 vSAN: monitor vsan capacity](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-capacity.html)
+14. MAN: [VCF 9.1 vSAN: about reserved capacity in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-reserved-capacity-in-vsan-cluster.html)
+15. MAN: [VCF 9.1 vSAN: about vsan cluster resynchronization](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/about-vsan-cluster-resynchronization.html)
+16. MAN: [VCF 9.1 vSAN: monitor physical disks in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-physical-disks-in-vsan-cluster.html)
+17. MAN: [VCF 9.1 vSAN: monitor virtual disks in vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-virtual-disks-in-vsan-cluster.html)
+18. MAN: [VCF 9.1 vSAN: vsan esa effective capacity](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/vsan-esa-effective-capacity.html)
+19. MAN: [VCF 9.1 vSAN: monitor vsan esa legacy capacity(1)](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/monitor-vsan-esa-capacity/monitor-vsan-esa-legacy-capacity(1).html)
+20. MAN: [VCF 9.1 vSAN: view vsan default alarms](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-default-alarms.html)
+21. MAN: [VCF 9.1 vSAN: view vsan network alarms](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitor-the-vsan-cluster/using-the-vsan-default-alarms/view-vsan-network-alarms.html)
+22. MAN: [VCF 9.1 vSAN: about the vsan skyline health](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/about-the-vsan-skyline-health.html)
+23. MAN: [VCF 9.1 vSAN: check vsan skyline health](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/vsan-deployment-administration-and-monitoring/vsan-monitoring-and-troubleshooting/monitoring-vsan-skyline-health/check-vsan-skyline-health.html)
+24. OPS: [VCF Operations 9.1: metrics for vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cluster.html)
+25. OPS: [VCF Operations 9.1: metrics for vsan datastore](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-datastore.html)
+26. OPS: [VCF Operations 9.1: metrics for vsan enabled host](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-enabled-host.html)
+27. OPS: [VCF Operations 9.1: metrics for vsan fault domain resource kind](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-fault-domain-resource-kind.html)
+28. OPS: [VCF Operations 9.1: disk i o and disk space metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/disk-i-o-and-disk-space-metrics-for-vsan-disk-groups.html)
+29. OPS: [VCF Operations 9.1: read cache metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/read-cache-metrics-for-vsan-disk-groups.html)
+30. OPS: [VCF Operations 9.1: write buffer metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/write-buffer-metrics-for-vsan-disk-groups.html)
+31. OPS: [VCF Operations 9.1: cache de stage metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/cache-de-stage-metrics-for-vsan-disk-groups.html)
+32. OPS: [VCF Operations 9.1: congestion metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/congestion-metrics-for-vsan-disk-groups.html)
+33. OPS: [VCF Operations 9.1: resync traffic metrics for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/resync-traffic-metrics-for-vsan-disk-groups.html)
+34. OPS: [VCF Operations 9.1: metrics for vsan storage pool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-storage-pool.html)
+35. OPS: [VCF Operations 9.1: metrics for vsan cache disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-cache-disk.html)
+36. OPS: [VCF Operations 9.1: metrics for vsan capacity disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-capacity-disk.html)
+37. OPS: [VCF Operations 9.1: metrics for vsan esa disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-esa-disk.html)
+38. OPS: [VCF Operations 9.1: metrics for vsan file server](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-server.html)
+39. OPS: [VCF Operations 9.1: metrics for vsan file share](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-file-share.html)
+40. OPS: [VCF Operations 9.1: metrics for vsan world](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/metrics-for-vsan-world.html)
+41. OPS: [VCF Operations 9.1: capacity model for vsan objects](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/metrics-definitions-in-vrealize-operations-manager/vsan-metrics/capacity-model-for-vsan-objects.html)
+42. OPS: [VCF Operations 9.1: properties for vsan cluster](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cluster.html)
+43. OPS: [VCF Operations 9.1: properties for vsan enabled host](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-enabled-host.html)
+44. OPS: [VCF Operations 9.1: properties for vsan disk groups](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-disk-groups.html)
+45. OPS: [VCF Operations 9.1: properties for vsan storage pool](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-storage-pool.html)
+46. OPS: [VCF Operations 9.1: properties for vsan cache disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-cache-disk.html)
+47. OPS: [VCF Operations 9.1: properties for vsan capacity disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-capacity-disk.html)
+48. OPS: [VCF Operations 9.1: properties for vsan esa disk](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-esa-disk.html)
+49. OPS: [VCF Operations 9.1: properties for vsan file server](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-server.html)
+50. OPS: [VCF Operations 9.1: properties for vsan file share](https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-9-0-and-later/9-1/infrastructure-operations/metric-property-and-alert-definitions/property-definitions-in-vrealize-operations-manager/vsan-properties/properties-for-vsan-file-share.html)
+51. GUIDE: [Troubleshooting vSAN Performance](https://www.vmware.com/docs/vmw-troubleshooting-vsan-performance)
+52. GUIDE: [vSAN Proof of Concept: vSAN Performance Testing](https://www.vmware.com/docs/vsan-proof-of-concept-vsan-performance-testing)
+53. GUIDE: [vSAN Proof of Concept: Management, Monitoring and Hardware Testing](https://www.vmware.com/docs/8-0u2-vsan-management-monitoring-hardware-testing)
+54. GUIDE: [vSAN Proof of Concept: vSAN Architecture Overview and Setup](https://www.vmware.com/docs/8-0u2-vsan-architectureoverviewsetup)
+55. GUIDE: [vSAN Proof of Concept: vSAN Features](https://www.vmware.com/docs/8-0u2-vsan-features-2)
+56. GUIDE: [vSAN Operations Guide](https://www.vmware.com/docs/vmw-vsan-operations-guide)
+57. GUIDE: [vSAN Design Guide](https://www.vmware.com/docs/vmware-vsan-design-guide)
+58. GUIDE: [vSAN Space Efficiency Technologies](https://www.vmware.com/docs/vmw-vsan-space-efficiency)
+59. GUIDE: [vSAN Performance Evaluation Checklist](https://www.vmware.com/docs/vmw-vsan-performance-evaluation-checklist)
+60. GUIDE: [vSAN File Services](https://www.vmware.com/docs/vmw-vsan-file-services)
+61. GUIDE: [Design and Operational Guidance for vSAN Storage Clusters](https://www.vmware.com/docs/vmw-vsan-storage-clusters-design-and-operations)
+62. GUIDE: [vSAN Frequently Asked Questions](https://www.vmware.com/docs/vmw-vsan-faqs)
+63. BLOG: [Blog: Effective Capacity View in vSAN for VCF 9.1](https://blogs.vmware.com/cloud-foundation/2026/05/11/effective-capacity-view-in-vsan-for-vcf-9-1/)
+64. BLOG: [Blog: Global Deduplication in vSAN ESA for VCF 9.0](https://blogs.vmware.com/cloud-foundation/2025/06/19/global-deduplication-in-vsan-esa-for-vmware-cloud-foundation-9-0/)
+65. BLOG: [Blog: Understanding the different levels of vSAN performance metrics](https://blogs.vmware.com/cloud-foundation/2019/06/12/performance-troubleshooting-understanding-the-different-levels-of-vsan-performance-metrics/)
+66. BLOG: [Yellow Bricks: vSAN HCI Mesh Considerations](https://www.yellow-bricks.com/2020/10/07/vsan-hci-mesh-considerations/)
+67. BLOG: [Yellow Bricks: Opvizor Performance Analyzer for vSAN](https://www.yellow-bricks.com/2018/07/10/opvizor-performance-analyzer/)
+68. BLOG: [Yellow Bricks: All Flash VSAN – One versus multiple disk groups](https://www.yellow-bricks.com/2015/03/11/all-flash-vsan-one-versus-multiple-disk-groups/)
+69. BLOG: [Yellow Bricks: Virtual SAN GA update: Flash vs Magnetic Disk ratio](https://www.yellow-bricks.com/2014/03/07/virtual-san-ga-update-flash-vs-magnetic-disk-ratio/)
+70. BLOG: [Cormac Hogan: vSAN Capacity Management in v7.0U1](https://cormachogan.com/2020/10/29/vsan-capacity-management-in-v7-0u1/)
+71. BLOG: [Cormac Hogan: VSAN 6.2 Part 6 – Performance Service](https://cormachogan.com/2016/02/23/vsan-6-2-part-6-performance-service/)
+72. BLOG: [Cormac Hogan: vROps Management Pack for Virtual SAN](https://cormachogan.com/2015/06/11/vrops-management-pack-for-virtual-san/)
+73. BLOG: [Cormac Hogan: Tips for a successful Virtual SAN (VSAN) Proof Of Concept (POC)](https://cormachogan.com/2014/11/14/tips-for-a-successful-virtual-san-proof-of-concept-poc/)
+74. BLOG: [Cormac Hogan: Heads Up! Incorrect reporting of Outstanding IO in VSAN Observer](https://cormachogan.com/2014/10/16/heads-up-incorrect-reporting-of-outstanding-io-in-vsan-observer/)
+75. BLOG: [Cormac Hogan: VSAN Part 10 – Changing VM Storage Policy on-the-fly](https://cormachogan.com/2013/09/19/vsan-part-10-changing-vm-storage-profile-on-the-fly/)
+76. BLOG: [William Lam: Correlating vSAN perf metrics from vSphere Web Client to both PowerCLI & vSAN Mgmt API](https://williamlam.com/2017/05/correlating-vsan-perf-metrics-from-vsphere-web-client-to-both-powercli-vsan-mgmt-api.html)
+77. BLOG: [William Lam: VSAN Flash/MD capacity reporting](https://williamlam.com/2014/04/vsan-flashmd-capacity-reporting.html)
+78. BLOG: [VMware VCF blog: Should Automatic Rebalancing be Enabled in a vSAN Cluster?](https://blogs.vmware.com/cloud-foundation/2020/04/15/should-automatic-rebalancing-be-enabled-vsan-cluster/)
+79. BLOG: [VMware VCF blog: Capacity Overheads for the ESA in vSAN 8](https://blogs.vmware.com/cloud-foundation/2022/11/02/capacity-overheads-for-the-esa-in-vsan-8/)
+80. BLOG: [VMware VCF blog: Using Fault Domains in vSAN ESA](https://blogs.vmware.com/cloud-foundation/2023/06/08/using-fault-domains-in-vsan-esa/)
+81. BLOG: [VMware VCF blog: Improved Capacity Reporting in VMware Cloud Foundation 5.1 and vSAN 8 U2](https://blogs.vmware.com/cloud-foundation/2024/01/30/improved-capacity-reporting-in-vmware-cloud-foundation-5-1-and-vsan-8-u2/)
+82. BLOG: [VMware VCF blog: The Importance of Space Reclamation for Data Usage Reporting in vSAN](https://blogs.vmware.com/cloud-foundation/2022/03/10/the-importance-of-space-reclamation-for-data-usage-reporting-in-vsan/)
+83. BLOG: [VMware VCF blog: Asymmetrical vSAN Clusters – What is Allowed, and What is Smart](https://blogs.vmware.com/cloud-foundation/2022/01/26/asymmetrical-vsan-clusters-what-is-allowed-and-what-is-smart/)
+84. BLOG: [VMware VCF blog: Demystifying Capacity Reporting in vSAN](https://blogs.vmware.com/cloud-foundation/2022/01/14/demystifying-capacity-reporting-in-vsan/)
+85. BLOG: [VMware VCF blog: Sizing Considerations with 2-Node vSAN Clusters running vSAN 7 U3](https://blogs.vmware.com/cloud-foundation/2021/10/25/sizing-considerations-with-2-node-vsan-clusters-running-vsan-7-u3/)
+86. BLOG: [VMware VCF blog: Should Automatic Rebalancing be Enabled in a vSAN Cluster?](https://blogs.vmware.com/cloud-foundation/2020/05/19/should-automatic-rebalancing-be-enabled-in-a-vsan-cluster/)
+87. BLOG: [VMware VCF blog: Revisiting vSAN’s Free Capacity Recommendations](https://blogs.vmware.com/cloud-foundation/2021/12/11/revisiting-vsans-free-capacity-recommendations/)
+88. BLOG: [VMware VCF blog: Understanding Reserved Capacity Concepts in vSAN](https://blogs.vmware.com/cloud-foundation/2022/02/18/understanding-reserved-capacity-concepts-in-vsan/)
+89. BLOG: [VMware VCF blog: Performance Best Practices for VMware Snapshots](https://blogs.vmware.com/cloud-foundation/2021/06/16/performance-best-practices-for-vmware-snapshots/)
+90. BLOG: [VMware VCF blog: Troubleshooting Storage Performance in vSphere – Part 1 – The Basics](https://blogs.vmware.com/cloud-foundation/2012/05/30/troubleshooting-storage-performance-in-vsphere-part-1-the-basics/)
+91. BLOG: [VMware VCF blog: Understanding vSAN Architecture: Disk Groups](https://blogs.vmware.com/cloud-foundation/2019/04/18/vsan-disk-groups/)
+92. BLOG: [VMware VCF blog: vSAN Capacity Management and Monitoring Part 1](https://blogs.vmware.com/cloud-foundation/2019/01/14/vsan-capacity-management-and-monitoring-part-1/)
+93. BLOG: [VMware VCF blog: Fast and Efficient Reads in vSAN Express Storage Architecture](https://blogs.vmware.com/cloud-foundation/2023/05/10/fast-and-efficient-reads-in-vsan-express-storage-architecture/)

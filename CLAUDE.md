@@ -14,7 +14,8 @@ Catalogs vSAN metrics and properties in VCF 9.1 twice, from the API and from Bro
 - No instance names, IP addresses, hostnames or values in the repo. The catalogs and schema contain none; keep it that way when collecting from a real vSAN cluster (field paths and counts only).
 - Every API row names the method or entity type and field it comes from. Rows not seen with live values are marked *(schema)*.
 - Documentation: extract names and identifiers only, never copy descriptions. Raw HTML stays in the git-ignored `.cache/`.
-- Source codes: PERF, VSAN, VCPERF, VIM, VSANINT (API; VSANINT = host `VsanInternalSystem`, only in `internal-api.md`); KB, MAN, OPS, BLOG (documentation).
+- Source codes: PERF, VSAN, VCPERF, VIM, VSANINT (API; VSANINT = host `VsanInternalSystem`, only in `internal-api.md`); KB, MAN, OPS, GUIDE (vmware.com/docs technical papers), BLOG (documentation).
+- KBs with API-ID tables are parsed exactly. KB text, technical papers and blogs are searched for the API's own chart and metric names, metric IDs and entity types (`scan()` in `tools/docs.py`); only matched names are stored. Blogs are searched in full (WordPress search API, VMware blog sitemap); `BLOGS` in `tools/docs.py` lists them. PDFs need `pdftotext` (ships with Git for Windows).
 - `tools/live.py` refuses to write `raw/live.json` if any cluster, host, datastore or VM name appears in it (names that are ordinary API words are allowed). It never calls methods that start tests, generate load or change configuration.
 
 ## Lab

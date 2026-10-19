@@ -8,17 +8,20 @@ spec = importlib.util.spec_from_file_location("build", os.path.join(ROOT, "tools
 cat = json.load(open(os.path.join(ROOT, "raw", "catalog.json")))
 sch = json.load(open(os.path.join(ROOT, "raw", "schema.json")))
 docs = json.load(open(os.path.join(ROOT, "raw", "docs.json"), encoding="utf-8"))
+SCANS = [s for s in docs if s["kind"] == "scan"]  # per-blog counts of posts searched and kept
+docs = [s for s in docs if s["kind"] != "scan"]
 _lp = os.path.join(ROOT, "raw", "live.json")
 live = json.load(open(_lp)) if os.path.exists(_lp) else {"methods": {}, "perf": {}}
 
 # Reuse the entity -> object type map from build.py without regenerating its output
 src_build = open(os.path.join(ROOT, "tools", "build.py"), encoding="utf-8").read()
 ns = {}
-exec(src_build[src_build.index("TYPES = "):src_build.index("PUNIT = ")], {"re": re}, ns)
-TYPES, ENT2TYPE = ns["TYPES"], ns["ENT2TYPE"]
+exec(src_build[src_build.index("TYPES = "):src_build.index("TIERS = ")], {"re": re}, ns)
+TYPES, ENT2TYPE, PUNIT = ns["TYPES"], ns["ENT2TYPE"], ns["PUNIT"]
 ENT2TYPE.update({"ioinsight-histogram": "Virtual Machine"})
 
-CODE = {"kb": "KB", "kb-health": "KB", "manual": "MAN", "ops-metric": "OPS", "ops-property": "OPS", "blog": "BLOG"}
+CODE = {"kb": "KB", "kb-health": "KB", "kb-scan": "KB", "manual": "MAN", "ops-metric": "OPS", "ops-property": "OPS",
+        "guide": "GUIDE", "blog": "BLOG"}
 SRCNUM = {}
 for i, s in enumerate(docs, 1):
     SRCNUM[s["url"]] = i
@@ -54,12 +57,13 @@ def ops_note(title):
 
 
 # ---------- performance metrics: KB vs API
-api_perf = {}
+api_perf, api_unit = {}, {}
 for e in cat["perf entity types"]:
     for tier in ("graphs", "advancedGraphs", "verboseGraphs", "hotspotGraphs"):
         for g in e[tier]:
             for m in g["metrics"]:
                 api_perf.setdefault((e["name"], m["label"]), (m["name"], tier))
+                api_unit.setdefault((e["name"], m["label"]), PUNIT.get(g["unit"], g["unit"]) or "")
 listed_perf = len(api_perf)
 for e, v in live["perf"].items():  # returned live by VsanPerfQueryPerf but not listed in the catalog
     for l in v.get("unlisted", []):
@@ -187,22 +191,87 @@ space_live = set(live["methods"].get("vim.cluster.VsanSpaceReportSystem.VsanQuer
 
 # ---------- docs tables
 mrows, prows = {t: [] for t in TYPES}, {t: [] for t in TYPES}
+def api_u(pairs):
+    """Unit from the API when all matched metrics agree, marked as such (the documents give none)."""
+    us = {api_unit.get(p, "") for p in pairs}
+    return f"{us.pop()} *(API)*" if len(us) == 1 and "" not in us else ""
+
+
+def ops_unit(key):
+    m = re.search(r"\(([^()]*)\)\s*$", key)
+    return m.group(1) if m else ""
+
+
 for e, l, name, rt, s in kb:
     t = ENT2TYPE.get(e, "vSAN Cluster")
     note = f"Real-time entity `{rt}`" if rt else ""
-    mrows[t].append(f"| {t} | {esc(name)} | KB {ref(s)} | `{e}` → `{l}` | {note} |")
+    mrows[t].append(f"| {t} | {esc(name)} | {api_u([(e, l)])} | KB {ref(s)} | `{e}` → `{l}` | {note} |")
 for s in docs:
     if s["kind"] == "manual" and s["items"]:
         for i in s["items"]:
             name = i["group"] + (f": {i['key']}" if i["key"] else "")
             t = "vSAN Cluster"
-            mrows[t].append(f"| {t} | {esc(name)} | MAN {ref(s)} | Capacity page term | |")
+            mrows[t].append(f"| {t} | {esc(name)} | | MAN {ref(s)} | Capacity page term | |")
     elif s["kind"] in ("ops-metric", "ops-property"):
         t = ops_type(s["title"])
         rows = mrows if s["kind"] == "ops-metric" else prows
         for i in s["items"]:
             key = i["key"] if "|" in i["key"] or not i["group"] else f"{i['group']}|{i['key']}"
-            rows[t].append(f"| {t} | {esc(key)} | OPS {ref(s)} | VCF Operations key | {ops_note(s['title'])} |")
+            u = f"{esc(ops_unit(key))} | " if rows is mrows else ""
+            rows[t].append(f"| {t} | {esc(key)} | {u}OPS {ref(s)} | VCF Operations key | {ops_note(s['title'])} |")
+# Names found in KB text, technical papers and blogs -> the API metrics they refer to
+def norm(s):  # same normalization as tools/docs.py
+    s = s.lower().replace("i/o", "io").replace("&", " and ")
+    s = re.sub(r"[^a-z0-9% ]", " ", s)
+    return " ".join(w[:-1] if len(w) > 3 and w.endswith("s") else w for w in s.split())
+
+
+by_name, by_label, ent_pairs = collections.defaultdict(set), collections.defaultdict(set), collections.defaultdict(set)
+for e in cat["perf entity types"]:
+    for tier in ("graphs", "advancedGraphs", "verboseGraphs", "hotspotGraphs"):
+        for g in e[tier]:
+            for m in g["metrics"]:
+                p = (e["name"], m["label"])
+                by_name[norm(g["name"] or "")].add(p); by_name[norm(m["name"] or "")].add(p)
+                by_label[m["label"]].add(p); ent_pairs[e["name"]].add(p)
+for (e, l) in api_perf:
+    by_label[l].add((e, l)); ent_pairs[e].add((e, l))
+
+
+def scan_pairs(i):
+    if i["match"] in ("chart", "metric"):
+        return by_name.get(norm(i["key"]), set())
+    return (by_label if i["match"] == "metric ID" else ent_pairs).get(i["key"], set())
+
+
+def first_type(pairs):
+    ts = {ENT2TYPE.get(e, "vSAN Cluster") for e, _ in pairs}
+    return next((t for t in TYPES if t in ts), "vSAN Cluster")
+
+
+scan_reach = collections.defaultdict(set)  # source kind -> API metrics reached
+for s in docs:
+    if s["kind"] not in ("kb-scan", "guide", "blog"):
+        continue
+    for i in s["items"]:
+        pairs = scan_pairs(i)
+        scan_reach[s["kind"]] |= pairs
+        t = first_type(pairs)
+        ents = sorted({e for e, _ in pairs})
+        if i["match"] == "entity":
+            name, did, note = f"(entity type, {len(pairs)} metrics)", f"`{i['key']}`", ""
+        elif i["match"] == "metric ID":
+            name, did = "(metric ID)", f"`{i['key']}`"
+            note = "API: " + ", ".join(f"`{e}`" for e in ents[:4]) + (f" +{len(ents) - 4}" if len(ents) > 4 else "")
+        else:
+            name, did = i["key"], f"{i['match'].capitalize()} name"
+            if len(pairs) == 1:
+                e, l = next(iter(pairs))
+                note = f"API: `{e}` → `{l}`"
+            else:
+                note = f"API: {len(pairs)} metrics in `" + "`, `".join(ents[:4]) + "`" + (f" +{len(ents) - 4}" if len(ents) > 4 else "")
+        mrows[t].append(f"| {t} | {esc(name)} | {api_u(pairs) if i['match'] != 'entity' else ''} | {CODE[s['kind']]} {ref(s)} | {did} | {note} |")
+
 for i in kbh_src["items"]:
     prows["vSAN Cluster"].append(f"| vSAN Cluster | Health: {esc(i['key'])} | KB {ref(kbh_src)} | Group: {esc(i['group'])} | {esc(i['version'])} |")
 
@@ -215,7 +284,16 @@ LEG = """**Source legend**
 | KB | Broadcom Knowledge Base article |
 | MAN | VCF 9.1 vSAN documentation (techdocs.broadcom.com) |
 | OPS | VCF 9.1 Operations metric and property reference (techdocs.broadcom.com). Keys are VCF Operations names, not vSAN API fields |
-| BLOG | VMware blog (used in the comparison notes only) |
+| GUIDE | VMware technical paper (vmware.com/docs): proof-of-concept, operations, design and troubleshooting guides |
+| BLOG | Blog post: Yellow Bricks (Duncan Epping), Cormac Hogan, William Lam, VMware VCF blog |
+
+KB articles with API IDs give the metric ID and entity type exactly. Technical papers, blogs and KB articles without
+API IDs are searched for the chart and metric names, metric IDs and entity types the vSAN API uses; only the names
+found are listed, with the API metrics they refer to.
+
+**Units.** VCF Operations writes the unit into its metric names (`... Latency (ms)`), so OPS rows show it. KB articles,
+the manual, technical papers and blogs give no unit; where the API metrics a row refers to agree on one, it is shown
+marked *(API)*. Counts, ratios and scores have no unit.
 
 The number after the code refers to the source list at the end."""
 
@@ -231,9 +309,9 @@ def page(title, intro, header, rows):
 open(os.path.join(ROOT, "metrics-docs.md"), "w", encoding="utf-8").write(page(
     "vSAN Metrics (Documentation)",
     "Generated by `tools/compare.py` from [raw/docs.json](raw/docs.json); do not edit by hand. Metric names and identifiers "
-    "as published by Broadcom (KB articles, VCF 9.1 vSAN documentation, VCF Operations 9.1 reference). Descriptions are "
-    "not copied; follow the source link.",
-    "| Object Type | Metric | Source | Documented ID | Notes |", mrows))
+    "as published by Broadcom (KB articles, VCF 9.1 vSAN documentation, VCF Operations 9.1 reference, VMware technical "
+    "papers) and in vSAN blogs. Descriptions are not copied; follow the source link.",
+    "| Object Type | Metric | Unit | Source | Documented ID | Notes |", mrows))
 open(os.path.join(ROOT, "properties-docs.md"), "w", encoding="utf-8").write(page(
     "vSAN Properties (Documentation)",
     "Generated by `tools/compare.py` from [raw/docs.json](raw/docs.json); do not edit by hand. Health checks come from "
@@ -252,9 +330,10 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 
 {open(os.path.join(ROOT, 'tools', 'compare_notes.md'), encoding='utf-8').read().strip()}
 
-## 1. Performance metrics: KB 326953 and 326812 vs the live performance service
+## 1. Performance metrics: KBs with API IDs vs the live performance service
 
-The two KBs are the only documents that give API metric IDs, so this is an exact match on `(entity type, metric label)`.
+KB 326953, 326812, 326720 and 326555 are the only documents that give API metric IDs, so this is an exact match on
+`(entity type, metric label)`. Section 5 covers what the other sources add.
 
 | | Count |
 |---|---|
@@ -357,6 +436,56 @@ ops_m = collections.Counter(ops_type(s["title"]) for s in docs if s["kind"] == "
 ops_p = collections.Counter(ops_type(s["title"]) for s in docs if s["kind"] == "ops-property" for _ in s["items"])
 for t in TYPES:
     L.append(f"| {t} | {ops_m.get(t, 0)} | {ops_p.get(t, 0)} | {api_m.get(t, 0)} | {api_p.get(t, 0)} |")
+
+# ---------- coverage by documentation source
+def reach(srcs):
+    """Live metrics named by metric name or metric ID (chart names and entity types cover too many metrics to count)."""
+    return set().union(*[scan_pairs(i) for s in srcs for i in s["items"] if i["match"] in ("metric", "metric ID")]) & set(api_perf) if srcs else set()
+
+
+kb_reach = set(matched)
+blog_by = collections.defaultdict(list)
+for s in docs:
+    if s["kind"] == "blog":
+        blog_by[s["title"].split(":")[0] if s["title"].split(":")[0] in {x["title"] for x in SCANS} else "VMware VCF blog"].append(s)
+L.append(f"""
+## 5. Coverage by documentation source
+
+How many of the {len(api_perf)} live performance metrics each kind of source names. KB articles with API IDs name the
+exact metric. The other sources are counted by metric name or metric ID only; a metric name such as "Free Capacity"
+counts for every entity type that has a metric of that name. Chart names and entity types are listed in
+[metrics-docs.md](metrics-docs.md) but not counted here. Blogs were searched in full (every post the blog returns for "vsan", or every vSAN
+post in the sitemap); a post is used when it names at least two vSAN charts or metrics, or one metric ID or entity type.
+
+| Source | Searched | Used | Live metrics named | Not in the KBs |
+|---|---|---|---|---|
+| KB with API IDs | {sum(1 for s in docs if s['kind'] == 'kb')} articles | {sum(1 for s in docs if s['kind'] == 'kb' and s['items'])} | {len(kb_reach)} | |""")
+rows5 = [("KB, text only", [s for s in docs if s["kind"] == "kb-scan"], f"{sum(1 for s in docs if s['kind'] == 'kb-scan')} articles"),
+         ("VMware technical papers", [s for s in docs if s["kind"] == "guide"], f"{sum(1 for s in docs if s['kind'] == 'guide')} papers")]
+for st in SCANS:
+    rows5.append((st["title"], blog_by.get(st["title"], []), f"{st['posts']} posts"))
+for name, srcs, searched in rows5:
+    r = reach(srcs)
+    used = sum(1 for s in srcs if s["items"])
+    L.append(f"| {name} | {searched} | {used} | {len(r)} | {len(r - kb_reach)} |")
+alls = reach([s for s in docs if s["kind"] in ("kb-scan", "guide", "blog")]) | kb_reach
+L.append(f"| **All documentation** | | | **{len(alls)}** | **{len(alls - kb_reach)}** |")
+L.append(f"""
+{len(set(api_perf) - alls)} of {len(api_perf)} live metrics are named in no source.
+
+Metric IDs and entity types quoted outside the KBs:
+
+| ID | Kind | Sources |
+|---|---|---|""")
+quoted = collections.defaultdict(set)
+for s in docs:
+    if s["kind"] in ("kb-scan", "guide", "blog"):
+        for i in s["items"]:
+            if i["match"] in ("metric ID", "entity"):
+                quoted[(i["key"], i["match"])].add(SRCNUM[s["url"]])
+for (k, m), ns_ in sorted(quoted.items()):
+    L.append(f"| `{k}` | {m} | {', '.join(f'[{n}]' for n in sorted(ns_))} |")
+
 L.append("\n## Sources\n\n" + SRC_LIST)
 open(os.path.join(ROOT, "comparison.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
