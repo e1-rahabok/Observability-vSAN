@@ -8,6 +8,8 @@ spec = importlib.util.spec_from_file_location("build", os.path.join(ROOT, "tools
 cat = json.load(open(os.path.join(ROOT, "raw", "catalog.json")))
 sch = json.load(open(os.path.join(ROOT, "raw", "schema.json")))
 docs = json.load(open(os.path.join(ROOT, "raw", "docs.json"), encoding="utf-8"))
+_lp = os.path.join(ROOT, "raw", "live.json")
+live = json.load(open(_lp)) if os.path.exists(_lp) else {"methods": {}, "perf": {}}
 
 # Reuse the entity -> object type map from build.py without regenerating its output
 src_build = open(os.path.join(ROOT, "tools", "build.py"), encoding="utf-8").read()
@@ -58,6 +60,10 @@ for e in cat["perf entity types"]:
         for g in e[tier]:
             for m in g["metrics"]:
                 api_perf.setdefault((e["name"], m["label"]), (m["name"], tier))
+listed_perf = len(api_perf)
+for e, v in live["perf"].items():  # returned live by VsanPerfQueryPerf but not listed in the catalog
+    for l in v.get("unlisted", []):
+        api_perf.setdefault((e, l), ("", "live only"))
 
 
 def kb_rows():
@@ -177,6 +183,7 @@ CAP = {
     "Used": "spaceOverview.usedB", "Reservations and Alerts": "capacityHealthThreshold.*",
 }
 space_fields = set(sch["vim.cluster.VsanSpaceReportSystem.VsanQuerySpaceUsage"]["fields"])
+space_live = set(live["methods"].get("vim.cluster.VsanSpaceReportSystem.VsanQuerySpaceUsage", {}).get("fields", []))
 
 # ---------- docs tables
 mrows, prows = {t: [] for t in TYPES}, {t: [] for t in TYPES}
@@ -251,7 +258,8 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 
 | | Count |
 |---|---|
-| Metrics listed live by `VsanPerfGetSupportedEntityTypes` | {len(api_perf)} |
+| Metrics listed live by `VsanPerfGetSupportedEntityTypes` | {listed_perf} |
+| Metrics returned live by `VsanPerfQueryPerf` but not listed (one OSA cluster) | {len(api_perf) - listed_perf} |
 | Metrics documented in the KBs | {len(kb_set)} |
 | Documented and live | {len(matched)} |
 | Documented but not listed live | {len(kb_only)} |
@@ -310,11 +318,11 @@ L.append("\n</details>")
 L.append("""
 ## 3. Capacity: VCF 9.1 vSAN capacity pages vs `VsanQuerySpaceUsage`
 
-The documentation describes capacity by its UI label; the API by field. The mapping below is by meaning and was not
-checked against live values (no vSAN cluster in the lab).
+The documentation describes capacity by its UI label; the API by field. The mapping below is by meaning. *Seen live*
+says whether the field came back with a value on the live cluster (one OSA cluster, no deduplication or compression).
 
-| Documented term | API field | Field exists in schema |
-|---|---|---|""")
+| Documented term | API field | Field exists in schema | Seen live |
+|---|---|---|---|""")
 for s in docs:
     if s["kind"] == "manual" and s["items"]:
         for i in s["items"]:
@@ -330,7 +338,9 @@ for s in docs:
             if sub and len(sub) < 60:
                 term = f"{term}: {sub}"
             ok = "yes" if f and f.split(" ")[0] in space_fields else ("partly" if f else "no field; derived or UI-only")
-            L.append(f"| {esc(term)} ({ref(s)}) | {('`' + f + '`') if f else ''} | {ok} |")
+            fp = (f or "").split(" ")[0]
+            lv = ("yes" if any(p == fp or p.startswith(fp + ".") for p in space_live) else "no") if f and space_live else ""
+            L.append(f"| {esc(term)} ({ref(s)}) | {('`' + f + '`') if f else ''} | {ok} | {lv} |")
 
 L.append("""
 ## 4. VCF Operations reference vs the vSAN API
@@ -340,8 +350,9 @@ field behind each one, so a row-by-row match is not possible. Coverage by object
 
 | Object type | VCF Operations metrics | VCF Operations properties | API metrics | API properties |
 |---|---|---|---|---|""")
-api_m = collections.Counter(r.split("|")[1].strip() for r in open(os.path.join(ROOT, "metrics-api.md"), encoding="utf-8") if r.startswith("| ") and "| PERF |" in r or "| VSAN |" in r or "| VCPERF |" in r)
-api_p = collections.Counter(r.split("|")[1].strip() for r in open(os.path.join(ROOT, "properties-api.md"), encoding="utf-8") if "| VSAN |" in r)
+SRCS = re.compile(r"\| (PERF|VSAN|VCPERF|VIM) \|")
+api_m = collections.Counter(r.split("|")[1].strip() for r in open(os.path.join(ROOT, "metrics-api.md"), encoding="utf-8") if r.startswith("| ") and SRCS.search(r))
+api_p = collections.Counter(r.split("|")[1].strip() for r in open(os.path.join(ROOT, "properties-api.md"), encoding="utf-8") if r.startswith("| ") and SRCS.search(r))
 ops_m = collections.Counter(ops_type(s["title"]) for s in docs if s["kind"] == "ops-metric" for _ in s["items"])
 ops_p = collections.Counter(ops_type(s["title"]) for s in docs if s["kind"] == "ops-property" for _ in s["items"])
 for t in TYPES:

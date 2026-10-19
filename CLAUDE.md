@@ -4,9 +4,9 @@ Catalogs vSAN metrics and properties in VCF 9.1 twice, from the API and from Bro
 
 ## Files
 
-- Generated, do not edit by hand: `metrics-api.md`, `properties-api.md` (by `tools/build.py`); `metrics-docs.md`, `properties-docs.md`, `comparison.md` (by `tools/compare.py`). Change the scripts and regenerate.
+- Generated, do not edit by hand: `metrics-api.md`, `properties-api.md`, `internal-api.md` (by `tools/build.py`); `metrics-docs.md`, `properties-docs.md`, `comparison.md` (by `tools/compare.py`). Change the scripts and regenerate.
 - `tools/compare_notes.md`: the hand-written summary and findings inserted at the top of `comparison.md`. Update its numbers whenever the data changes.
-- `raw/catalog.json` (live catalogs), `raw/schema.json` (pyVmomi type definitions), `raw/docs.json` (identifiers extracted from documentation).
+- `raw/catalog.json` (live catalogs), `raw/schema.json` (pyVmomi type definitions), `raw/live.json` (field paths, metric labels and counts seen on a live vSAN cluster, by `tools/live.py`), `raw/docs.json` (identifiers extracted from documentation).
 - Object types and their order are defined once in `TYPES` and `ENTITY` in `tools/build.py`; `compare.py` reuses them.
 
 ## Rules
@@ -14,16 +14,19 @@ Catalogs vSAN metrics and properties in VCF 9.1 twice, from the API and from Bro
 - No instance names, IP addresses, hostnames or values in the repo. The catalogs and schema contain none; keep it that way when collecting from a real vSAN cluster (field paths and counts only).
 - Every API row names the method or entity type and field it comes from. Rows not seen with live values are marked *(schema)*.
 - Documentation: extract names and identifiers only, never copy descriptions. Raw HTML stays in the git-ignored `.cache/`.
-- Source codes: PERF, VSAN, VCPERF (API); KB, MAN, OPS, BLOG (documentation).
+- Source codes: PERF, VSAN, VCPERF, VIM, VSANINT (API; VSANINT = host `VsanInternalSystem`, only in `internal-api.md`); KB, MAN, OPS, BLOG (documentation).
+- `tools/live.py` refuses to write `raw/live.json` if any cluster, host, datastore or VM name appears in it (names that are ordinary API words are allowed). It never calls methods that start tests, generate load or change configuration.
 
 ## Lab
 
-- VCF 9.1 vCenter. Values (`VC_HOST`, `VC_USER`, `VCPW`) are in the git-ignored `.secrets/lab.env`; load with `. tools/env.ps1`. Scripts never hard-code them.
-- The lab has **no vSAN cluster** (one 2-host cluster, VMFS and NFS only). The vSAN services on vCenter still answer catalog queries. When a vSAN cluster is available, add a collector that dumps field paths from the per-cluster query methods and replace *(schema)* marks with live evidence.
+- Two vCenters. Values (`VC_HOST`, `VC_USER`, `VCPW`) are in git-ignored files under `.secrets/`; load with `. tools/env.ps1` (lab) or `. tools/env.ps1 live`. Scripts never hard-code them.
+- `lab`: VCF 9.1.0, **no vSAN cluster** (VMFS and NFS only); used for the catalogs (`catalog.py`).
+- `live`: VCF 9.1.1, one OSA vSAN cluster (3 hosts, performance service on, verbose mode off, no dedup, encryption, file service, iSCSI or stretched). Read-only account. Used by `live.py`.
 - Python: `.venv/` (git-ignored). PyPI downloads are blocked on this network; pyVmomi 9.1 was installed by copying `pyVmomi/`, `pyVim/`, `vsanapiutils.py` and `vsanmgmtObjects.py` from the GitHub release source into `.venv/Lib/site-packages`.
 
 ## Open items
 
-- Verify *(schema)* fields against a live vSAN cluster (OSA and ESA).
+- Remaining *(schema)* fields need an ESA cluster and clusters with dedup, encryption, file service, iSCSI, stretched/2-node; perf verbose mode would fill the verbose-only entity types (world CPU, slab and heap memory, CLOM, CMMDS workload, TCP/IP).
+- Calls that still fail on the live cluster: `VsanQueryPhysicalPlacements`, `VsanGetHclConstraints`, `VsanQueryEntitySpaceUsage` (see `raw/live.json` errors).
 - `ioinsight-histogram` and the `hr-*` real-time entity types are documented but not returned by `VsanPerfGetSupportedEntityTypes`; check them during an I/O Insight run and with real-time stats enabled.
 - Health-check matching is by name; `OVERRIDE` in `tools/compare.py` holds manual pairs.

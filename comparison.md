@@ -8,10 +8,10 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 
 | Area | API | Documentation | Gap |
 |---|---|---|---|
-| Performance metrics | 1,164 metrics in 69 entity types, listed live | 386 metric IDs in 2 KBs; the VCF 9.1 manual names chart groups only | 840 live metrics (72%) are not documented; 44 of 69 entity types have no KB coverage at all |
-| Health checks | 191 checks (181 distinct test IDs), listed live | 139 entries in the KB index | 71 test IDs have no KB entry; 30 KB entries match no live check |
-| Capacity | 59 fields in `VsanQuerySpaceUsage` (schema) | 2 manual pages (legacy and ESA effective capacity) | Most terms map to a field; a few are UI calculations |
-| Configuration and inventory | About 1,390 property fields (schema) | VCF Operations lists 68 properties | The documentation covers a small fraction |
+| Performance metrics | 1,164 metrics in 69 entity types listed live, plus 845 more that a live cluster returned without listing them | 386 metric IDs in 2 KBs; the VCF 9.1 manual names chart groups only | 1,685 live metrics are not documented (840 listed, 845 unlisted); 44 of 69 entity types have no KB coverage at all |
+| Health checks | 191 checks (181 distinct test IDs), listed live; 53 ran on the live cluster | 139 entries in the KB index | 71 test IDs have no KB entry; 30 KB entries match no live check |
+| Capacity | 59 fields in `VsanQuerySpaceUsage` (schema), 25 seen live | 2 manual pages (legacy and ESA effective capacity) | Most terms map to a field; a few are UI calculations |
+| Configuration and inventory | About 1,600 vSAN API property fields (schema), 452 seen live; 137 vSAN properties on vim25 inventory objects | VCF Operations lists 68 properties | The documentation covers a small fraction |
 
 ## Findings
 
@@ -22,10 +22,15 @@ Broadcom documents ([metrics-docs.md](metrics-docs.md), [properties-docs.md](pro
 5. **Health catalog quirks.** Ten checks are listed twice, in a local group and in "Online health" (`cloudhealth`), with the same test ID. 19 checks return an untranslated message key (`com.vmware.vsan.health.test…testname`) instead of a name.
 6. **Capacity: the documentation and the API use different names.** "Total usable capacity" is `effectiveSpaceUsage.totalUsableB`, "Object reserved" is `overReservedB`, "Data reduction ratio" is `spaceEfficiencyRatio.overallRatio`. "Used capacity", "Overprovisioning ratio" and "RAID factor" have no field of their own; the UI computes them.
 7. **VCF Operations is a third vocabulary.** Its keys (for example `vSAN|Disk Space|Disk Space Used (%)`) do not name the vSAN API field behind them. It has no vSAN metrics for network adapters, objects, VMs, virtual disks or iSCSI.
+8. **The performance catalog is incomplete.** On a live OSA cluster, `VsanPerfQueryPerf` returned 845 metric labels that `VsanPerfGetSupportedEntityTypes` does not list for that entity type. They are mostly disk group, cache and capacity disk, and DOM owner internals: write-buffer and elevator state, deduplication maps, network scheduler, two-phase commit, resync jobs. Only 524 of the 1,164 listed metrics returned values; the rest belong to features not enabled there or need verbose mode.
+9. **Entity IDs are not uniform.** Only 14 entity types accept a wildcard ID (`<type>:*`). The others need the cluster UUID, a host node UUID, a disk group or disk UUID, `<nodeUuid>|*`, `<nodeUuid>|<vmknic>`, a VM instance UUID or `<vmInstanceUuid>|*`; see the coverage table at the end of [metrics-api.md](metrics-api.md). An unknown ID returns an empty result, not an error.
+10. **vCenter's own vSAN counters are not exposed.** `PerformanceManager` defines 16 `vsanDomObj` counters, but `QueryAvailablePerfMetric` offers none of them on the vSAN cluster, its hosts, the vSAN datastore or its VMs.
+11. **Hosts have an undocumented raw-statistics interface.** `HostSystem.configManager.vsanInternalSystem` returns JSON with about 7,900 field paths, including about 7,600 raw counters from `QueryVsanStatistics` (DOM client, owner and component manager, LSOM, PLOG). They are listed in [internal-api.md](internal-api.md).
 
 ## Limits of this comparison
 
-- The lab has no vSAN cluster. Performance metrics and health checks are live catalogs from the vSAN service; every other API field comes from the pyVmomi 9.1 type definitions and was not seen with values.
+- Live evidence comes from one OSA cluster (3 hosts, VCF 9.1.1) with no deduplication or compression, encryption, file service, iSCSI, stretched or 2-node setup, and with verbose performance mode off. Fields of those features are still marked *(schema)*; ESA-only metrics and fields were not checked.
+- Catalogs (performance entity types and health checks) were listed on a VCF 9.1.0 vCenter; the live cluster runs 9.1.1 and lists the same 69 entity types.
 - Health checks are matched by name, plus the manual overrides listed in `tools/compare.py`. The counts are approximate.
 - KB articles carry no version; they were read on the date of the commit.
 
@@ -36,10 +41,11 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | | Count |
 |---|---|
 | Metrics listed live by `VsanPerfGetSupportedEntityTypes` | 1164 |
+| Metrics returned live by `VsanPerfQueryPerf` but not listed (one OSA cluster) | 845 |
 | Metrics documented in the KBs | 386 |
 | Documented and live | 324 |
 | Documented but not listed live | 62 |
-| Live but not documented in the KBs | 840 |
+| Live but not documented in the KBs | 1685 |
 | Live entity types with no KB coverage at all | 44 of 69 |
 
 ### Documented but not listed live
@@ -113,28 +119,32 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 
 | Entity type | Object type | Undocumented metrics | Entity type in KBs? |
 |---|---|---|---|
-| `disk-group` | Disk Group | 33 | yes |
+| `disk-group` | Disk Group | 154 | yes |
 | `remote-virtual-disk` | Virtual Disk | 3 | no |
 | `remote-vscsi` | Virtual Disk | 6 | no |
+| `vscsi` | Virtual Disk | 2 | yes |
 | `ioinsight` | Virtual Machine | 60 | yes |
 | `remote-virtual-machine` | Virtual Machine | 6 | no |
-| `cluster-domowner` | vSAN Cluster | 15 | no |
+| `virtual-machine` | Virtual Machine | 2 | yes |
+| `cluster-domclient` | vSAN Cluster | 6 | yes |
+| `cluster-domcompmgr` | vSAN Cluster | 1 | yes |
+| `cluster-domowner` | vSAN Cluster | 46 | no |
 | `cluster-esa-dedup-domclient-io` | vSAN Cluster | 24 | no |
 | `cluster-esa-dedup-domcompmgr-io` | vSAN Cluster | 24 | no |
 | `cluster-esa-dedup-domowner-io` | vSAN Cluster | 24 | no |
 | `cluster-esa-dedup-store-chunksvc` | vSAN Cluster | 27 | no |
 | `cluster-esa-dedup-store-hashsvc` | vSAN Cluster | 34 | no |
 | `cluster-pmem` | vSAN Cluster | 8 | no |
-| `cluster-rdt-network-latency` | vSAN Cluster | 15 | no |
+| `cluster-rdt-network-latency` | vSAN Cluster | 17 | no |
 | `cluster-remotedomclient` | vSAN Cluster | 2 | yes |
-| `cluster-resync` | vSAN Cluster | 24 | no |
+| `cluster-resync` | vSAN Cluster | 32 | no |
 | `cluster-zdom-top-stats` | vSAN Cluster | 6 | no |
 | `computeCluster-remotedomclient` | vSAN Cluster | 2 | yes |
 | `vsan-cluster-capacity` | vSAN Cluster | 5 | no |
 | `vsan-direct-cluster` | vSAN Cluster | 8 | no |
 | `vsan-dp-historical-stats` | vSAN Cluster | 1 | no |
-| `cache-disk` | vSAN Disk | 63 | yes |
-| `capacity-disk` | vSAN Disk | 57 | yes |
+| `cache-disk` | vSAN Disk | 126 | yes |
+| `capacity-disk` | vSAN Disk | 210 | yes |
 | `clom-disk` | vSAN Disk | 11 | no |
 | `ddh-disk` | vSAN Disk | 31 | no |
 | `vsan-esa-disk-layer` | vSAN Disk | 16 | yes |
@@ -145,9 +155,9 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `dom-world-cpu` | vSAN Host | 2 | no |
 | `heap-memory` | vSAN Host | 1 | no |
 | `host-cpu` | vSAN Host | 3 | no |
-| `host-domclient` | vSAN Host | 4 | yes |
-| `host-domcompmgr` | vSAN Host | 4 | yes |
-| `host-domowner` | vSAN Host | 23 | no |
+| `host-domclient` | vSAN Host | 55 | yes |
+| `host-domcompmgr` | vSAN Host | 52 | yes |
+| `host-domowner` | vSAN Host | 272 | no |
 | `host-esa-dedup-domclient-io` | vSAN Host | 24 | no |
 | `host-esa-dedup-domcompmgr-io` | vSAN Host | 24 | no |
 | `host-esa-dedup-domowner-io` | vSAN Host | 24 | no |
@@ -159,33 +169,50 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `host-zdom-top-stats` | vSAN Host | 6 | no |
 | `lsom-world-cpu` | vSAN Host | 2 | no |
 | `rdt-net` | vSAN Host | 1 | no |
-| `rdt-network-latency` | vSAN Host | 15 | no |
+| `rdt-network-latency` | vSAN Host | 17 | no |
 | `slab-memory` | vSAN Host | 1 | no |
 | `system-mem` | vSAN Host | 3 | no |
-| `vsan-cpu` | vSAN Host | 3 | no |
+| `vsan-cpu` | vSAN Host | 7 | no |
 | `vsan-direct-host` | vSAN Host | 8 | no |
-| `vsan-distribution` | vSAN Host | 5 | no |
-| `vsan-host-net` | vSAN Host | 2 | yes |
-| `vsan-memory` | vSAN Host | 2 | no |
+| `vsan-distribution` | vSAN Host | 7 | no |
+| `vsan-host-net` | vSAN Host | 4 | yes |
+| `vsan-memory` | vSAN Host | 50 | no |
 | `vsan-tcpip-stats` | vSAN Host | 16 | no |
 | `zdom-vtx` | vSAN Host | 2 | yes |
-| `vnic-rdt-network-latency` | vSAN Network Adapter | 15 | no |
-| `vsan-pnic-net` | vSAN Network Adapter | 8 | yes |
-| `vsan-vnic-net` | vSAN Network Adapter | 2 | yes |
+| `vnic-rdt-network-latency` | vSAN Network Adapter | 17 | no |
+| `vsan-pnic-net` | vSAN Network Adapter | 46 | yes |
+| `vsan-vnic-net` | vSAN Network Adapter | 12 | yes |
 
 <details><summary>Full list of live metrics not in the KBs</summary>
 
 | Entity type | Label | Name (from API) | Tier |
 |---|---|---|---|
+| `cache-disk` | `advtDataDestageRateAvg` |  | live only |
+| `cache-disk` | `advtDataDestageRateCur` |  | live only |
+| `cache-disk` | `advtZeroDestageRateAvg` |  | live only |
+| `cache-disk` | `advtZeroDestageRateCur` |  | live only |
 | `cache-disk` | `blkAttrCcheHitRt` | Block Attribute Cache Hit Rate | verbose |
 | `cache-disk` | `blkAttrCcheSz` | Block Attribute Cache Size | verbose |
+| `cache-disk` | `checksumErrors` |  | live only |
+| `cache-disk` | `commitTblCnt` |  | live only |
+| `cache-disk` | `dataP` |  | live only |
 | `cache-disk` | `elevStartThresh` | Elev Start Threshold | advanced |
 | `cache-disk` | `elevUnthrottleThresh` | Elev Unthrottle Threshold | advanced |
+| `cache-disk` | `ioCountDevRead` |  | live only |
+| `cache-disk` | `ioCountDevWrite` |  | live only |
+| `cache-disk` | `ioCountRcRead` |  | live only |
+| `cache-disk` | `ioCountRcWrite` |  | live only |
+| `cache-disk` | `ioCountWbRead` |  | live only |
+| `cache-disk` | `ioCountWbWrite` |  | live only |
 | `cache-disk` | `iopsRcRead` | Read Cache Read IOPs | verbose |
 | `cache-disk` | `iopsRcWrite` | Read Cache Write IOPs | verbose |
 | `cache-disk` | `iopsWbRead` | Write Buffer Read IOPs | verbose |
 | `cache-disk` | `iopsWbWrite` | Write Buffer Write IOPs | verbose |
 | `cache-disk` | `latencyDevKAvg` | Kernel Average Latency | advanced |
+| `cache-disk` | `latencyDevReadMax` |  | live only |
+| `cache-disk` | `latencyDevReadMin` |  | live only |
+| `cache-disk` | `latencyDevWriteMax` |  | live only |
+| `cache-disk` | `latencyDevWriteMin` |  | live only |
 | `cache-disk` | `latencyRcRdQ` | Read Cache Read Queue Latency | verbose |
 | `cache-disk` | `latencyRcRead` | Read Cache Read Latency | verbose |
 | `cache-disk` | `latencyRcWrite` | Read Cache Write Latency | verbose |
@@ -194,30 +221,62 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cache-disk` | `latencyWbRead` | Write Buffer Read Latency | verbose |
 | `cache-disk` | `latencyWbWrite` | Write Buffer Write Latency | verbose |
 | `cache-disk` | `latencyWbWrtQ` | Write Buffer Write Queue Latency | verbose |
+| `cache-disk` | `lgclCapConsPrep` |  | live only |
+| `cache-disk` | `lgclCapConsUsage` |  | live only |
+| `cache-disk` | `lgclCapFsMetadata` |  | live only |
+| `cache-disk` | `lgclCapReserved` |  | live only |
+| `cache-disk` | `lgclCapUnmap` |  | live only |
+| `cache-disk` | `lgclCapUnrsvrd` |  | live only |
+| `cache-disk` | `lgclCapUsed` |  | live only |
+| `cache-disk` | `llogData` |  | live only |
 | `cache-disk` | `llogDataSpace` | LLOG Data Space | advanced |
+| `cache-disk` | `llogLog` |  | live only |
 | `cache-disk` | `llogLogSpace` | LLOG Log Space | advanced |
+| `cache-disk` | `llogRecoveryProcessTime` |  | live only |
+| `cache-disk` | `llogRecoveryReadTime` |  | live only |
+| `cache-disk` | `logP` |  | live only |
+| `cache-disk` | `maxP` |  | live only |
+| `cache-disk` | `memP` |  | live only |
+| `cache-disk` | `numLlogRecoveryReads` |  | live only |
+| `cache-disk` | `numPlogRecoveryReads` |  | live only |
+| `cache-disk` | `outstandingCmdCount` |  | live only |
+| `cache-disk` | `phyCapCF` |  | live only |
+| `cache-disk` | `phyCapRsrvd` |  | live only |
+| `cache-disk` | `phyCapRsrvdUsed` |  | live only |
+| `cache-disk` | `phyCapT2` |  | live only |
+| `cache-disk` | `phyCapUsed` |  | live only |
 | `cache-disk` | `plogCumlEncRdLat` | Cumulative Encryption Read Latency | verbose |
 | `cache-disk` | `plogCumlEncWrLat` | Cumulative Encryption Write Latency | verbose |
 | `cache-disk` | `plogDGDataUsage` | DGData | verbose |
+| `cache-disk` | `plogDGZeroUsage` |  | live only |
+| `cache-disk` | `plogData` |  | live only |
 | `cache-disk` | `plogDataSpace` | PLOG Data Space | advanced |
 | `cache-disk` | `plogElevCycles` | Elevator Cycles | verbose |
 | `cache-disk` | `plogHelpRdQDepth` | Helper Read Queue Depth | verbose |
 | `cache-disk` | `plogHelpRdQLat` | Helper Queue Read Latency | verbose |
 | `cache-disk` | `plogHelpWrQDepth` | Helper Write Queue Depth | verbose |
 | `cache-disk` | `plogHelpWrQLat` | Helper Queue Write Latency | verbose |
+| `cache-disk` | `plogLog` |  | live only |
 | `cache-disk` | `plogLogSpace` | PLOG Log Space | advanced |
+| `cache-disk` | `plogMDDataUsage` |  | live only |
 | `cache-disk` | `plogNumCommitLogs` | Commit Logs | verbose |
 | `cache-disk` | `plogNumElevMDWrites` | Elevator MD Writes | verbose |
 | `cache-disk` | `plogNumElevSSDReads` | Elevator SSD Reads | verbose |
 | `cache-disk` | `plogNumFreedCommitLogs` | Commit Logs Freed | verbose |
 | `cache-disk` | `plogNumFreedLogs` | Write Logs Freed | verbose |
+| `cache-disk` | `plogNumFreedZeroElevCommitLogs` |  | live only |
+| `cache-disk` | `plogNumFreedZeroElevPrepLogs` |  | live only |
 | `cache-disk` | `plogNumMDReads` | Total number of reads to MD | verbose |
 | `cache-disk` | `plogNumRCReads` | Total number of RC reads | verbose |
 | `cache-disk` | `plogNumSSDReads` | Total number of reads to SSD | verbose |
 | `cache-disk` | `plogNumTotalReads` | Total number of reads | verbose |
 | `cache-disk` | `plogNumVMFSReads` | Total number of VMFS reads | verbose |
 | `cache-disk` | `plogNumWriteLogs` | Write Logs | verbose |
+| `cache-disk` | `plogNumZeroElevCommitLogs` |  | live only |
+| `cache-disk` | `plogNumZeroElevPrepLogs` |  | live only |
 | `cache-disk` | `plogReadQLatency` | Read Queue Latency | verbose |
+| `cache-disk` | `plogRecoveryProcessTime` |  | live only |
+| `cache-disk` | `plogRecoveryReadTime` |  | live only |
 | `cache-disk` | `plogSsdBytesDrained` | SSD Drained | advanced |
 | `cache-disk` | `plogTotalBytesDrained` | Total Drained | advanced |
 | `cache-disk` | `plogTotalBytesRead` | Read Total Bytes | verbose |
@@ -234,40 +293,168 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cache-disk` | `plogTotalZeroBytes` | Total Zero Ioctl Bytes | verbose |
 | `cache-disk` | `plogWriteQLatency` | Write Queue Latency | verbose |
 | `cache-disk` | `plogZeroBytesDrained` | Zero Drained | advanced |
+| `cache-disk` | `plogZeroElevCycles` |  | live only |
 | `cache-disk` | `plogtotalRdLat` | Total Read Latency | verbose |
 | `cache-disk` | `plogtotalWrLat` | Total Write Latency | verbose |
+| `cache-disk` | `prepTblCnt` |  | live only |
 | `cache-disk` | `quotaEvictions` | Quota Removals | verbose |
 | `cache-disk` | `rcHitRate` | Read Cache Hit Rate | verbose |
+| `cache-disk` | `rcHitRatePerMille` |  | live only |
+| `cache-disk` | `ssdP` |  | live only |
+| `cache-disk` | `timeToSleepMs` |  | live only |
+| `cache-disk` | `totalCRCCorrected` |  | live only |
+| `cache-disk` | `totalDATABlksCorrected` |  | live only |
+| `cache-disk` | `totalLlogRecoveryTime` |  | live only |
+| `cache-disk` | `totalPlogRecoveryTime` |  | live only |
 | `cache-disk` | `warEvictions` | Writes After Read Removals | verbose |
 | `cache-disk` | `wbFreePct` | WB Free Pct | advanced |
+| `cache-disk` | `zeroElevMaxP` |  | live only |
+| `cache-disk` | `zeroElevStartThreshold` |  | live only |
+| `cache-disk` | `zeroElevTimeToSleepMs` |  | live only |
+| `cache-disk` | `zeroElevUnthrottleThreshold` |  | live only |
+| `cache-disk` | `zeroP` |  | live only |
+| `capacity-disk` | `avgDdpCommitTime` |  | live only |
+| `capacity-disk` | `avgDdpWriteTime` |  | live only |
+| `capacity-disk` | `avgElevIoSize` |  | live only |
+| `capacity-disk` | `avgZeroElevDdpCommitTime` |  | live only |
+| `capacity-disk` | `avgZeroElevDdpWriteTime` |  | live only |
+| `capacity-disk` | `avgZeroElevIoSize` |  | live only |
+| `capacity-disk` | `b0Data` |  | live only |
+| `capacity-disk` | `b1Data` |  | live only |
+| `capacity-disk` | `b2Data` |  | live only |
+| `capacity-disk` | `b3Data` |  | live only |
+| `capacity-disk` | `b4Data` |  | live only |
+| `capacity-disk` | `b5Data` |  | live only |
+| `capacity-disk` | `b6Data` |  | live only |
+| `capacity-disk` | `b7Data` |  | live only |
 | `capacity-disk` | `blkAttrFlshTime` | Checksum Block Attribute | verbose |
+| `capacity-disk` | `capacityCompressed` |  | live only |
 | `capacity-disk` | `capacityUsed` | Used Capacity | verbose |
 | `capacity-disk` | `cfTime` | Commit Flusher | verbose |
 | `capacity-disk` | `checksumErrors` | Checksum Error | verbose |
 | `capacity-disk` | `commitFlusherComponentsToFlush` | Components To Flush | verbose |
 | `capacity-disk` | `commitFlusherExtentSizeProcessed` | Extents Size | verbose |
 | `capacity-disk` | `commitFlusherExtentsProcessed` | Extents Count | verbose |
+| `capacity-disk` | `curWBBucket` |  | live only |
+| `capacity-disk` | `currentDiskFullness` |  | live only |
+| `capacity-disk` | `ddpBmapBytesRead` |  | live only |
+| `capacity-disk` | `ddpBmapBytesWritten` |  | live only |
+| `capacity-disk` | `ddpHmapBytesRead` |  | live only |
+| `capacity-disk` | `ddpHmapBytesWritten` |  | live only |
+| `capacity-disk` | `ddpXmapBytesRead` |  | live only |
+| `capacity-disk` | `ddpXmapBytesWritten` |  | live only |
 | `capacity-disk` | `deleteCongestion` | vSAN Layer Delete Congestion | default |
+| `capacity-disk` | `deleteCongestionLocalMax` |  | live only |
+| `capacity-disk` | `dgTransientCapacityUsed` |  | live only |
+| `capacity-disk` | `diskTransientCapacityUsed` |  | live only |
+| `capacity-disk` | `elevCurBucket` |  | live only |
+| `capacity-disk` | `elevMDWriteLatency` |  | live only |
+| `capacity-disk` | `elevSMActs` |  | live only |
+| `capacity-disk` | `elevSSDReadLatency` |  | live only |
+| `capacity-disk` | `elevatorWaitOnCFTime` |  | live only |
+| `capacity-disk` | `expectedDiskFullness` |  | live only |
+| `capacity-disk` | `incomingWriteMovingAvg` |  | live only |
+| `capacity-disk` | `incomingWriteRate` |  | live only |
+| `capacity-disk` | `inlineUnmapsProcessedBytes` |  | live only |
+| `capacity-disk` | `ioCountDevRead` |  | live only |
+| `capacity-disk` | `ioCountDevWrite` |  | live only |
+| `capacity-disk` | `ioCountRead` |  | live only |
+| `capacity-disk` | `ioCountWrite` |  | live only |
+| `capacity-disk` | `latencyDevKAvg` |  | live only |
+| `capacity-disk` | `latencyDevReadMax` |  | live only |
+| `capacity-disk` | `latencyDevReadMin` |  | live only |
+| `capacity-disk` | `latencyDevWriteMax` |  | live only |
+| `capacity-disk` | `latencyDevWriteMin` |  | live only |
+| `capacity-disk` | `lgclCapConsPrep` |  | live only |
+| `capacity-disk` | `lgclCapConsUsage` |  | live only |
+| `capacity-disk` | `lgclCapFsMetadata` |  | live only |
+| `capacity-disk` | `lgclCapReserved` |  | live only |
+| `capacity-disk` | `lgclCapUnmap` |  | live only |
+| `capacity-disk` | `lgclCapUnrsvrd` |  | live only |
+| `capacity-disk` | `lgclCapUsed` |  | live only |
+| `capacity-disk` | `llogDataSpace` |  | live only |
+| `capacity-disk` | `llogLogSpace` |  | live only |
+| `capacity-disk` | `multiElevAvgIdleTime` |  | live only |
+| `capacity-disk` | `multiElevAvgPreReadTime` |  | live only |
+| `capacity-disk` | `multiElevCompressPct` |  | live only |
+| `capacity-disk` | `multiElevCompressionTime` |  | live only |
+| `capacity-disk` | `multiElevDataWriteTime` |  | live only |
+| `capacity-disk` | `multiElevDedupXmapHitRt` |  | live only |
+| `capacity-disk` | `multiElevNumBitmapRd` |  | live only |
+| `capacity-disk` | `multiElevNumBitmapWrt` |  | live only |
+| `capacity-disk` | `multiElevNumCompressedBlocks` |  | live only |
+| `capacity-disk` | `multiElevNumDdpMetadataReads` |  | live only |
+| `capacity-disk` | `multiElevNumDdpMetadataWrites` |  | live only |
+| `capacity-disk` | `multiElevNumGuestReads` |  | live only |
+| `capacity-disk` | `multiElevNumHashmapRd` |  | live only |
+| `capacity-disk` | `multiElevNumHashmapWrt` |  | live only |
+| `capacity-disk` | `multiElevNumUncompressedBlocks` |  | live only |
+| `capacity-disk` | `multiElevNumXMapRd` |  | live only |
+| `capacity-disk` | `multiElevNumXMapWrt` |  | live only |
+| `capacity-disk` | `multiElevPendingTxnReplayYields` |  | live only |
+| `capacity-disk` | `multiElevTxnBuildTime` |  | live only |
+| `capacity-disk` | `multiElevTxnPreReadHmapWaitTime` |  | live only |
+| `capacity-disk` | `multiElevTxnPreReadXmapWaitTime` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayBgWriteIOs` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayBitmapTime` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayFgWriteIOs` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayHashmapTime` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayIOTime` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayReadIOHits` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayTime` |  | live only |
+| `capacity-disk` | `multiElevTxnReplayXmapTime` |  | live only |
+| `capacity-disk` | `multiElevTxnWritePrepTime` |  | live only |
+| `capacity-disk` | `multiElevTxnWriteTime` |  | live only |
+| `capacity-disk` | `multiElevTxnWriteWaitingTime` |  | live only |
 | `capacity-disk` | `numCFAct` | Commit Flusher | verbose |
 | `capacity-disk` | `numCksumFlsh` | Checksum Block Attribute | verbose |
+| `capacity-disk` | `numCompressions` |  | live only |
+| `capacity-disk` | `numLbaEntriesInCurZeroBkt` |  | live only |
+| `capacity-disk` | `numNonZeroLbaEntriesSkipped` |  | live only |
 | `capacity-disk` | `numPlogIOs` | PLOG IO | verbose |
+| `capacity-disk` | `numUncompressions` |  | live only |
 | `capacity-disk` | `numVrstBar` | Virsto Metadata | verbose |
+| `capacity-disk` | `outstandingCmdCount` |  | live only |
+| `capacity-disk` | `phyCapCF` |  | live only |
+| `capacity-disk` | `phyCapRsrvd` |  | live only |
+| `capacity-disk` | `phyCapRsrvdUsed` |  | live only |
+| `capacity-disk` | `phyCapT2` |  | live only |
+| `capacity-disk` | `phyCapUsed` |  | live only |
+| `capacity-disk` | `plannedDeltaComponents` |  | live only |
+| `capacity-disk` | `plogCommitLogCbTime` |  | live only |
+| `capacity-disk` | `plogCommitSMActs` |  | live only |
 | `capacity-disk` | `plogCumlEncRdLat` | Cumulative Encryption Read Latency | verbose |
 | `capacity-disk` | `plogCumlEncWrLat` | Cumulative Encryption Write Latency | verbose |
 | `capacity-disk` | `plogDGDataUsage` | DGData | verbose |
+| `capacity-disk` | `plogDGZeroUsage` |  | live only |
+| `capacity-disk` | `plogDataSpace` |  | live only |
 | `capacity-disk` | `plogElevCycles` | Elevator Cycles | verbose |
 | `capacity-disk` | `plogHelpRdQDepth` | Helper Read Queue Depth | verbose |
 | `capacity-disk` | `plogHelpRdQLat` | Helper Queue Read Latency | verbose |
 | `capacity-disk` | `plogHelpWrQDepth` | Helper Write Queue Depth | verbose |
 | `capacity-disk` | `plogHelpWrQLat` | Helper Queue Write Latency | verbose |
 | `capacity-disk` | `plogIOTime` | PLOG IO | verbose |
+| `capacity-disk` | `plogLogSpace` |  | live only |
+| `capacity-disk` | `plogMDDataUsage` |  | live only |
+| `capacity-disk` | `plogMDZeroUsage` |  | live only |
+| `capacity-disk` | `plogNumCommitLogs` |  | live only |
 | `capacity-disk` | `plogNumElevMDWrites` | Elevator MD Writes | verbose |
 | `capacity-disk` | `plogNumElevSSDReads` | Elevator SSD Reads | verbose |
+| `capacity-disk` | `plogNumFreedCommitLogs` |  | live only |
+| `capacity-disk` | `plogNumFreedLogs` |  | live only |
+| `capacity-disk` | `plogNumFreedZeroElevCommitLogs` |  | live only |
+| `capacity-disk` | `plogNumFreedZeroElevPrepLogs` |  | live only |
+| `capacity-disk` | `plogNumLbaEntriesInCurBkt` |  | live only |
+| `capacity-disk` | `plogNumLbaEntriesSkipped` |  | live only |
 | `capacity-disk` | `plogNumMDReads` | Total number of reads to MD | verbose |
 | `capacity-disk` | `plogNumRCReads` | Total number of RC reads | verbose |
 | `capacity-disk` | `plogNumSSDReads` | Total number of reads to SSD | verbose |
 | `capacity-disk` | `plogNumTotalReads` | Total number of reads | verbose |
 | `capacity-disk` | `plogNumVMFSReads` | Total number of VMFS reads | verbose |
+| `capacity-disk` | `plogNumWriteLogs` |  | live only |
+| `capacity-disk` | `plogNumZeroElevCommitLogs` |  | live only |
+| `capacity-disk` | `plogNumZeroElevPrepLogs` |  | live only |
+| `capacity-disk` | `plogPrepSMActs` |  | live only |
 | `capacity-disk` | `plogReadQLatency` | Read Queue Latency | verbose |
 | `capacity-disk` | `plogSsdBytesDrained` | SSD Drained | advanced |
 | `capacity-disk` | `plogTotalBytesDrained` | Total Drained | advanced |
@@ -285,6 +472,28 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `capacity-disk` | `plogTotalZeroBytes` | Total Zero Ioctl Bytes | verbose |
 | `capacity-disk` | `plogWriteQLatency` | Write Queue Latency | verbose |
 | `capacity-disk` | `plogZeroBytesDrained` | Zero Drained | advanced |
+| `capacity-disk` | `plogZeroElevCommitLogCbTime` |  | live only |
+| `capacity-disk` | `plogZeroElevCycles` |  | live only |
+| `capacity-disk` | `totalCRCCorrected` |  | live only |
+| `capacity-disk` | `totalDATABlksCorrected` |  | live only |
+| `capacity-disk` | `unmapDelayed` |  | live only |
+| `capacity-disk` | `unmapInline` |  | live only |
+| `capacity-disk` | `unmapPendingBytes` |  | live only |
+| `capacity-disk` | `unmapPendingComponents` |  | live only |
+| `capacity-disk` | `unmapPendingComponentsActive` |  | live only |
+| `capacity-disk` | `unmapPendingComponentsQueued` |  | live only |
+| `capacity-disk` | `unmapPendingInflightBytes` |  | live only |
+| `capacity-disk` | `unmapPendingPlacedBytes` |  | live only |
+| `capacity-disk` | `unmapPendingProcessedBytes` |  | live only |
+| `capacity-disk` | `unmapPendingProcessedPages` |  | live only |
+| `capacity-disk` | `unmapQuota` |  | live only |
+| `capacity-disk` | `unmapQuotaAvailableBytes` |  | live only |
+| `capacity-disk` | `unmapQuotaConsumedBytes` |  | live only |
+| `capacity-disk` | `unmapQuotaConsumedPages` |  | live only |
+| `capacity-disk` | `unmapQuotaFailed` |  | live only |
+| `capacity-disk` | `unmapQuotaRelinquished` |  | live only |
+| `capacity-disk` | `unmapsToUnallocatedBytes` |  | live only |
+| `capacity-disk` | `unplannedDeltaComponents` |  | live only |
 | `capacity-disk` | `virstoDirtyMapBlocks` | Dirty | verbose |
 | `capacity-disk` | `virstoFreeMapBlocks` | Free | verbose |
 | `capacity-disk` | `virstoInstanceHeapUtilization` | Heap Used | verbose |
@@ -297,6 +506,23 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `capacity-disk` | `virstoMetadataFlusherRunsPerSec` | Runs/sec | verbose |
 | `capacity-disk` | `virstoValidMapBlocks` | Valid | verbose |
 | `capacity-disk` | `vrstBarrTime` | Virsto Metadata | verbose |
+| `capacity-disk` | `zeroDestageRate` |  | live only |
+| `capacity-disk` | `zeroDestageRateMovingAvg` |  | live only |
+| `capacity-disk` | `zeroElevCurBucket` |  | live only |
+| `capacity-disk` | `zeroElevCurTxnScopes` |  | live only |
+| `capacity-disk` | `zeroElevSMActivations` |  | live only |
+| `capacity-disk` | `zeroElevatorWaitOnCFTime` |  | live only |
+| `capacity-disk` | `zeroesBucket0` |  | live only |
+| `capacity-disk` | `zeroesBucket1` |  | live only |
+| `capacity-disk` | `zeroesBucket2` |  | live only |
+| `capacity-disk` | `zeroesBucket3` |  | live only |
+| `capacity-disk` | `zeroesBucket4` |  | live only |
+| `capacity-disk` | `zeroesBucket5` |  | live only |
+| `capacity-disk` | `zeroesBucket6` |  | live only |
+| `capacity-disk` | `zeroesBucket7` |  | live only |
+| `capacity-disk` | `zerosInFlight` |  | live only |
+| `capacity-disk` | `zerosInFlightSystem` |  | live only |
+| `capacity-disk` | `zerosProcessedSystem` |  | live only |
 | `clom-disk` | `diskCompCntRatio` | Disk Component Count Ratio | default |
 | `clom-disk` | `diskDataCompCntRatio` | Disk Data Component Count Ratio | default |
 | `clom-disk` | `diskFullness` | Disk Fullness | verbose |
@@ -310,6 +536,17 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `clom-disk` | `versionWeight` | Version Weight | verbose |
 | `clom-host` | `nodeCompCntRatio` | Node Component Count Ratio | default |
 | `clom-host` | `nodeDataCompCntRatio` | Node Data Component Count Ratio | default |
+| `cluster-domclient` | `numOio` |  | live only |
+| `cluster-domclient` | `readCongestion` |  | live only |
+| `cluster-domclient` | `readCount` |  | live only |
+| `cluster-domclient` | `unmapCongestion` |  | live only |
+| `cluster-domclient` | `writeCongestion` |  | live only |
+| `cluster-domclient` | `writeCount` |  | live only |
+| `cluster-domcompmgr` | `numOio` |  | live only |
+| `cluster-domowner` | `avgDeltaCreationDomActiveLatency` |  | live only |
+| `cluster-domowner` | `avgDeltaCreationDomCreationLatency` |  | live only |
+| `cluster-domowner` | `avgResyncParallelism` |  | live only |
+| `cluster-domowner` | `congestion` |  | live only |
 | `cluster-domowner` | `iopsRead` | Read IOPS | default |
 | `cluster-domowner` | `iopsRecWrite` | Recovery Write IOPS | default |
 | `cluster-domowner` | `iopsResyncRead` | Resync Read IOPS | default |
@@ -318,12 +555,39 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cluster-domowner` | `latencyAvgRecWrite` | Resync Write Latency | default |
 | `cluster-domowner` | `latencyAvgResyncRead` | Resync Read Latency | default |
 | `cluster-domowner` | `latencyAvgWrite` | Write Latency | default |
+| `cluster-domowner` | `numCompleteDeltaToBaseResyncOps` |  | live only |
+| `cluster-domowner` | `numCompleteFullResyncOps` |  | live only |
+| `cluster-domowner` | `numCompleteResyncOps` |  | live only |
+| `cluster-domowner` | `numCompleteResyncRwrBatches` |  | live only |
+| `cluster-domowner` | `numCompleteRwrOps` |  | live only |
+| `cluster-domowner` | `numCompleteSiblingToDeltaResyncOps` |  | live only |
+| `cluster-domowner` | `numInflightPriorityResyncJobs` |  | live only |
+| `cluster-domowner` | `numInflightSharedResyncJobs` |  | live only |
+| `cluster-domowner` | `numOio` |  | live only |
+| `cluster-domowner` | `numPendingDecomResyncJobs` |  | live only |
+| `cluster-domowner` | `numPendingDeltaToBaseResyncJobs` |  | live only |
+| `cluster-domowner` | `numPendingFullResyncJobs` |  | live only |
+| `cluster-domowner` | `numPendingResyncJobs` |  | live only |
+| `cluster-domowner` | `numPendingSiblingToDeltaResyncJobs` |  | live only |
+| `cluster-domowner` | `numRunningDeltaToBaseResyncJobs` |  | live only |
+| `cluster-domowner` | `numRunningFullResyncJobs` |  | live only |
+| `cluster-domowner` | `numRunningResyncJobs` |  | live only |
+| `cluster-domowner` | `numRunningSiblingToDeltaResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedDeltaToBaseResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedFullResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedPriorityResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedResyncChangemaps` |  | live only |
+| `cluster-domowner` | `numSuspendedResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedSharedResyncJobs` |  | live only |
+| `cluster-domowner` | `numSuspendedSiblingToDeltaResyncJobs` |  | live only |
 | `cluster-domowner` | `oio` | Outstanding IO | default |
 | `cluster-domowner` | `readCongestion` | Read Congestions | default |
+| `cluster-domowner` | `totalDeltasCreatedCount` |  | live only |
 | `cluster-domowner` | `tputRead` | Read Throughput | default |
 | `cluster-domowner` | `tputRecWrite` | Recovery Write Throughput | default |
 | `cluster-domowner` | `tputResyncRead` | Resync Read Throughput | default |
 | `cluster-domowner` | `tputWrite` | Write Throughput | default |
+| `cluster-domowner` | `unmapCongestion` |  | live only |
 | `cluster-domowner` | `writeCongestion` | Write Congestions | default |
 | `cluster-esa-dedup-domclient-io` | `dedupChunkReadCount` | Deduplication Chunk Object Read IO Count | default |
 | `cluster-esa-dedup-domclient-io` | `dedupChunkWriteCount` | Deduplication Chunk Object Write IO Count | default |
@@ -467,8 +731,10 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cluster-pmem` | `latencyRead` | Read Latency | default |
 | `cluster-pmem` | `latencyWrite` | Write Latency | default |
 | `cluster-rdt-network-latency` | `avgLatency` | RDT Network Cluster Average Latency | default |
+| `cluster-rdt-network-latency` | `kaReset` |  | live only |
 | `cluster-rdt-network-latency` | `maxLatency` | RDT Network Cluster Max Latency | default |
 | `cluster-rdt-network-latency` | `minLatency` | RDT Network Cluster Min Latency | default |
+| `cluster-rdt-network-latency` | `numReadyDelay` |  | live only |
 | `cluster-rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | default |
 | `cluster-rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | default |
 | `cluster-rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | default |
@@ -499,6 +765,14 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `cluster-resync` | `latResyncWriteFixComp` | Repair Write | default |
 | `cluster-resync` | `latResyncWritePolicy` | Policy Change Write | default |
 | `cluster-resync` | `latResyncWriteRebalance` | Rebalance Write | default |
+| `cluster-resync` | `readCountDecom` |  | live only |
+| `cluster-resync` | `readCountFixComp` |  | live only |
+| `cluster-resync` | `readCountPolicy` |  | live only |
+| `cluster-resync` | `readCountRebalance` |  | live only |
+| `cluster-resync` | `recWriteCountDecom` |  | live only |
+| `cluster-resync` | `recWriteCountFixComp` |  | live only |
+| `cluster-resync` | `recWriteCountPolicy` |  | live only |
+| `cluster-resync` | `recWriteCountRebalance` |  | live only |
 | `cluster-resync` | `tputResyncReadDecom` | Evacuation Read | default |
 | `cluster-resync` | `tputResyncReadFixComp` | Repair Read | default |
 | `cluster-resync` | `tputResyncReadPolicy` | Policy Change Read | default |
@@ -584,76 +858,545 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `ddh-disk` | `plogStartSegNo` | PLOG Start Segment | verbose |
 | `ddh-disk` | `readLatencyExCount` | Read Latency | verbose |
 | `ddh-disk` | `writeLatencyExCount` | Write Latency | verbose |
+| `disk-group` | `allEvictions` |  | live only |
+| `disk-group` | `avgIdleTime` |  | live only |
+| `disk-group` | `avgPreReadTime` |  | live only |
+| `disk-group` | `compCongestionLocalMax` |  | live only |
 | `disk-group` | `componentCongestionReadSched` | Read Component | default |
 | `disk-group` | `componentCongestionWriteSched` | Write Component | default |
 | `disk-group` | `compressPct` | Compress Percentage | verbose |
 | `disk-group` | `compressionTime` | Compression Time | verbose |
+| `disk-group` | `curBytesToSyncDecom` |  | live only |
+| `disk-group` | `curBytesToSyncFixComp` |  | live only |
+| `disk-group` | `curBytesToSyncPolicy` |  | live only |
+| `disk-group` | `curBytesToSyncRebalance` |  | live only |
+| `disk-group` | `curBytesToSyncRepair` |  | live only |
+| `disk-group` | `currentDrainRate` |  | live only |
+| `disk-group` | `currentIncomingRate` |  | live only |
+| `disk-group` | `currentOverWriteFactor` |  | live only |
+| `disk-group` | `currentTrueWBFillRate` |  | live only |
 | `disk-group` | `dataWriteTime` | Data Write Time | verbose |
+| `disk-group` | `ddpCommitRate` |  | live only |
 | `disk-group` | `ddpFreeCap` | Space Efficiency Free Capacity | verbose |
 | `disk-group` | `ddpTotalCap` | Space Efficiency Total Capacity | verbose |
+| `disk-group` | `ddpWriteRate` |  | live only |
+| `disk-group` | `dedupBmapHitRt` |  | live only |
+| `disk-group` | `dedupBmapUsage` |  | live only |
 | `disk-group` | `dedupHmapHitRt` | HMAP Hit Rate | verbose |
+| `disk-group` | `dedupHmapUsage` |  | live only |
 | `disk-group` | `dedupPct` | Dedup Percentage | verbose |
 | `disk-group` | `dedupXmapHitRt` | XMAP Hit Rate | verbose |
+| `disk-group` | `dedupXmapUsage` |  | live only |
 | `disk-group` | `dedupedBytes` | Space Efficiency Bytes | verbose |
 | `disk-group` | `diskgroupCongestionReadSched` | Read Disk Group | default |
 | `disk-group` | `diskgroupCongestionWriteSched` | Write Disk Group | default |
+| `disk-group` | `drainRateMovingAvg` |  | live only |
 | `disk-group` | `hashCalcTime` | Hash Calculate Time | verbose |
 | `disk-group` | `hashedBytes` | Hashed Bytes | verbose |
+| `disk-group` | `ioCountRcRead` |  | live only |
+| `disk-group` | `ioCountRcWrite` |  | live only |
+| `disk-group` | `ioCountWbRead` |  | live only |
+| `disk-group` | `ioCountWbWrite` |  | live only |
+| `disk-group` | `iopsAvgOfAllIO` |  | live only |
+| `disk-group` | `iopsCongestionLocalMax` |  | live only |
 | `disk-group` | `iopsDirectSched` | Direct Scheduled IOPS | default |
+| `disk-group` | `iopsRcMemReads` |  | live only |
+| `disk-group` | `iopsRcRawar` |  | live only |
+| `disk-group` | `iopsRcSsdReads` |  | live only |
+| `disk-group` | `iopsRcTotalRead` |  | live only |
+| `disk-group` | `iopsReadCompMgr` |  | live only |
+| `disk-group` | `iopsRecoveryUnmapCompMgr` |  | live only |
+| `disk-group` | `iopsRecoveryWriteCompMgr` |  | live only |
 | `disk-group` | `iopsResyncRead` | Resync Read IOPS | default |
 | `disk-group` | `iopsResyncWrite` | Resync Write IOPS | default |
+| `disk-group` | `iopsUnmapCompMgr` |  | live only |
+| `disk-group` | `iopsWriteCompMgr` |  | live only |
+| `disk-group` | `iopsWriteLE` |  | live only |
 | `disk-group` | `latResyncRead` | Resync Read Latency | default |
 | `disk-group` | `latResyncWrite` | Resync Write Latency | default |
+| `disk-group` | `latencyAvgOfAllIO` |  | live only |
+| `disk-group` | `latencyReadCompMgr` |  | live only |
+| `disk-group` | `latencyRecoveryUnmapCompMgr` |  | live only |
+| `disk-group` | `latencyRecoveryWriteCompMgr` |  | live only |
 | `disk-group` | `latencySched` | Scheduled Latency | default |
+| `disk-group` | `latencyUnmapCompMgr` |  | live only |
+| `disk-group` | `latencyWriteCompMgr` |  | live only |
+| `disk-group` | `latencyWriteLE` |  | live only |
+| `disk-group` | `logCongestionLocalMax` |  | live only |
+| `disk-group` | `mappedBytesPerCommit` |  | live only |
+| `disk-group` | `maxCapacityUsed` |  | live only |
+| `disk-group` | `maxDeleteCongestion` |  | live only |
+| `disk-group` | `memCongestionLocalMax` |  | live only |
+| `disk-group` | `metadataBackpressureCongestionReadSched` |  | live only |
+| `disk-group` | `metadataBackpressureCongestionWriteSched` |  | live only |
+| `disk-group` | `metadataThroughputReadSched` |  | live only |
+| `disk-group` | `metadataThroughputWriteSched` |  | live only |
+| `disk-group` | `minCapacityUsed` |  | live only |
+| `disk-group` | `namespaceBackpressureCongestionReadSched` |  | live only |
+| `disk-group` | `namespaceBackpressureCongestionWriteSched` |  | live only |
+| `disk-group` | `namespaceThroughputReadSched` |  | live only |
+| `disk-group` | `namespaceThroughputWriteSched` |  | live only |
 | `disk-group` | `numBitmapRd` | Number Of Bitmap Reads | verbose |
 | `disk-group` | `numBitmapWrt` | Number Of Bitmap Writes | verbose |
+| `disk-group` | `numCompressedHashBlocks` |  | live only |
+| `disk-group` | `numDdpMetadataReads` |  | live only |
+| `disk-group` | `numDdpMetadataWrites` |  | live only |
+| `disk-group` | `numGuestReads` |  | live only |
 | `disk-group` | `numHashmapRd` | Number Of Hashmap Reads | verbose |
 | `disk-group` | `numHashmapWrt` | Number Of Hashmap Writes | verbose |
 | `disk-group` | `numXMapRd` | Number Of Xmap Reads | verbose |
 | `disk-group` | `numXMapWrt` | Number Of Xmap Writes | verbose |
+| `disk-group` | `oioReadCompMgr` |  | live only |
+| `disk-group` | `oioRecoveryUnmapCompMgr` |  | live only |
+| `disk-group` | `oioRecoveryWriteCompMgr` |  | live only |
+| `disk-group` | `oioUnmapCompMgr` |  | live only |
+| `disk-group` | `oioWriteCompMgr` |  | live only |
+| `disk-group` | `oobLogCongestionIOPS` |  | live only |
 | `disk-group` | `outstandingBytesSched` | Outstanding Bytes | default |
+| `disk-group` | `overWriteFactorMovingAvg` |  | live only |
+| `disk-group` | `pendingTxnReplayYields` |  | live only |
+| `disk-group` | `plogInvalidated` |  | live only |
+| `disk-group` | `plogInvalidationBitNotSet` |  | live only |
+| `disk-group` | `plogPatched` |  | live only |
+| `disk-group` | `plogRclNotFound` |  | live only |
+| `disk-group` | `rcMissRate` |  | live only |
+| `disk-group` | `rcPartialMissRate` |  | live only |
+| `disk-group` | `readCount` |  | live only |
+| `disk-group` | `readCountDecom` |  | live only |
+| `disk-group` | `readCountFixComp` |  | live only |
+| `disk-group` | `readCountPolicy` |  | live only |
+| `disk-group` | `readCountRebalance` |  | live only |
+| `disk-group` | `readInvalidatedBytesPatched` |  | live only |
+| `disk-group` | `readInvalidatedBytesRawar` |  | live only |
+| `disk-group` | `readInvalidatedBytesWastedPatched` |  | live only |
+| `disk-group` | `recWriteCountDecom` |  | live only |
+| `disk-group` | `recWriteCountFixComp` |  | live only |
+| `disk-group` | `recWriteCountPolicy` |  | live only |
+| `disk-group` | `recWriteCountRebalance` |  | live only |
+| `disk-group` | `regulatorIopsReadSched` |  | live only |
+| `disk-group` | `regulatorIopsWriteSched` |  | live only |
+| `disk-group` | `resyncBackpressureCongestionReadSched` |  | live only |
+| `disk-group` | `resyncBackpressureCongestionWriteSched` |  | live only |
+| `disk-group` | `resyncThroughputReadSched` |  | live only |
+| `disk-group` | `resyncThroughputWriteSched` |  | live only |
+| `disk-group` | `slabCongestionLocalMax` |  | live only |
+| `disk-group` | `ssdCongestionLocalMax` |  | live only |
+| `disk-group` | `throughputAvgOfAllIO` |  | live only |
+| `disk-group` | `throughputReadCompMgr` |  | live only |
+| `disk-group` | `throughputRecoveryUnmapCompMgr` |  | live only |
+| `disk-group` | `throughputRecoveryWriteCompMgr` |  | live only |
+| `disk-group` | `throughputUnmapCompMgr` |  | live only |
+| `disk-group` | `throughputWriteCompMgr` |  | live only |
+| `disk-group` | `throughputWriteLE` |  | live only |
+| `disk-group` | `timesOverWindowLimitRead` |  | live only |
+| `disk-group` | `timesOverWindowLimitWrite` |  | live only |
 | `disk-group` | `tputResyncRead` | Resync Read Throughput | default |
 | `disk-group` | `tputResyncWrite` | Resync Write Throughput | default |
 | `disk-group` | `txnBuildTime` | Transaction Build Time | verbose |
+| `disk-group` | `txnPreReadHmapWaitTime` |  | live only |
+| `disk-group` | `txnPreReadXmapWaitTime` |  | live only |
+| `disk-group` | `txnReplayBgWriteIOs` |  | live only |
+| `disk-group` | `txnReplayBitmapTime` |  | live only |
+| `disk-group` | `txnReplayFgWriteIOs` |  | live only |
+| `disk-group` | `txnReplayHashmapTime` |  | live only |
+| `disk-group` | `txnReplayIOTime` |  | live only |
+| `disk-group` | `txnReplayReadIOHits` |  | live only |
 | `disk-group` | `txnReplayTime` | Transaction Replay Time | verbose |
+| `disk-group` | `txnReplayXmapTime` |  | live only |
+| `disk-group` | `txnSizePerCommit` |  | live only |
+| `disk-group` | `txnWritePrepTime` |  | live only |
 | `disk-group` | `txnWriteTime` | Transaction Write Time | verbose |
+| `disk-group` | `txnWriteWaitingTime` |  | live only |
+| `disk-group` | `vmdiskBackpressureCongestionReadSched` |  | live only |
+| `disk-group` | `vmdiskBackpressureCongestionWriteSched` |  | live only |
+| `disk-group` | `vmdiskThroughputReadSched` |  | live only |
+| `disk-group` | `vmdiskThroughputWriteSched` |  | live only |
+| `disk-group` | `writeCount` |  | live only |
 | `dom-world-cpu` | `readyPct` | Percentage of Ready CPU Time | default |
 | `dom-world-cpu` | `usedPct` | Percentage of Used CPU Time | default |
 | `heap-memory` | `heapUtil` | Heap Utilization | default |
 | `host-cpu` | `coreUtilPct` | Percentage of CPU core uitilization | default |
 | `host-cpu` | `pcpuUsedPct` | Percentage of Used Physical CPU Time | default |
 | `host-cpu` | `pcpuUtilPct` | Percentage of Physical CPU Utilization | default |
+| `host-domclient` | `IOPSWithinBursts` |  | live only |
+| `host-domclient` | `IOPSWithinBurstsExclFirstObj` |  | live only |
+| `host-domclient` | `IOPSWithinBurstsMultiObj` |  | live only |
+| `host-domclient` | `avgBurstArrivalTime` |  | live only |
+| `host-domclient` | `avgBurstArrivalTimeMultiObj` |  | live only |
+| `host-domclient` | `avgBurstCompletionTime` |  | live only |
+| `host-domclient` | `avgBurstCompletionTimeMultiObj` |  | live only |
+| `host-domclient` | `avgBurstPeakOIO` |  | live only |
+| `host-domclient` | `avgBurstPeakOIOMultiObj` |  | live only |
+| `host-domclient` | `avgBurstPeakOutstandingKb` |  | live only |
+| `host-domclient` | `avgBurstPeakOutstandingKbMultiObj` |  | live only |
+| `host-domclient` | `avgBurstTotalTime` |  | live only |
+| `host-domclient` | `avgBurstTotalTimeMultiObj` |  | live only |
+| `host-domclient` | `avgPctTimeToPeak` |  | live only |
+| `host-domclient` | `avgPctTimeToPeakMultiObj` |  | live only |
+| `host-domclient` | `bandwidthWithinBursts` |  | live only |
+| `host-domclient` | `bandwidthWithinBurstsExclFirstObj` |  | live only |
+| `host-domclient` | `bandwidthWithinBurstsMultiObj` |  | live only |
+| `host-domclient` | `burstsPerSecond` |  | live only |
+| `host-domclient` | `burstsPerSecondMultiObj` |  | live only |
+| `host-domclient` | `ioCount` |  | live only |
+| `host-domclient` | `iops` |  | live only |
+| `host-domclient` | `iopsSegCleanerUnmap` |  | live only |
+| `host-domclient` | `latencyAvg` |  | live only |
+| `host-domclient` | `latencyAvgSegCleanerUnmap` |  | live only |
+| `host-domclient` | `latencyMaxRead` |  | live only |
+| `host-domclient` | `latencyMaxSegCleanerUnmap` |  | live only |
+| `host-domclient` | `latencyMaxUnmap` |  | live only |
+| `host-domclient` | `latencyMaxWrite` |  | live only |
 | `host-domclient` | `latencyStddev` | Latency Standard Deviation | advanced |
 | `host-domclient` | `latencyStddevRead` | Read Latency Standard Deviation | advanced |
+| `host-domclient` | `latencyStddevSegCleanerUnmap` |  | live only |
 | `host-domclient` | `latencyStddevUnmap` | Unmap Latency Standard Deviation | advanced |
 | `host-domclient` | `latencyStddevWrite` | Write Latency Standard Deviation | advanced |
+| `host-domclient` | `lessSkewedMultiBurstsPerSecond` |  | live only |
+| `host-domclient` | `numBurstStatsSkipped` |  | live only |
+| `host-domclient` | `numOio` |  | live only |
+| `host-domclient` | `oioRead` |  | live only |
+| `host-domclient` | `oioRecoveryWrite` |  | live only |
+| `host-domclient` | `oioResyncRead` |  | live only |
+| `host-domclient` | `oioWrite` |  | live only |
+| `host-domclient` | `readCongestion` |  | live only |
+| `host-domclient` | `readCount` |  | live only |
+| `host-domclient` | `segCleanerUnmapCongestion` |  | live only |
+| `host-domclient` | `segCleanerUnmapLeafOwnerLatency` |  | live only |
+| `host-domclient` | `segCleanerUnmapLeafOwnerMaxLatencyAvgUs` |  | live only |
+| `host-domclient` | `serverSwitchAvglatency` |  | live only |
+| `host-domclient` | `serverSwitchCount` |  | live only |
+| `host-domclient` | `serverSwitchLatencyMaxUs` |  | live only |
+| `host-domclient` | `throughput` |  | live only |
+| `host-domclient` | `throughputSegCleanerUnmap` |  | live only |
+| `host-domclient` | `unmapCongestion` |  | live only |
+| `host-domclient` | `unmapCount` |  | live only |
+| `host-domclient` | `writeCongestion` |  | live only |
+| `host-domclient` | `writeCount` |  | live only |
+| `host-domcompmgr` | `componentCongestion` |  | live only |
+| `host-domcompmgr` | `ioCount` |  | live only |
+| `host-domcompmgr` | `iops` |  | live only |
+| `host-domcompmgr` | `latencyAvg` |  | live only |
+| `host-domcompmgr` | `latencyAvgServiceVMRead` |  | live only |
+| `host-domcompmgr` | `latencyAvgServiceVMWrite` |  | live only |
+| `host-domcompmgr` | `latencyMaxRead` |  | live only |
+| `host-domcompmgr` | `latencyMaxUnmap` |  | live only |
+| `host-domcompmgr` | `latencyMaxWrite` |  | live only |
 | `host-domcompmgr` | `latencyStddev` | Latency Standard Deviation | advanced |
 | `host-domcompmgr` | `latencyStddevRead` | Read Latency Standard Deviation | advanced |
 | `host-domcompmgr` | `latencyStddevUnmap` | Unmap Latency Standard Deviation | advanced |
 | `host-domcompmgr` | `latencyStddevWrite` | Write Latency Standard Deviation | advanced |
+| `host-domcompmgr` | `metadataDispatchedCostRead` |  | live only |
+| `host-domcompmgr` | `metadataDispatchedCostWrite` |  | live only |
+| `host-domcompmgr` | `metadataQueueDepthRead` |  | live only |
+| `host-domcompmgr` | `metadataQueueDepthWrite` |  | live only |
+| `host-domcompmgr` | `namespaceDispatchedCostRead` |  | live only |
+| `host-domcompmgr` | `namespaceDispatchedCostWrite` |  | live only |
+| `host-domcompmgr` | `namespaceQueueDepthRead` |  | live only |
+| `host-domcompmgr` | `namespaceQueueDepthWrite` |  | live only |
+| `host-domcompmgr` | `numOio` |  | live only |
+| `host-domcompmgr` | `oioRead` |  | live only |
+| `host-domcompmgr` | `oioRecoveryWrite` |  | live only |
+| `host-domcompmgr` | `oioResyncRead` |  | live only |
+| `host-domcompmgr` | `oioWrite` |  | live only |
+| `host-domcompmgr` | `readCongestion` |  | live only |
+| `host-domcompmgr` | `readCount` |  | live only |
+| `host-domcompmgr` | `recUnmapCongestion` |  | live only |
+| `host-domcompmgr` | `recUnmapCount` |  | live only |
+| `host-domcompmgr` | `recWriteCongestion` |  | live only |
+| `host-domcompmgr` | `recWriteCount` |  | live only |
+| `host-domcompmgr` | `regulatorIopsRead` |  | live only |
+| `host-domcompmgr` | `regulatorIopsWrite` |  | live only |
+| `host-domcompmgr` | `resyncDispatchedCostRead` |  | live only |
+| `host-domcompmgr` | `resyncDispatchedCostWrite` |  | live only |
+| `host-domcompmgr` | `resyncQueueDepthRead` |  | live only |
+| `host-domcompmgr` | `resyncQueueDepthWrite` |  | live only |
+| `host-domcompmgr` | `resyncReadCongestion` |  | live only |
+| `host-domcompmgr` | `resyncReadCount` |  | live only |
+| `host-domcompmgr` | `sharedCongestion` |  | live only |
+| `host-domcompmgr` | `throughput` |  | live only |
+| `host-domcompmgr` | `tputServiceVMRead` |  | live only |
+| `host-domcompmgr` | `tputServiceVMWrite` |  | live only |
+| `host-domcompmgr` | `unmapCongestion` |  | live only |
+| `host-domcompmgr` | `unmapCount` |  | live only |
+| `host-domcompmgr` | `vmdiskDispatchedCostRead` |  | live only |
+| `host-domcompmgr` | `vmdiskDispatchedCostWrite` |  | live only |
+| `host-domcompmgr` | `vmdiskQueueDepthRead` |  | live only |
+| `host-domcompmgr` | `vmdiskQueueDepthWrite` |  | live only |
+| `host-domcompmgr` | `writeCongestion` |  | live only |
+| `host-domcompmgr` | `writeCount` |  | live only |
+| `host-domowner` | `avgDeltaCreationDomActiveLatency` |  | live only |
+| `host-domowner` | `avgDeltaCreationDomCreationLatency` |  | live only |
+| `host-domowner` | `avgResyncParallelism` |  | live only |
+| `host-domowner` | `congestion` |  | live only |
+| `host-domowner` | `deltaLeafGTEs` |  | live only |
+| `host-domowner` | `deltaSourceChanges` |  | live only |
+| `host-domowner` | `ecCachedWriteCount` |  | live only |
+| `host-domowner` | `ecCachedWriteHits` |  | live only |
+| `host-domowner` | `ecFswCount` |  | live only |
+| `host-domowner` | `ecStridedWriteCount` |  | live only |
+| `host-domowner` | `ecStridedWriteHits` |  | live only |
+| `host-domowner` | `ecWriteCount` |  | live only |
+| `host-domowner` | `highOIOAvgDurationMs` |  | live only |
+| `host-domowner` | `highOIOAvgDurationMsRead` |  | live only |
+| `host-domowner` | `highOIOAvgDurationMsWrite` |  | live only |
+| `host-domowner` | `highOIOAvgIOCount` |  | live only |
+| `host-domowner` | `highOIOAvgIOCountRead` |  | live only |
+| `host-domowner` | `highOIOAvgIOCountWrite` |  | live only |
+| `host-domowner` | `highOIOAvgOIO` |  | live only |
+| `host-domowner` | `highOIOAvgOIORead` |  | live only |
+| `host-domowner` | `highOIOAvgOIOWrite` |  | live only |
+| `host-domowner` | `highOIOBytes` |  | live only |
+| `host-domowner` | `highOIOBytesRead` |  | live only |
+| `host-domowner` | `highOIOBytesWrite` |  | live only |
+| `host-domowner` | `highOIOCount` |  | live only |
+| `host-domowner` | `highOIOCountPercent` |  | live only |
+| `host-domowner` | `highOIOCountPercentRead` |  | live only |
+| `host-domowner` | `highOIOCountPercentWrite` |  | live only |
+| `host-domowner` | `highOIOCountRead` |  | live only |
+| `host-domowner` | `highOIOCountWrite` |  | live only |
+| `host-domowner` | `highOIODurationMs` |  | live only |
+| `host-domowner` | `highOIODurationMsRead` |  | live only |
+| `host-domowner` | `highOIODurationMsWrite` |  | live only |
+| `host-domowner` | `highOIODurationPercent` |  | live only |
+| `host-domowner` | `highOIODurationPercentRead` |  | live only |
+| `host-domowner` | `highOIODurationPercentWrite` |  | live only |
+| `host-domowner` | `highOIONumTimes` |  | live only |
+| `host-domowner` | `highOIONumTimesRead` |  | live only |
+| `host-domowner` | `highOIONumTimesWrite` |  | live only |
+| `host-domowner` | `highOIOThroughput` |  | live only |
+| `host-domowner` | `highOIOThroughputRead` |  | live only |
+| `host-domowner` | `highOIOThroughputWrite` |  | live only |
+| `host-domowner` | `ioCount` |  | live only |
+| `host-domowner` | `iops` |  | live only |
 | `host-domowner` | `iopsRead` | Read IOPS | default |
+| `host-domowner` | `iopsRecUnmap` |  | live only |
 | `host-domowner` | `iopsRecWrite` | Recovery Write IOPS | default |
 | `host-domowner` | `iopsResyncRead` | Resync Read IOPS | default |
+| `host-domowner` | `iopsSegCleanerUnmap` |  | live only |
+| `host-domowner` | `iopsUnmap` |  | live only |
 | `host-domowner` | `iopsWrite` | Write IOPS | default |
+| `host-domowner` | `latencyAvg` |  | live only |
 | `host-domowner` | `latencyAvgRead` | Read Latency | default |
+| `host-domowner` | `latencyAvgRecUnmap` |  | live only |
 | `host-domowner` | `latencyAvgRecWrite` | Resync Write Latency | default |
 | `host-domowner` | `latencyAvgResyncRead` | Resync Read Latency | default |
+| `host-domowner` | `latencyAvgSegCleanerUnmap` |  | live only |
+| `host-domowner` | `latencyAvgServiceVMRead` |  | live only |
+| `host-domowner` | `latencyAvgServiceVMWrite` |  | live only |
+| `host-domowner` | `latencyAvgUnmap` |  | live only |
 | `host-domowner` | `latencyAvgWrite` | Write Latency | default |
+| `host-domowner` | `latencyMaxRead` |  | live only |
+| `host-domowner` | `latencyMaxSegCleanerUnmap` |  | live only |
+| `host-domowner` | `latencyMaxUnmap` |  | live only |
+| `host-domowner` | `latencyMaxWrite` |  | live only |
 | `host-domowner` | `latencyStddev` | Latency Std Dev | default |
+| `host-domowner` | `latencyStddevRead` |  | live only |
+| `host-domowner` | `latencyStddevRecoveryWrite` |  | live only |
+| `host-domowner` | `latencyStddevResyncRead` |  | live only |
+| `host-domowner` | `latencyStddevSegCleanerUnmap` |  | live only |
 | `host-domowner` | `latencyStddevUnmap` | Unmap Latency Std Dev | default |
+| `host-domowner` | `latencyStddevWrite` |  | live only |
+| `host-domowner` | `leafGTEs` |  | live only |
+| `host-domowner` | `netSchedAvgCompRecoveryWriteDelayMs` |  | live only |
+| `host-domowner` | `netSchedAvgCompResyncReadDelayMs` |  | live only |
+| `host-domowner` | `netSchedAvgOwnerRecoveryWriteDelayMs` |  | live only |
+| `host-domowner` | `netSchedAvgOwnerResyncReadDelayMs` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveredPerDiscoverySession` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryActions` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryAvgIntervalsUs` |  | live only |
+| `host-domowner` | `netSchedBWDiscoverySessions` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryStopsDueToGainsFromGuestPct` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryStopsDueToHighLatencyPct` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryStopsDueToLowUtilizationPct` |  | live only |
+| `host-domowner` | `netSchedBWDiscoveryUtilizationPct` |  | live only |
+| `host-domowner` | `netSchedBWReallocatedPerReallocationSession` |  | live only |
+| `host-domowner` | `netSchedBWReallocationActions` |  | live only |
+| `host-domowner` | `netSchedBWReallocationAvgIntervalsUs` |  | live only |
+| `host-domowner` | `netSchedBWReallocationSessions` |  | live only |
+| `host-domowner` | `netSchedBWReallocationStopsDueToHighSharePct` |  | live only |
+| `host-domowner` | `netSchedBWReallocationStopsDueToLowUtilizationPct` |  | live only |
+| `host-domowner` | `netSchedBWReallocationUtilizationRatio` |  | live only |
+| `host-domowner` | `netSchedBWReallocationUtilizationRatioAbove` |  | live only |
+| `host-domowner` | `netSchedBWReallocationUtilizationRatioBelow` |  | live only |
+| `host-domowner` | `netSchedBandwidthDiscoveryBps` |  | live only |
+| `host-domowner` | `netSchedGuestIopsDecreasePerDiscoverySession` |  | live only |
+| `host-domowner` | `netSchedGuestIopsIncreasePerReallocationSession` |  | live only |
+| `host-domowner` | `netSchedLatencyIncreaseFromResyncPerDiscoverySessionPct` |  | live only |
+| `host-domowner` | `netSchedResyncGainsFromGuestCount` |  | live only |
+| `host-domowner` | `netSchedResyncIopsDecreasePerReallocationSession` |  | live only |
+| `host-domowner` | `netSchedResyncIopsIncreasePerDiscoverySession` |  | live only |
+| `host-domowner` | `netSchedUnderUtilCount` |  | live only |
+| `host-domowner` | `netSchedUnderUtilGuestBps` |  | live only |
+| `host-domowner` | `netSchedUnderUtilTtlBps` |  | live only |
+| `host-domowner` | `numBlockedDeltaToBaseResyncJobs` |  | live only |
+| `host-domowner` | `numBlockedFullResyncJobs` |  | live only |
+| `host-domowner` | `numBlockedPriorityResyncJobs` |  | live only |
+| `host-domowner` | `numBlockedResyncJobs` |  | live only |
+| `host-domowner` | `numBlockedSharedResyncJobs` |  | live only |
+| `host-domowner` | `numBlockedSiblingToDeltaResyncJobs` |  | live only |
+| `host-domowner` | `numCompleteDeltaToBaseResyncOps` |  | live only |
+| `host-domowner` | `numCompleteFullResyncOps` |  | live only |
+| `host-domowner` | `numCompleteResyncOps` |  | live only |
+| `host-domowner` | `numCompleteResyncRwrBatches` |  | live only |
+| `host-domowner` | `numCompleteRwrOps` |  | live only |
+| `host-domowner` | `numCompleteSiblingToDeltaResyncOps` |  | live only |
+| `host-domowner` | `numInflightDedupResyncJobs` |  | live only |
+| `host-domowner` | `numInflightPriorityResyncJobs` |  | live only |
+| `host-domowner` | `numInflightSharedResyncJobs` |  | live only |
+| `host-domowner` | `numNetSchedCompIops` |  | live only |
+| `host-domowner` | `numNetSchedCompIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedCompRecoveryWriteIops` |  | live only |
+| `host-domowner` | `numNetSchedCompRecoveryWriteIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedCompRecoveryWriteTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedCompResyncReadIops` |  | live only |
+| `host-domowner` | `numNetSchedCompResyncReadIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedCompResyncReadTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedCompTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedControllerActivations` |  | live only |
+| `host-domowner` | `numNetSchedControllerIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedGuestLTLatUs` |  | live only |
+| `host-domowner` | `numNetSchedHighBand` |  | live only |
+| `host-domowner` | `numNetSchedHighBandHighShare` |  | live only |
+| `host-domowner` | `numNetSchedHighBandLowLimit` |  | live only |
+| `host-domowner` | `numNetSchedHighBandSec` |  | live only |
+| `host-domowner` | `numNetSchedHighToLowBand` |  | live only |
+| `host-domowner` | `numNetSchedHighToMidBand` |  | live only |
+| `host-domowner` | `numNetSchedLowBand` |  | live only |
+| `host-domowner` | `numNetSchedLowBandHighLimit` |  | live only |
+| `host-domowner` | `numNetSchedLowBandSec` |  | live only |
+| `host-domowner` | `numNetSchedLowBandThreshUs` |  | live only |
+| `host-domowner` | `numNetSchedLowToHighBand` |  | live only |
+| `host-domowner` | `numNetSchedLowToMidBand` |  | live only |
+| `host-domowner` | `numNetSchedMidBand` |  | live only |
+| `host-domowner` | `numNetSchedMidBandHighLimit` |  | live only |
+| `host-domowner` | `numNetSchedMidBandLowShare` |  | live only |
+| `host-domowner` | `numNetSchedMidBandSec` |  | live only |
+| `host-domowner` | `numNetSchedMidToHighBand` |  | live only |
+| `host-domowner` | `numNetSchedMidToLowBand` |  | live only |
+| `host-domowner` | `numNetSchedOwnerIops` |  | live only |
+| `host-domowner` | `numNetSchedOwnerIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedOwnerRecoveryWriteIops` |  | live only |
+| `host-domowner` | `numNetSchedOwnerRecoveryWriteIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedOwnerRecoveryWriteTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedOwnerResyncReadIops` |  | live only |
+| `host-domowner` | `numNetSchedOwnerResyncReadIopsLimit` |  | live only |
+| `host-domowner` | `numNetSchedOwnerResyncReadTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedOwnerTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedRecoveryWriteTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedResyncReadTpThrottled` |  | live only |
+| `host-domowner` | `numNetSchedResyncTotalSharePercent` |  | live only |
+| `host-domowner` | `numNetSchedRollingAvgLatUs` |  | live only |
+| `host-domowner` | `numNetSchedSeenNonResyncTpBps` |  | live only |
+| `host-domowner` | `numNetSchedSeenResyncTpBps` |  | live only |
+| `host-domowner` | `numNetSchedSeenTotalTpBps` |  | live only |
+| `host-domowner` | `numOio` |  | live only |
+| `host-domowner` | `numPendingDecomResyncJobs` |  | live only |
+| `host-domowner` | `numPendingDedupResyncJobs` |  | live only |
+| `host-domowner` | `numPendingDeltaToBaseResyncJobs` |  | live only |
+| `host-domowner` | `numPendingFullResyncJobs` |  | live only |
+| `host-domowner` | `numPendingResyncJobs` |  | live only |
+| `host-domowner` | `numPendingSiblingToDeltaResyncJobs` |  | live only |
+| `host-domowner` | `numRunningDeltaToBaseResyncJobs` |  | live only |
+| `host-domowner` | `numRunningFullResyncJobs` |  | live only |
+| `host-domowner` | `numRunningResyncJobs` |  | live only |
+| `host-domowner` | `numRunningSiblingToDeltaResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedDedupResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedDeltaToBaseResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedFullResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedPriorityResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedResyncChangemaps` |  | live only |
+| `host-domowner` | `numSuspendedResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedSharedResyncJobs` |  | live only |
+| `host-domowner` | `numSuspendedSiblingToDeltaResyncJobs` |  | live only |
 | `host-domowner` | `oio` | Outstanding IO | default |
+| `host-domowner` | `oioRead` |  | live only |
+| `host-domowner` | `oioRecoveryWrite` |  | live only |
+| `host-domowner` | `oioResyncRead` |  | live only |
+| `host-domowner` | `oioWrite` |  | live only |
+| `host-domowner` | `owner2PCCommitLatencyAvgUs` |  | live only |
+| `host-domowner` | `ownerECCacheHitMissRatio` |  | live only |
+| `host-domowner` | `ownerECCacheNumCachedObjects` |  | live only |
+| `host-domowner` | `ownerECCacheNumFailedAllocs` |  | live only |
+| `host-domowner` | `ownerECCacheNumSuccessAllocs` |  | live only |
 | `host-domowner` | `readCongestion` | Read Congestions | default |
+| `host-domowner` | `readCount` |  | live only |
+| `host-domowner` | `readLeafOwnerIops` |  | live only |
 | `host-domowner` | `readLeafOwnerLatency` | Read Leaf Owner Latency | verbose |
+| `host-domowner` | `readLeafOwnerLatencyLocal` |  | live only |
+| `host-domowner` | `readLeafOwnerLatencyRemote` |  | live only |
+| `host-domowner` | `readLeafOwnerMaxLatencyAvgUs` |  | live only |
+| `host-domowner` | `readLeafOwnerRetriesPerOp` |  | live only |
+| `host-domowner` | `readLeafOwnerThroughput` |  | live only |
+| `host-domowner` | `readOwnerRetriesPerOp` |  | live only |
+| `host-domowner` | `recUnmapCount` |  | live only |
+| `host-domowner` | `recWriteCount` |  | live only |
+| `host-domowner` | `recoveryUnmapCongestion` |  | live only |
 | `host-domowner` | `recoveryUnmapLeafOwnerLatency` | Recovery Unmap Leaf Owner Latency | verbose |
 | `host-domowner` | `recoveryWriteCongestion` | Resync Read Congestions | default |
 | `host-domowner` | `recoveryWriteLeafOwnerLatency` | Recovery Write Leaf Owner Latency | verbose |
+| `host-domowner` | `recoveryWriteLeafOwnerLatencyLocal` |  | live only |
+| `host-domowner` | `recoveryWriteLeafOwnerLatencyRemote` |  | live only |
+| `host-domowner` | `resyncReadCount` |  | live only |
+| `host-domowner` | `resyncReadLeafOwnerLatency` |  | live only |
+| `host-domowner` | `resyncReadLeafOwnerLatencyLocal` |  | live only |
+| `host-domowner` | `resyncReadLeafOwnerLatencyRemote` |  | live only |
+| `host-domowner` | `resyncsEndedAsDeltaToBase` |  | live only |
+| `host-domowner` | `resyncsStartedAsDeltaToBase` |  | live only |
+| `host-domowner` | `segCleanerUnmapCongestion` |  | live only |
+| `host-domowner` | `segCleanerUnmapLeafOwnerLatency` |  | live only |
+| `host-domowner` | `segCleanerUnmapLeafOwnerMaxLatencyAvgUs` |  | live only |
+| `host-domowner` | `serverSwitchAvglatency` |  | live only |
+| `host-domowner` | `serverSwitchCount` |  | live only |
+| `host-domowner` | `serverSwitchLatencyMaxUs` |  | live only |
+| `host-domowner` | `serverSwitchlatencyStddev` |  | live only |
+| `host-domowner` | `throughput` |  | live only |
+| `host-domowner` | `throughputSegCleanerUnmap` |  | live only |
+| `host-domowner` | `totalDeltaCreationDomActiveLatency` |  | live only |
+| `host-domowner` | `totalDeltaCreationDomCreationLatency` |  | live only |
+| `host-domowner` | `totalDeltasCreatedCount` |  | live only |
 | `host-domowner` | `tputRead` | Read Throughput | default |
+| `host-domowner` | `tputRecUnmap` |  | live only |
 | `host-domowner` | `tputRecWrite` | Recovery Write Throughput | default |
 | `host-domowner` | `tputResyncRead` | Resync Read Throughput | default |
+| `host-domowner` | `tputServiceVMRead` |  | live only |
+| `host-domowner` | `tputServiceVMWrite` |  | live only |
+| `host-domowner` | `tputUnmap` |  | live only |
 | `host-domowner` | `tputWrite` | Write Throughput | default |
+| `host-domowner` | `twoPCBatchCommitBlockedByGuestIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitBlockedByOtherIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitBlockedByResyncIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitBlockedBySyncIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitGuestIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitOtherIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitResyncIOPS` |  | live only |
+| `host-domowner` | `twoPCBatchCommitSyncIOPS` |  | live only |
+| `host-domowner` | `twoPCCommitCount` |  | live only |
+| `host-domowner` | `twoPCCommitSize` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryGuestAvgTimeMs` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryGuestIOPS` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryOtherAvgTimeMs` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryOtherIOPS` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryResyncAvgTimeMs` |  | live only |
+| `host-domowner` | `twoPCPrepareLimitRetryResyncIOPS` |  | live only |
+| `host-domowner` | `twoPCPrepareRetryCount` |  | live only |
+| `host-domowner` | `twoPCReservedLSNExhaustedCount` |  | live only |
+| `host-domowner` | `twoPCReservedLSNUnusedCount` |  | live only |
+| `host-domowner` | `twoPCReservedLSNUsedCount` |  | live only |
+| `host-domowner` | `unmapCongestion` |  | live only |
+| `host-domowner` | `unmapCount` |  | live only |
 | `host-domowner` | `unmapLeafOwnerLatency` | Unmap Leaf Owner Latency | verbose |
+| `host-domowner` | `unmapLeafOwnerMaxLatencyAvgUs` |  | live only |
 | `host-domowner` | `writeCongestion` | Write Congestions | default |
+| `host-domowner` | `writeCount` |  | live only |
+| `host-domowner` | `writeLeafOwnerIops` |  | live only |
 | `host-domowner` | `writeLeafOwnerLatency` | Write Leaf Owner Latency | verbose |
+| `host-domowner` | `writeLeafOwnerLatencyLocal` |  | live only |
+| `host-domowner` | `writeLeafOwnerLatencyRemote` |  | live only |
+| `host-domowner` | `writeLeafOwnerMaxLatencyAvgUs` |  | live only |
+| `host-domowner` | `writeLeafOwnerRetriesPerOp` |  | live only |
+| `host-domowner` | `writeLeafOwnerThroughput` |  | live only |
+| `host-domowner` | `writeOwnerRetriesPerOp` |  | live only |
 | `host-esa-dedup-domclient-io` | `dedupChunkReadCount` | Deduplication Chunk Object Read IO Count | default |
 | `host-esa-dedup-domclient-io` | `dedupChunkWriteCount` | Deduplication Chunk Object Write IO Count | default |
 | `host-esa-dedup-domclient-io` | `dedupEngineReadCount` | Deduplication Read IO Count | default |
@@ -891,8 +1634,10 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `lsom-world-cpu` | `usedPct` | Percentage of Used CPU Time | default |
 | `rdt-net` | `checksumMismatchCount` | RDT Net Checksum Mismatch Count | default |
 | `rdt-network-latency` | `avgLatency` | RDT Network Host Average Latency | default |
+| `rdt-network-latency` | `kaReset` |  | live only |
 | `rdt-network-latency` | `maxLatency` | RDT Network Host Max Latency | advanced |
 | `rdt-network-latency` | `minLatency` | RDT Network Host Min Latency | advanced |
+| `rdt-network-latency` | `numReadyDelay` |  | live only |
 | `rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | advanced |
 | `rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | advanced |
 | `rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | advanced |
@@ -924,9 +1669,13 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `system-mem` | `overcommitRatio` | Over Commit Ratio | default |
 | `system-mem` | `pctMemUsed` | Used Memory Percentage | default |
 | `system-mem` | `totalMbMemUsed` | Total Memory Used | default |
+| `virtual-machine` | `readCount` |  | live only |
+| `virtual-machine` | `writeCount` |  | live only |
 | `vnic-rdt-network-latency` | `avgLatency` | RDT Network VNIC Average Latency | default |
+| `vnic-rdt-network-latency` | `kaReset` |  | live only |
 | `vnic-rdt-network-latency` | `maxLatency` | RDT Network VNIC Max Latency | advanced |
 | `vnic-rdt-network-latency` | `minLatency` | RDT Network VNIC Min Latency | advanced |
+| `vnic-rdt-network-latency` | `numReadyDelay` |  | live only |
 | `vnic-rdt-network-latency` | `rxSbSpaceAvg` | RDT Network Socket Average Inbound Bytes | advanced |
 | `vnic-rdt-network-latency` | `rxSbSpaceMax` | RDT Network Socket Max Inbound Bytes | advanced |
 | `vnic-rdt-network-latency` | `rxSbSpaceMin` | RDT Network Socket Min Inbound Bytes | advanced |
@@ -944,6 +1693,10 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-cluster-capacity` | `savedByDedup` | Saved Capacity | default |
 | `vsan-cluster-capacity` | `total` | Total Capacity | default |
 | `vsan-cluster-capacity` | `used` | Used Capacity | default |
+| `vsan-cpu` | `avgRunPct` |  | live only |
+| `vsan-cpu` | `avgUsedPct` |  | live only |
+| `vsan-cpu` | `maxRunPct` |  | live only |
+| `vsan-cpu` | `maxUsedPct` |  | live only |
 | `vsan-cpu` | `readyPct` | Percentage of Ready CPU Time | default |
 | `vsan-cpu` | `runPct` | Percentage of Running CPU Time | default |
 | `vsan-cpu` | `usedPct` | Percentage of Used CPU Time | default |
@@ -968,6 +1721,8 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-distribution` | `domColocated` | DOM Colocated | default |
 | `vsan-distribution` | `domOwners` | DOM Owners | default |
 | `vsan-distribution` | `ioComponents` | IO Components | default |
+| `vsan-distribution` | `plannedDeltaComponents` |  | live only |
+| `vsan-distribution` | `unplannedDeltaComponents` |  | live only |
 | `vsan-dp-historical-stats` | `totalSnapshotCapacity` | Used By Snapshots | default |
 | `vsan-esa-disk-layer` | `avgLatReadPerf` |  | hotspot |
 | `vsan-esa-disk-layer` | `avgLatUnmapCapacity` | vSAN Layer Average Unmap Latency of vSAN ESA Disk | advanced |
@@ -987,16 +1742,104 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-esa-disk-layer` | `tputWritePerf` |  | hotspot |
 | `vsan-host-net` | `ioChainRxdrops` | IO Chain Inbound Drops | advanced |
 | `vsan-host-net` | `ioChainTxdrops` | IO Chain Outbound Drops | advanced |
+| `vsan-host-net` | `portRxpkts` |  | live only |
+| `vsan-host-net` | `portTxpkts` |  | live only |
+| `vsan-memory` | `clomdConsumedSize` |  | live only |
+| `vsan-memory` | `clomdMemAllocMax` |  | live only |
+| `vsan-memory` | `clomdMemAllocMin` |  | live only |
+| `vsan-memory` | `clomdReservedSize` |  | live only |
+| `vsan-memory` | `cmmdsTimeMachineConsumedSize` |  | live only |
+| `vsan-memory` | `cmmdsTimeMachineMemAllocMax` |  | live only |
+| `vsan-memory` | `cmmdsTimeMachineMemAllocMin` |  | live only |
+| `vsan-memory` | `cmmdsTimeMachineReservedSize` |  | live only |
+| `vsan-memory` | `cmmdsdConsumedSize` |  | live only |
+| `vsan-memory` | `cmmdsdMemAllocMax` |  | live only |
+| `vsan-memory` | `cmmdsdMemAllocMin` |  | live only |
+| `vsan-memory` | `cmmdsdReservedSize` |  | live only |
+| `vsan-memory` | `epdConsumedSize` |  | live only |
+| `vsan-memory` | `epdMemAllocMax` |  | live only |
+| `vsan-memory` | `epdMemAllocMin` |  | live only |
+| `vsan-memory` | `epdReservedSize` |  | live only |
+| `vsan-memory` | `kernelConsumedSize` |  | live only |
 | `vsan-memory` | `kernelReservedSize` | Kernel Reserved Memory Size | default |
+| `vsan-memory` | `osfsdConsumedSize` |  | live only |
+| `vsan-memory` | `osfsdMemAllocMax` |  | live only |
+| `vsan-memory` | `osfsdMemAllocMin` |  | live only |
+| `vsan-memory` | `osfsdReservedSize` |  | live only |
+| `vsan-memory` | `uwConsumedSize` |  | live only |
+| `vsan-memory` | `uwMemAllocMax` |  | live only |
+| `vsan-memory` | `uwMemAllocMin` |  | live only |
 | `vsan-memory` | `uwReservedSize` | User world Reserved Memory Size | default |
+| `vsan-memory` | `vitdConsumedSize` |  | live only |
+| `vsan-memory` | `vitdMemAllocMax` |  | live only |
+| `vsan-memory` | `vitdMemAllocMin` |  | live only |
+| `vsan-memory` | `vitdReservedSize` |  | live only |
+| `vsan-memory` | `vsandevicemonitordConsumedSize` |  | live only |
+| `vsan-memory` | `vsandevicemonitordMemAllocMax` |  | live only |
+| `vsan-memory` | `vsandevicemonitordMemAllocMin` |  | live only |
+| `vsan-memory` | `vsandevicemonitordReservedSize` |  | live only |
+| `vsan-memory` | `vsanmgmtdConsumedSize` |  | live only |
+| `vsan-memory` | `vsanmgmtdMemAllocMax` |  | live only |
+| `vsan-memory` | `vsanmgmtdMemAllocMin` |  | live only |
+| `vsan-memory` | `vsanmgmtdReservedSize` |  | live only |
+| `vsan-memory` | `vsanmgmtdWatchdogConsumedSize` |  | live only |
+| `vsan-memory` | `vsanmgmtdWatchdogMemAllocMax` |  | live only |
+| `vsan-memory` | `vsanmgmtdWatchdogMemAllocMin` |  | live only |
+| `vsan-memory` | `vsanmgmtdWatchdogReservedSize` |  | live only |
+| `vsan-memory` | `vsanobserverConsumedSize` |  | live only |
+| `vsan-memory` | `vsanobserverMemAllocMax` |  | live only |
+| `vsan-memory` | `vsanobserverMemAllocMin` |  | live only |
+| `vsan-memory` | `vsanobserverReservedSize` |  | live only |
+| `vsan-memory` | `vsantracedConsumedSize` |  | live only |
+| `vsan-memory` | `vsantracedMemAllocMax` |  | live only |
+| `vsan-memory` | `vsantracedMemAllocMin` |  | live only |
+| `vsan-memory` | `vsantracedReservedSize` |  | live only |
 | `vsan-pnic-net` | `ioChainDrops` | IO Chain Drops | verbose |
+| `vsan-pnic-net` | `ioChainDropsActual` |  | live only |
+| `vsan-pnic-net` | `ioChainRxdrops` |  | live only |
+| `vsan-pnic-net` | `ioChainRxdropsActual` |  | live only |
+| `vsan-pnic-net` | `ioChainTxdrops` |  | live only |
+| `vsan-pnic-net` | `ioChainTxdropsActual` |  | live only |
+| `vsan-pnic-net` | `pauseCountActual` |  | live only |
+| `vsan-pnic-net` | `pauseCountRaw` |  | live only |
+| `vsan-pnic-net` | `pfcCount` |  | live only |
+| `vsan-pnic-net` | `pfcCountActual` |  | live only |
+| `vsan-pnic-net` | `pfcCountRaw` |  | live only |
+| `vsan-pnic-net` | `portRxDropsActual` |  | live only |
+| `vsan-pnic-net` | `portRxpkts` |  | live only |
+| `vsan-pnic-net` | `portTxDropsActual` |  | live only |
+| `vsan-pnic-net` | `portTxpkts` |  | live only |
 | `vsan-pnic-net` | `rxCrcErr` | pNIC RX CRC Error | default |
+| `vsan-pnic-net` | `rxCrcErrActual` |  | live only |
+| `vsan-pnic-net` | `rxCrcErrRaw` |  | live only |
+| `vsan-pnic-net` | `rxDrp` |  | live only |
+| `vsan-pnic-net` | `rxDrpActual` |  | live only |
 | `vsan-pnic-net` | `rxErr` | pNIC RX Generic Error | default |
+| `vsan-pnic-net` | `rxErrActual` |  | live only |
+| `vsan-pnic-net` | `rxErrRaw` |  | live only |
 | `vsan-pnic-net` | `rxFifoErr` | pNIC RX FIFO Error | default |
+| `vsan-pnic-net` | `rxFifoErrActual` |  | live only |
+| `vsan-pnic-net` | `rxFifoErrRaw` |  | live only |
+| `vsan-pnic-net` | `rxLgtErr` |  | live only |
+| `vsan-pnic-net` | `rxLgtErrActual` |  | live only |
 | `vsan-pnic-net` | `rxMissErr` | pNIC RX Missed Error | default |
+| `vsan-pnic-net` | `rxMissErrActual` |  | live only |
+| `vsan-pnic-net` | `rxMissErrRaw` |  | live only |
 | `vsan-pnic-net` | `rxOvErr` | pNIC RX Buffer Overflow Error | default |
+| `vsan-pnic-net` | `rxOvErrActual` |  | live only |
+| `vsan-pnic-net` | `rxOvErrRaw` |  | live only |
+| `vsan-pnic-net` | `rxPacketsLossRateActual` |  | live only |
+| `vsan-pnic-net` | `rxPktRaw` |  | live only |
 | `vsan-pnic-net` | `txCarErr` | pNIC TX Carrier Error | default |
+| `vsan-pnic-net` | `txCarErrActual` |  | live only |
+| `vsan-pnic-net` | `txCarErrRaw` |  | live only |
+| `vsan-pnic-net` | `txDrp` |  | live only |
+| `vsan-pnic-net` | `txDrpActual` |  | live only |
 | `vsan-pnic-net` | `txErr` | pNIC TX Generic Error | default |
+| `vsan-pnic-net` | `txErrActual` |  | live only |
+| `vsan-pnic-net` | `txErrRaw` |  | live only |
+| `vsan-pnic-net` | `txPacketsLossRateActual` |  | live only |
+| `vsan-pnic-net` | `txPktRaw` |  | live only |
 | `vsan-tcpip-stats` | `ip6Errs` | IPv6 Errors | default |
 | `vsan-tcpip-stats` | `ipErrs` | IPv4 Errors | default |
 | `vsan-tcpip-stats` | `tcpErrs` | TCP Errors | default |
@@ -1013,8 +1856,20 @@ The two KBs are the only documents that give API metric IDs, so this is an exact
 | `vsan-tcpip-stats` | `tcpTimeoutDropRate` | Timeout Drop Rate | default |
 | `vsan-tcpip-stats` | `tcpTxPackets` | TCP Outbound Packets | default |
 | `vsan-tcpip-stats` | `tcpTxThroughput` | TCP Outbound Throughout | default |
+| `vsan-vnic-net` | `ioChainDrops` |  | live only |
+| `vsan-vnic-net` | `ioChainDropsActual` |  | live only |
 | `vsan-vnic-net` | `ioChainRxdrops` | IO Chain Inbound Drops | verbose |
+| `vsan-vnic-net` | `ioChainRxdropsActual` |  | live only |
 | `vsan-vnic-net` | `ioChainTxdrops` | IO Chain Outbound Drops | verbose |
+| `vsan-vnic-net` | `ioChainTxdropsActual` |  | live only |
+| `vsan-vnic-net` | `portRxDropsActual` |  | live only |
+| `vsan-vnic-net` | `portRxpkts` |  | live only |
+| `vsan-vnic-net` | `portTxDropsActual` |  | live only |
+| `vsan-vnic-net` | `portTxpkts` |  | live only |
+| `vsan-vnic-net` | `rxPacketsLossRateActual` |  | live only |
+| `vsan-vnic-net` | `txPacketsLossRateActual` |  | live only |
+| `vscsi` | `readCount` |  | live only |
+| `vscsi` | `writeCount` |  | live only |
 | `zdom-vtx` | `iopsCacheMissRate` | Cache Miss Per IOPS | default |
 | `zdom-vtx` | `tputCacheMissRate` | Cache Miss Per Throughput | default |
 
@@ -1276,55 +2131,55 @@ Matched by name (the KB has no test IDs), so treat the counts as approximate.
 
 ## 3. Capacity: VCF 9.1 vSAN capacity pages vs `VsanQuerySpaceUsage`
 
-The documentation describes capacity by its UI label; the API by field. The mapping below is by meaning and was not
-checked against live values (no vSAN cluster in the lab).
+The documentation describes capacity by its UI label; the API by field. The mapping below is by meaning. *Seen live*
+says whether the field came back with a value on the live cluster (one OSA cluster, no deduplication or compression).
 
-| Documented term | API field | Field exists in schema |
-|---|---|---|
-| Free space on disks ([10]) | `freeCapacityB` | yes |
-| Used ([10]) | `spaceOverview.usedB` | yes |
-| Actually written ([10]) | `effectiveSpaceUsage.actualWrittenB` | yes |
-| Reservations and Alerts ([10]) | `capacityHealthThreshold.*` | partly |
-| VM (user objects) usage: VM home objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: Swap objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: VMDK ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: Shared user data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: VM memory snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: Block container volumes (attached to a VM) ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VM (user objects) usage: vSphere replication persistent state file ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| Non-VM (user objects) usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| System usage: Performance management objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: File system overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: ESA object overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: Checksum overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: Dedup & compression overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: Operations usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System usage: Native trace objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| Container volume snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| VMDK snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| vSAN file share snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| Current data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly |
-| Total usable capacity ([15]) | `effectiveSpaceUsage.totalUsableB` | yes |
-| Used capacity ([15]) |  | no field; derived or UI-only |
-| Actually written ([15]) | `effectiveSpaceUsage.actualWrittenB` | yes |
-| Object reserved ([15]) | `effectiveSpaceUsage.overReservedB` | yes |
-| Free usable capacity ([15]) | `effectiveSpaceUsage.freeUsableB` | yes |
-| Total provisioned capacity ([15]) | `effectiveSpaceUsage.totalProvisionB` | yes |
-| Data reduction ratio ([15]) | `spaceEfficiencyRatio.overallRatio` | yes |
-| Deduplication ratio ([15]) | `spaceEfficiencyRatio.dedupRatio` | yes |
-| Compression ratio ([15]) | `spaceEfficiencyRatio.compressionRatio` | yes |
-| Thin provisioning saving ratio ([15]) | `spaceEfficiencyRatio.thinProvisionRatio` | yes |
-| Overprovisioning ratio ([15]) |  | no field; derived or UI-only |
-| Snapshot saving ratio ([15]) | `spaceEfficiencyRatio.snapshotSavingRatio` | yes |
-| Fully inflated snapshot capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.fullyInflatedSnapshotUsedB` | yes |
-| vSAN snapshot used capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.actualSnapshotUsedB` | yes |
-| Total Raw Capacity ([15]) | `totalCapacityB` | yes |
-| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System Usage: File system overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System Usage: vSAN ESA objects overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System Usage: Dedup overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly |
-| RAID Factor ([15]) |  | no field; derived or UI-only |
+| Documented term | API field | Field exists in schema | Seen live |
+|---|---|---|---|
+| Free space on disks ([10]) | `freeCapacityB` | yes | yes |
+| Used ([10]) | `spaceOverview.usedB` | yes | yes |
+| Actually written ([10]) | `effectiveSpaceUsage.actualWrittenB` | yes | no |
+| Reservations and Alerts ([10]) | `capacityHealthThreshold.*` | partly | no |
+| VM (user objects) usage: VM home objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: Swap objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: VMDK ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: Shared user data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: VM memory snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: Block container volumes (attached to a VM) ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VM (user objects) usage: vSphere replication persistent state file ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| Non-VM (user objects) usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| System usage: Performance management objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: File system overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: ESA object overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: Checksum overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: Dedup & compression overhead ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: Operations usage ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System usage: Native trace objects ([10]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| Container volume snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| VMDK snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| vSAN file share snapshots ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| Current data ([10]) | `spaceDetail.spaceUsageByObjectType[] (per object type)` | partly | yes |
+| Total usable capacity ([15]) | `effectiveSpaceUsage.totalUsableB` | yes | no |
+| Used capacity ([15]) |  | no field; derived or UI-only |  |
+| Actually written ([15]) | `effectiveSpaceUsage.actualWrittenB` | yes | no |
+| Object reserved ([15]) | `effectiveSpaceUsage.overReservedB` | yes | no |
+| Free usable capacity ([15]) | `effectiveSpaceUsage.freeUsableB` | yes | no |
+| Total provisioned capacity ([15]) | `effectiveSpaceUsage.totalProvisionB` | yes | no |
+| Data reduction ratio ([15]) | `spaceEfficiencyRatio.overallRatio` | yes | no |
+| Deduplication ratio ([15]) | `spaceEfficiencyRatio.dedupRatio` | yes | no |
+| Compression ratio ([15]) | `spaceEfficiencyRatio.compressionRatio` | yes | no |
+| Thin provisioning saving ratio ([15]) | `spaceEfficiencyRatio.thinProvisionRatio` | yes | no |
+| Overprovisioning ratio ([15]) |  | no field; derived or UI-only |  |
+| Snapshot saving ratio ([15]) | `spaceEfficiencyRatio.snapshotSavingRatio` | yes | no |
+| Fully inflated snapshot capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.fullyInflatedSnapshotUsedB` | yes | no |
+| vSAN snapshot used capacity ([15]) | `effectiveSpaceUsage.snapshotSpace.actualSnapshotUsedB` | yes | no |
+| Total Raw Capacity ([15]) | `totalCapacityB` | yes | yes |
+| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System Usage: File system overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System Usage: vSAN ESA objects overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System Usage: Dedup overhead ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| System Usage ([15]) | `spaceDetail.spaceUsageByObjectType[] (system object types)` | partly | yes |
+| RAID Factor ([15]) |  | no field; derived or UI-only |  |
 
 ## 4. VCF Operations reference vs the vSAN API
 
@@ -1333,15 +2188,15 @@ field behind each one, so a row-by-row match is not possible. Coverage by object
 
 | Object type | VCF Operations metrics | VCF Operations properties | API metrics | API properties |
 |---|---|---|---|---|
-| vSAN Cluster | 153 | 14 | 406 | 637 |
-| vSAN Datastore | 9 | 0 | 48 | 12 |
-| vSAN Host | 68 | 2 | 435 | 234 |
-| Disk Group | 77 | 3 | 153 | 41 |
-| vSAN Disk | 147 | 40 | 256 | 166 |
-| vSAN Network Adapter | 0 | 0 | 42 | 0 |
-| vSAN Object | 0 | 0 | 22 | 105 |
-| Virtual Machine | 0 | 0 | 133 | 8 |
-| Virtual Disk | 0 | 0 | 18 | 0 |
+| vSAN Cluster | 153 | 14 | 469 | 703 |
+| vSAN Datastore | 9 | 0 | 51 | 31 |
+| vSAN Host | 68 | 2 | 847 | 491 |
+| Disk Group | 77 | 3 | 234 | 41 |
+| vSAN Disk | 147 | 40 | 472 | 166 |
+| vSAN Network Adapter | 0 | 0 | 92 | 0 |
+| vSAN Object | 0 | 0 | 22 | 110 |
+| Virtual Machine | 0 | 0 | 135 | 8 |
+| Virtual Disk | 0 | 0 | 20 | 0 |
 | File Share | 24 | 9 | 23 | 143 |
 | iSCSI Target | 0 | 0 | 12 | 22 |
 | iSCSI LUN | 0 | 0 | 12 | 21 |
