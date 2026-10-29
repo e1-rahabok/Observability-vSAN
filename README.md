@@ -4,6 +4,8 @@ Metrics and properties of vSAN in VMware Cloud Foundation 9.1, in two sets: what
 
 Start with **[comparison.md](comparison.md)**: summary, findings and the detailed differences.
 
+For the Level 400 reading of the metrics (formulas, contention, consumption, capacity and availability, with diagrams), start with **[docs/README.md](docs/README.md)**.
+
 ## Object model
 
 | # | Object type | Notes |
